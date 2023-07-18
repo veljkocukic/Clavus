@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap'); //  variables
+$primary-color: #307ff4;
+$blue: #0050d0;
+$secondary-gray: #a6abb2;
+$dash-backround: #f2f2f2;
+$primary-dark-gray: gray;
+$black: #282729;
+$light-blue: #8fadf0;
+$gray: #6f7a9f;
+$green: #01a05d;
+$text-gray: #6f7a9f;
+$pale-blue: #f1f5fe;
+$pale-green: #edf8f0;
+$pale-yellow: #f7f5ec;
+$pale-red: #fbefed;
+$light-gray: #dee0ea;
+$font-family: 'Poppins', sans-serif;
+
+//  end variables
+
+//  mixins
+@mixin Flex($direction, $justifyContent, $alignItems, $gap) {
+  display: flex;
+  justify-content: $justifyContent;
+  align-items: $alignItems;
+  flex-direction: $direction;
+  gap: $gap;
+}
+//  end mixins
+
+.mt15 {
+  margin-top: 15rem;
+}
+.mt12 {
+  margin-top: 12rem;
+}
+.mt11 {
+  margin-top: 11rem;
+}
+.mt10 {
+  margin-top: 10rem;
+}
+.mt9 {
+  margin-top: 9rem;
+}
+.mt8 {
+  margin-top: 8rem;
+}
+.mt7 {
+  margin-top: 7rem;
+}
+.mt6 {
+  margin-top: 6rem;
+}
+.mt5 {
+  margin-top: 5rem;
+}
+.mt4 {
+  margin-top: 4rem;
+}
+.mt3 {
+  margin-top: 3rem;
+}
+.mt2 {
+  margin-top: 2rem;
+}
+.mt1 {
+  margin-top: 1rem;
+}
+
+.w100 {
+  width: 100%;
+}
+.w15 {
+  width: 15rem;
+}
+.w14 {
+  width: 14rem;
+}
+.w13 {
+  width: 13rem;
+}
+.w12 {
+  width: 12rem;
+}
+.w11 {
+  width: 11rem;
+}
+.w10 {
+  width: 10rem;
+}
+.w9 {
+  width: 9rem;
+}
+.w8 {
+  width: 8rem;
+}
+.w7 {
+  width: 7rem;
+}
+.w6 {
+  width: 6rem;
+}
+.w5 {
+  width: 5rem;
+}
+.w4 {
+  width: 4rem;
+}
+.w3 {
+  width: 3rem;
+}
+.w2 {
+  width: 2rem;
+}
+.w1 {
+  width: 1rem;
+}
+
+.h10 {
+  height: 10rem;
+}
+.h9 {
+  height: 9rem;
+}
+.h8 {
+  height: 8rem;
+}
+.h7 {
+  height: 7rem;
+}
+.h6 {
+  height: 6rem;
+}
+.h5 {
+  height: 5rem;
+}
+.h4 {
+  height: 4rem;
+}
+.h3 {
+  height: 3rem;
+}
+.h2 {
+  height: 2rem;
+}
+.h1 {
+  height: 1rem;
+}
+
+.bgPaleGreen {
+  background-color: $pale-green !important;
+}
+
+.bgPaleRed {
+  background-color: $pale-red !important;
+}
+
+.bgPaleYellow {
+  background-color: $pale-yellow !important;
+}
