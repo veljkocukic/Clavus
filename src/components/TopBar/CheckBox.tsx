@@ -1,15 +1,21 @@
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-export const CheckBox = ({ text, active, name, onChange }: any) => {
+interface ICheckBox {
+    text: string
+    active: boolean
+    name: string
+    onChange: any
+}
+export const CheckBox = ({ text, active, name, onChange }: ICheckBox) => {
 
 
     const handleChange = () => {
         onChange(name)
     }
 
-    return <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-        <div className="check-box" onClick={handleChange}>
+    return <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }} onClick={handleChange}>
+        <div className="check-box" >
             {active && <FontAwesomeIcon icon={faCheck} />}
         </div>
         <p>{text}</p>

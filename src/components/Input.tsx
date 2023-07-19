@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import '../sass/components/_inputs.scss';
 
-interface IInput {
+export interface IInput {
   labelText: string;
-  value: string;
+  value: string | number;
   type: string;
   name: string;
   className?: string;
@@ -17,6 +17,7 @@ export const Input = ({ labelText, value, type, onChange, name, className, inval
   const [focused, setFocused] = useState(false);
   const [wasFocused, setWasFocused] = useState(false);
 
+  const parsedValue = value || ''
   let labelCName = 'label'
   let afterCName = 'input-after'
 
@@ -41,8 +42,9 @@ export const Input = ({ labelText, value, type, onChange, name, className, inval
         <input
           autoComplete="off"
           name={name}
+          required
           type={type}
-          value={value}
+          value={parsedValue}
           onChange={onChange}
           onFocus={() => {
             setFocused(true);
@@ -50,7 +52,6 @@ export const Input = ({ labelText, value, type, onChange, name, className, inval
           onBlur={() => {
             setFocused(false);
             setWasFocused(true)
-
           }}
         />
         {invalid && wasFocused && <p className="input-invalid" >{customInvalidMessage ?? 'Polje nije validno'}</p>}

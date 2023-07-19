@@ -1,29 +1,24 @@
-import axios from "axios";
-import getCookies from "./cookies/getCookies";
-
-
+import axios from 'axios'
 
 const customFetch = axios.create({
-    baseURL: "http://localhost:3333/",
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-  
-  customFetch.interceptors.request.use(
-    async(config:any) => {
+  baseURL: 'http://localhost:3333/',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+})
 
-      const user = await getCookies('usrin')
-
+customFetch.interceptors.request.use(
+  async (config: any) => {
+    const user = localStorage.getItem('token')
 
     if (user) {
-        config.headers.common["Authorization"] = `Bearer ${user}`;
-      }
-      return config;
-    },
-    (error) => {
-      return Promise.reject(error);
+      config.headers.common['Authorization'] = `Bearer ${user.replaceAll('"', '')}`
     }
-  );
+    return config
+  },
+  (error) => {
+    return Promise.reject(error)
+  },
+)
 
-  export default customFetch
+export default customFetch

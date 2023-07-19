@@ -2,8 +2,9 @@ import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { Slide, ToastContainer } from 'react-toastify'
 import { Loading } from './components/Loading'
-import { SharedLayout, Home, Login, Error, Favorites, Groups, ProtectedRoute } from './views'
+import { SharedLayout, Home, Login, Error, ProtectedRoute } from './views'
 import 'react-toastify/dist/ReactToastify.css'
+import { CreateTask } from 'views/Tasks/CreateTask'
 
 function App() {
   return (
@@ -20,8 +21,7 @@ function App() {
             }
           >
             <Route index element={<Home />} />
-            <Route path='groups' element={<Groups />} />
-            <Route path='favorites' element={<Favorites />} />
+            <Route path='tasks/create' element={<CreateTask />} />
 
 
             <Route path='*' element={<Error />} />

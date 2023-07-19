@@ -1,44 +1,43 @@
-@use "../base";
+@use '../base';
 
-.invalid-background{
-  background-color:crimson !important
-} 
+.invalid-background {
+  background-color: crimson !important;
+}
 
 .input {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   width: 10rem;
-  transition: .1s ease;
+  transition: 0.1s ease;
   height: 4rem;
 
-  label{
+  label {
     font-weight: bolder;
-    transition: .1s ease-in;
+    transition: 0.1s ease-in;
     color: base.$gray;
     font-size: 1rem;
     transform: translateY(140%) translateX(15px);
     z-index: 8;
     pointer-events: none;
-
   }
 
-  .active-label{
+  .active-label {
     transform: none;
-    font-size: .8rem;
+    font-size: 0.8rem;
   }
-  .input-container{
+  .input-container {
     width: 100%;
     min-height: 2.5rem;
     position: relative;
 
-
-    input{
+    input,
+    select {
       width: 100%;
       min-height: 100%;
       position: absolute;
-      top:0;
-      left:0;
+      top: 0;
+      left: 0;
       background-color: base.$pale-blue;
       border: none;
       outline: none;
@@ -49,61 +48,70 @@
       color: base.$text-gray;
     }
 
-    .input-after{
-      position:absolute;
+    .input-after {
+      position: absolute;
       width: 100%;
       height: 100%;
       z-index: 1;
-      top:3px;
+      top: 3px;
       left: 0;
-      transition: .1s ease;
+      transition: 0.1s ease;
       background-color: base.$light-gray;
       border-radius: 5px;
     }
-
   }
- }
-
- .input-invalid{
-  color:crimson;
-  font-size: .7rem;
-  position: absolute;
-  bottom:-17px;
 }
 
+.input-invalid {
+  color: crimson;
+  font-size: 0.7rem;
+  position: absolute;
+  bottom: -17px;
+}
 
+.check-box {
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  position: relative;
+  background-color: base.$pale-blue;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
- .check-box{
-   width: 30px;
-   height: 30px;
-   border-radius: 5px;
-   position: relative;
-   background-color: base.$pale-blue;
-   cursor: pointer;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   
-   
+  svg {
+    color: base.$light-blue;
+    font-size: 1.5rem;
+  }
 
-
-
-   svg{
-    color:base.$light-blue;
-    font-size:1.5rem;
-   }
-
-   &::before{
+  &::before {
     width: 30px;
     height: 30px;
     position: absolute;
-    top:2px;
+    top: 2px;
     left: 0;
     content: '';
     background-color: base.$light-gray;
-   border-radius: 5px;
-   position: absolute;
-    z-index: -1; 
+    border-radius: 5px;
+    position: absolute;
+    z-index: -1;
+  }
+}
 
-   }
- }
+textarea {
+  width: 100%;
+  min-height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: base.$pale-blue;
+  border: none;
+  outline: none;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  padding-left: 10px;
+  z-index: 2;
+  color: base.$text-gray;
+  resize: none;
+}

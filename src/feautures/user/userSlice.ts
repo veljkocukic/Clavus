@@ -1,21 +1,19 @@
 import { addUserLocalStorage, removeUserFromLocalStorage } from './../../utils/localStorage'
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import customFetch from '../../utils/axios'
-import getCookies from '../../utils/cookies/getCookies'
-import setCookies from '../../utils/cookies/setCookie'
 import { toast } from 'react-toastify'
 
 interface IInitialState {
   isLoading: boolean
   isUserLoading: boolean
-  userToken: string
   user: IUser
+  logged: boolean
 }
 
 const initialState = {
   isLoading: false,
   isUserLoading: false,
-  userToken: getCookies('usrin'),
+  logged: false,
   user: {},
 }
 
@@ -92,9 +90,9 @@ const userSlice = createSlice({
       state.isLoading = false
       const token = JSON.stringify(payload.access_token)
       delete payload.access_token
-      setCookies('usrin', JSON.stringify(token))
-      addUserLocalStorage(payload)
-      state.user = payload
+      localStorage.setItem('token', token)
+      state.logged = true
+      toast.success('Nalog uspešno kreiran.')
     },
     [registerUser.rejected.type]: (state, { payload }) => {
       state.isLoading = false
@@ -105,11 +103,12 @@ const userSlice = createSlice({
     },
     [loginUser.fulfilled.type]: (state: any, { payload }) => {
       state.isLoading = false
-      setCookies('usrin', JSON.stringify(payload?.access_token))
-      addUserLocalStorage(payload.user)
-      state.userToken = getCookies('usrin')
+      localStorage.setItem('token', payload?.access_token)
+      state.logged = true
     },
-    [loginUser.rejected.type]: (state) => {
+    [loginUser.rejected.type]: (state, { payload }) => {
+      toast.error(payload.message)
+      console.log(payload)
       state.isLoading = false
     },
     [getUser.pending.type]: (state) => {

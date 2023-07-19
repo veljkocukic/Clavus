@@ -6,11 +6,13 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from 'store';
 import { getMe } from 'feautures/user/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 export const Home = () => {
 
   const dispatch = useDispatch<AppDispatch>()
   const { user } = useSelector((state: RootState) => state.user)
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (!user.name) { dispatch(getMe()) }
@@ -19,7 +21,7 @@ export const Home = () => {
   return <div className="page-content" >
     <div className='content-title-bar' >
       <p><span>Zdravo,</span> {user?.name}</p>
-      <Button text='DODAJ ZADATAK' />
+      <Button onClick={() => navigate('/tasks/create')} text='DODAJ ZADATAK' />
     </div>
     <div className='home-cards-container mt2' >
       <div className='card-wrapper' >

@@ -24,8 +24,8 @@ export const greaterThanZero = (value: number, name: string, setInvalidFields: a
   })
 }
 
-export const validateDate = (name:string, setInvalidFields:any) => {
-  setInvalidFields((prev:any) => {
+export const validateDate = (name: string, setInvalidFields: any) => {
+  setInvalidFields((prev: any) => {
     let copy = [...prev]
     copy = copy.filter((f) => f !== name)
     return copy
@@ -45,14 +45,14 @@ export const validateSelect = (value: any, name: string, setInvalidFields: any) 
 }
 
 export const hasValue = (value: string | number, name: string, setInvalidFields: any) => {
-  let checkValue = value
+  const checkValue = value
 
-//   if (name === 'latitude') {
-//     checkValue = isValidCoordinates.latitude(value)
-//   }
-//   if (name === 'longitude') {
-//     checkValue = isValidCoordinates.longitude(value)
-//   }
+  //   if (name === 'latitude') {
+  //     checkValue = isValidCoordinates.latitude(value)
+  //   }
+  //   if (name === 'longitude') {
+  //     checkValue = isValidCoordinates.longitude(value)
+  //   }
 
   setInvalidFields((prev: string[]) => {
     let copy = [...prev]
@@ -106,7 +106,7 @@ export const inComparisonValidation = (
   isGreater: boolean,
 ) => {
   const { name, value } = e.target as HTMLInputElement
-  setInvalidFields((prev:any) => {
+  setInvalidFields((prev: any) => {
     let copy = [...prev]
 
     if (isGreater && Number(value) > targetValue) {
@@ -153,16 +153,27 @@ export const standardFieldValidation = (
       })
       break
     case 'password':
-        setInvalidFields((prev: string[]) => {
-            let copy = [...prev]
-            if (value.length>5) {
-              copy = copy.filter((f) => f !== name)
-            } else {
-              !copy.includes(name) && copy.push(name)
-            }
-            return copy
-          })
-          break;
+      setInvalidFields((prev: string[]) => {
+        let copy = [...prev]
+        if (value.length > 5) {
+          copy = copy.filter((f) => f !== name)
+        } else {
+          !copy.includes(name) && copy.push(name)
+        }
+        return copy
+      })
+      break
+    case 'date':
+      setInvalidFields((prev: string[]) => {
+        let copy = [...prev]
+        if (value) {
+          copy = copy.filter((f) => f !== name)
+        } else {
+          !copy.includes(name) && copy.push(name)
+        }
+        return copy
+      })
+      break
     default:
       greaterThanZero(Number(value), name, setInvalidFields)
       break

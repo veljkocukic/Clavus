@@ -1,5 +1,5 @@
 import { userIcon } from './../icons/userIcons'
-import { faFile, faHome, faMessage } from '@fortawesome/free-solid-svg-icons'
+import { faFile, faHome, faMessage, faTasks } from '@fortawesome/free-solid-svg-icons'
 
 export const adminSidebarLinks = [
   {
@@ -10,12 +10,18 @@ export const adminSidebarLinks = [
   },
   {
     id: 2,
+    title: 'Zadaci',
+    path: '/tasks',
+    icon: faTasks,
+  },
+  {
+    id: 3,
     title: 'Izveštaji',
     path: '/reports',
     icon: faFile,
   },
   {
-    id: 3,
+    id: 4,
     title: 'Prepiske',
     path: '/messages',
     icon: faMessage,

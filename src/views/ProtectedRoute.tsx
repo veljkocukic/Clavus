@@ -1,13 +1,11 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
-import getCookies from "../utils/cookies/getCookies";
+import React from 'react';
+import { Navigate } from 'react-router-dom';
 
 export const ProtectedRoute = ({ children }: any) => {
-  const token = getCookies("usrin");
+  const token = localStorage.getItem('token');
 
   if (!token) {
-    return <Navigate to="login" />;
+    return <Navigate to='login' />;
   }
   return children;
 };
