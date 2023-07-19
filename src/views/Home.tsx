@@ -2,21 +2,12 @@ import { faCheckCircle, faClock, faHammer, faList } from '@fortawesome/free-soli
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from 'components/Button';
 import { LatestTasksCard } from 'components/LatestTasksCard';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from 'store';
-import { getMe } from 'feautures/user/userSlice';
 import { useNavigate } from 'react-router-dom';
 
 export const Home = () => {
 
-  const dispatch = useDispatch<AppDispatch>()
-  const { user } = useSelector((state: RootState) => state.user)
+  const user: any = JSON.parse(localStorage.getItem('user'))
   const navigate = useNavigate()
-
-  useEffect(() => {
-    if (!user.name) { dispatch(getMe()) }
-  }, [])
 
   return <div className="page-content" >
     <div className='content-title-bar' >

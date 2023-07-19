@@ -88,9 +88,8 @@ const userSlice = createSlice({
     },
     [registerUser.fulfilled.type]: (state, { payload }) => {
       state.isLoading = false
-      const token = JSON.stringify(payload.access_token)
-      delete payload.access_token
-      localStorage.setItem('token', token)
+      localStorage.setItem('token', payload.token)
+      localStorage.setItem('user', JSON.stringify(payload.user))
       state.logged = true
       toast.success('Nalog uspešno kreiran.')
     },
@@ -104,6 +103,7 @@ const userSlice = createSlice({
     [loginUser.fulfilled.type]: (state: any, { payload }) => {
       state.isLoading = false
       localStorage.setItem('token', payload?.access_token)
+      localStorage.setItem('user', JSON.stringify(payload.user))
       state.logged = true
     },
     [loginUser.rejected.type]: (state, { payload }) => {
@@ -138,7 +138,6 @@ const userSlice = createSlice({
       removeUserFromLocalStorage()
       state.isLoading = false
       addUserLocalStorage(payload)
-
       toast.success('User profile updated')
     },
     [editUser.rejected.type]: (state) => {
