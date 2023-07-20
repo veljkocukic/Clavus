@@ -10,6 +10,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import { AppDispatch } from 'store'
+import { checkValid } from 'utils/helpers'
 import { standardFieldValidation, validateSelect } from 'utils/validationUtils'
 import { Categories, colorCombinations, currencies, ITaskState, priceTypes, tasksInitialState, tasksValidation } from './tasksData'
 
@@ -50,6 +51,17 @@ export const CreateTask = () => {
 
     const handleSelect = (value: ISelectValue, name: string) => {
         validateSelect(value, name, setInvalidFields)
+        if (name == 'priceType') {
+            setInvalidFields(prev => {
+                let copy = [...prev]
+                if (value.value === 'WHOLE') {
+                    copy = copy.filter(f => f !== 'WHOLE')
+                } else {
+                    copy = [...copy, 'amount']
+                }
+                return copy
+            })
+        }
         setState(prev => {
             const copy = { ...prev }
             copy[name] = value.value
@@ -82,33 +94,41 @@ export const CreateTask = () => {
     return <div className='page-contetnt' >
         <div className='content-title-bar' >
             <p><span>Kreiranje zadatka</span></p>
+            <Button text='Potvrdi' onClick={handleSubmit} />
+
         </div>
         <div className='page-subtitle' >
-            {!state.category ? <><p>Izaberite kategoriju:</p>
-                <SearchBox /></> : <><p>Unesite detalje:</p>
-                <Button text='Potvrdi' onClick={handleSubmit} />
-            </>}
+            {!state.category ?
+                <>
+                    <p>Izaberite kategoriju:</p>
+                    <SearchBox />
+                </> :
+                <>
+                    <p>Unesite detalje:</p>
+                </>}
         </div>
         {!state.category ? <div className='ct-cards-container' >
             {renderCards()}
         </div> :
             <div className='ct-form-container' >
                 <div className='ct-form-section' >
-                    <Input className='w100' labelText='Naziv zadatka' name='name' value={state.name} type='text' onChange={handleChange} />
-                    <Input className='w100' labelText='Lokacija' name='location' value={state.location} type='text' onChange={handleChange} />
-                    <Input className='w100' labelText='Datum' name='date' value={state.date} type='date' onChange={handleChange} />
+                    <Input invalid={checkValid(invalidFields, 'name')} className='w100' labelText='Naziv zadatka' name='name' value={state.name} type='text' onChange={handleChange} />
+                    <TextArea className='w100 h10' name='description' labelText='Description' value={state.description} onChange={handleChange} />
                     <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem' }} >
-                        <Input className='w100' labelText='Cena' name='price' value={state.price} type='number' onChange={handleChange} />
-                        <Select className='w100' labelText='Valuta' name='currency' value={state.currency} options={currencies} onChange={handleSelect} />
-                        <Select className='w100' labelText='Mera' name='priceType' value={state.priceType} options={priceTypes} onChange={handleSelect} />
+                        <Input invalid={checkValid(invalidFields, 'location')} className='w100' labelText='Lokacija' name='location' value={state.location} type='text' onChange={handleChange} />
+                        <Input invalid={checkValid(invalidFields, 'date')} className='w100' labelText='Datum' name='date' value={state.date} type='date' onChange={handleChange} />
+                    </div>
+                    <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem' }} >
+                        <Input invalid={checkValid(invalidFields, 'price')} className='w100' labelText='Cena' name='price' value={state.price} type='number' onChange={handleChange} />
+                        <Select invalid={checkValid(invalidFields, 'currency')} className='w100' labelText='Valuta' name='currency' value={state.currency} options={currencies} onChange={handleSelect} />
+                        <Select invalid={checkValid(invalidFields, 'priceType')} className='w100' labelText='Mera' name='priceType' value={state.priceType} options={priceTypes} onChange={handleSelect} />
                     </div>
                     <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', minHeight: '4rem' }} >
-                        {state?.priceType !== 'WHOLE' && <Input labelText='Kolicina' name='amount' value={state.amount} type='number' onChange={handleChange} />}
+                        {state?.priceType && state?.priceType !== 'WHOLE' && <Input labelText='Kolicina' name='amount' value={state.amount} type='number' onChange={handleChange} />}
                         <CheckBox text='Rad bez nadgledanja' active={state.withoutMonitoring} onChange={handleCheck} name='withoutMonitoring' />
                     </div>
                 </div>
                 <div className='ct-form-section' >
-                    <TextArea className='w100 h15' name='description' labelText='Description' value={state.description} onChange={handleChange} />
                 </div>
             </div>}
 

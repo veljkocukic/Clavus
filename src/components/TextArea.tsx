@@ -12,7 +12,7 @@ export const TextArea = ({ labelText, value, onChange, name, className, invalid,
     const [wasFocused, setWasFocused] = useState(false);
 
     let labelCName = 'label'
-    let afterCName = 'input-after ' + className
+    let afterCName = 'input-after h100 '
 
     if (value || focused) {
         labelCName = 'active-label'
@@ -32,12 +32,12 @@ export const TextArea = ({ labelText, value, onChange, name, className, invalid,
             >
                 {labelText}
             </label>
-            <div className="input-container" >
+            <div className='input-container h100' >
                 <textarea autoComplete="off"
                     name={name}
                     required
                     value={value}
-                    className={className}
+                    className='h100'
                     onChange={onChange}
                     onFocus={() => {
                         setFocused(true);
