@@ -24,7 +24,7 @@
     color: base.$black;
     font-size: 2.5rem;
     span {
-      font-weight: bold;
+      font-weight: 700;
     }
   }
 }
@@ -64,17 +64,6 @@
     color: base.$black;
     font-size: 1.2rem;
   }
-
-  button {
-    border: none;
-    outline: none;
-    background-color: base.$pale-blue;
-    color: base.$light-blue;
-    padding: 5px;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 5px;
-  }
 }
 
 .latest-tasks-card {
@@ -90,7 +79,7 @@
     align-items: center;
 
     p {
-      font-weight: bold;
+      font-weight: 500;
       color: base.$text-gray;
     }
 
@@ -98,10 +87,10 @@
       h2 {
         color: base.$black;
         font-size: 1.2rem;
-        font-weight: bold;
+        font-weight: 500;
       }
       p {
-        font-weight: bold;
+        font-weight: 500;
         font-size: 1rem;
         color: base.$text-gray;
       }
@@ -124,14 +113,14 @@
     border-radius: 5px;
     p {
       color: base.$gray;
-      font-weight: bold;
+      font-weight: 500;
     }
   }
 
   .ltc-price {
     background-color: base.$pale-green;
     padding: 5px;
-    font-weight: bold;
+    font-weight: 500;
     color: base.$green;
     border-radius: 5px;
   }
@@ -175,7 +164,7 @@
 
   p {
     color: base.$text-gray;
-    font-weight: bold;
+    font-weight: 500;
     font-size: 1.4rem;
   }
 }
@@ -203,4 +192,218 @@
   gap: 1rem;
   width: 100%;
   height: 100%;
+}
+
+.button-options-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.view-task-banner {
+  margin-top: 1rem;
+  width: 100%;
+  height: 13rem;
+  background-color: base.$blue;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-radius: 15px;
+  padding: 1rem;
+}
+
+.vtb-info {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+
+  svg {
+    margin-left: 1rem;
+    font-size: 8rem;
+    color: hsla(221, 76%, 75%, 0.2);
+  }
+
+  & > div {
+    height: 100%;
+    padding-bottom: 1.2rem;
+    padding-left: 1rem;
+
+    h1 {
+      font-size: 3rem;
+      color: white;
+      font-weight: 500er;
+    }
+
+    h3 {
+      color: base.$light-blue;
+      font-size: 1.5rem;
+      font-weight: 500;
+    }
+
+    p {
+      color: base.$light-blue;
+      font-size: 1rem;
+    }
+  }
+}
+
+.vtb-images-container {
+  width: 80%;
+  height: 100%;
+  background-color: white;
+  border-radius: 15px;
+}
+
+.vtb-bottom-container {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+  height: 250px;
+}
+
+.vtb-bottom-section {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.vtb-bottom-card-layout {
+  width: 100%;
+  height: 100%;
+  padding: 0.5rem;
+  p {
+    font-weight: 700;
+    margin-left: 1rem;
+    color: base.$text-gray;
+  }
+
+  & > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding: 1rem;
+    padding-bottom: 2rem;
+
+    img {
+      max-width: 4rem;
+      aspect-ratio: 1/1;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    p {
+      color: base.$text-gray;
+      font-weight: normal;
+      font-size: 1.2rem;
+      margin: 0;
+      width: 50%;
+    }
+
+    svg {
+      font-size: 3rem;
+    }
+  }
+}
+
+.vtb-expenses-container {
+  width: 80%;
+  margin-top: 1rem;
+  h3 {
+    color: base.$text-gray;
+  }
+
+  & > div {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+    width: 100%;
+  }
+
+  .expenses-parameter {
+    width: 5rem;
+    height: 3rem;
+    background-color: base.$pale-blue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    border-bottom: 3px solid base.$light-gray;
+    p {
+      color: base.$black;
+    }
+  }
+
+  .expenses-total {
+    grid-area: 2 / 2 / 3 / 4;
+    color: base.$text-gray;
+    font-size: 2rem;
+    height: 100%;
+    text-align: end;
+    line-height: 3rem;
+  }
+}
+
+.vtb-offers-container {
+  width: 100%;
+  padding-left: 5rem;
+
+  h3 {
+    color: base.$text-gray;
+  }
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  }
+}
+
+.vtb-single-offer {
+  margin-top: 1rem;
+  height: 5rem;
+  position: relative;
+  width: 12rem;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  img {
+    aspect-ratio: 1/1;
+    border-radius: 15px;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .vtb-single-offer__info {
+    display: flex;
+    flex-direction: column;
+    p {
+      color: base.$black;
+      font-size: 0.8rem;
+    }
+
+    h2 {
+      font-size: 1rem;
+      color: base.$blue;
+    }
+  }
+}
+
+.see-more {
+  border: none;
+  outline: none;
+  background-color: base.$pale-blue;
+  color: base.$light-blue;
+  padding: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 5px;
 }

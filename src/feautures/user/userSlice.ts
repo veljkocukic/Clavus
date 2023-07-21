@@ -108,7 +108,6 @@ const userSlice = createSlice({
     },
     [loginUser.rejected.type]: (state, { payload }) => {
       toast.error(payload.message)
-      console.log(payload)
       state.isLoading = false
     },
     [getUser.pending.type]: (state) => {

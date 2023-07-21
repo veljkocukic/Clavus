@@ -6,12 +6,14 @@ import { ITaskState } from 'views/Tasks/tasksData'
 interface IInitialState {
   isLoading: boolean
   task: ITaskState
+  createdTaskId: number
   allJobs: any
 }
 
 const initialState = {
   isLoading: false,
   task: {},
+  createdTaskId: null,
   allJobs: [],
 }
 
@@ -30,22 +32,20 @@ export const createTask = createAsyncThunk(
 // export const loginUser = createAsyncThunk('user/loginUser', async (user: any, thunkApi) => {
 //   try {
 //     const resp = await customFetch.post('/auth/login', user)
-
 //     return resp.data
 //   } catch (error) {
 //     return thunkApi.rejectWithValue(error)
 //   }
 // })
 
-// export const getUser = createAsyncThunk('/user/getUser', async (id: any, thunkApi) => {
-//   try {
-//     const resp = await customFetch.get('/auth/' + id)
-
-//     return resp.data
-//   } catch (error) {
-//     return thunkApi.rejectWithValue(error)
-//   }
-// })
+export const getTask = createAsyncThunk('/task/getTask', async (id: any, thunkApi) => {
+  try {
+    const resp = await customFetch.get('/jobs/' + id)
+    return resp.data
+  } catch (error) {
+    return thunkApi.rejectWithValue(error)
+  }
+})
 
 // export const getMe = createAsyncThunk('/user/getMe', async (_, thunkApi) => {
 //   try {
@@ -77,11 +77,23 @@ const taskSlice = createSlice({
     [createTask.pending.type]: (state) => {
       state.isLoading = true
     },
-    [createTask.fulfilled.type]: (state) => {
+    [createTask.fulfilled.type]: (state, { payload }) => {
       state.isLoading = false
+      state.createdTaskId = payload.id
       toast.success('Zadatak uspešno kreiran.')
     },
     [createTask.rejected.type]: (state, { payload }) => {
+      state.isLoading = false
+      toast.error(payload.message)
+    },
+    [getTask.pending.type]: (state) => {
+      state.isLoading = true
+    },
+    [getTask.fulfilled.type]: (state, { payload }) => {
+      state.isLoading = false
+      state.task = payload
+    },
+    [getTask.rejected.type]: (state, { payload }) => {
       state.isLoading = false
       toast.error(payload.message)
     },

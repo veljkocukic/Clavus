@@ -48,7 +48,7 @@ export const Home = () => {
       <div className='latest-tasks-cards-container' >
         <div className='latest-tasks-cards-title' >
           <p>Poslednja ažuriranja:</p>
-          <button>Vidi sve</button>
+          <button className='see-more' >Vidi sve</button>
         </div>
         <LatestTasksCard />
         <LatestTasksCard />

@@ -5,7 +5,7 @@ export const adminSidebarLinks = [
   {
     id: 1,
     title: 'Pregled',
-    path: '/',
+    path: '/overview',
     icon: faHome,
   },
   {

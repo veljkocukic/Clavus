@@ -1,5 +1,8 @@
 import {
   faBroom,
+  faCancel,
+  faCheckCircle,
+  faClock,
   faDoorOpen,
   faHardDrive,
   faPaintRoller,
@@ -18,7 +21,7 @@ export const Categories = [
   {
     name: 'Elektrika',
     icon: faPlugCircleBolt,
-    value: 'ELECTRICITY',
+    value: 'ELECTRICS',
     keyWords: ['Struja', 'Elektrika', 'Elektro', 'Elektroinstalater', 'Osigurac'],
   },
   {
@@ -141,5 +144,35 @@ export interface ITaskState {
   withoutMonitoring: false
   description: string
   category: string
+  status?: string
   amount?: number
 }
+
+export const statusStyles = [
+  {
+    status: 'ACTIVE',
+    label: 'Čeka se radnik',
+    color: '#F1F5FE',
+    iconColor: '#8FADF0',
+    icon: faClock,
+  },
+  {
+    status: 'IN_PROGRESS',
+    label: 'Obavlja:',
+    color: '#F7F5EC',
+  },
+  {
+    status: 'DONE',
+    label: 'Završen',
+    color: '#EDF8F0',
+    iconColor: '#01A05D',
+    icon: faCheckCircle,
+  },
+  {
+    status: 'ABORTED',
+    label: 'Otkazan',
+    color: '#FBEFED',
+    iconColor: '#D42B20',
+    icon: faCancel,
+  },
+]
