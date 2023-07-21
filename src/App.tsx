@@ -6,6 +6,7 @@ import { SharedLayout, Home, Login, Error, ProtectedRoute } from './views'
 import 'react-toastify/dist/ReactToastify.css'
 import { CreateTask } from 'views/Tasks/CreateTask'
 import { ViewTask } from 'views/Tasks/ViewTask'
+import { Tasks } from 'views/Tasks/Tasks'
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             }
           >
             <Route path='overview' element={<Home />} />
+            <Route path='tasks' element={<Tasks />} />
             <Route path='tasks/create' element={<CreateTask />} />
             <Route path='tasks/:id' element={<ViewTask />} />
 

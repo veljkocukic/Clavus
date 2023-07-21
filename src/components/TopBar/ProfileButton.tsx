@@ -8,7 +8,7 @@ export const ProfileButton = () => {
 
     let cName = 'profile-options'
     if (openOptions) {
-        cName += ' active-profile-options'
+        cName += ' active-options'
     }
 
     const user: any = JSON.parse(localStorage.getItem('user'))
@@ -26,7 +26,6 @@ export const ProfileButton = () => {
                 <FontAwesomeIcon icon={faSignOut} color='#8fadf0' />
                 <p>Izloguj se</p>
             </div>
-
         </div>
     </div>
 }

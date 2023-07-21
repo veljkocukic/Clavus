@@ -152,14 +152,14 @@ export const statusStyles = [
   {
     status: 'ACTIVE',
     label: 'Čeka se radnik',
-    color: '#F1F5FE',
-    iconColor: '#8FADF0',
+    color: '#F7F5EC',
+    iconColor: '#ADAC10',
     icon: faClock,
   },
   {
     status: 'IN_PROGRESS',
     label: 'Obavlja:',
-    color: '#F7F5EC',
+    color: '#F1F5FE',
   },
   {
     status: 'DONE',
@@ -176,3 +176,10 @@ export const statusStyles = [
     icon: faCancel,
   },
 ]
+
+export interface ITableTask {
+  id: number
+  name: string
+  status: string
+  date: Date
+}

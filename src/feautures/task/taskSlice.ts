@@ -7,14 +7,16 @@ interface IInitialState {
   isLoading: boolean
   task: ITaskState
   createdTaskId: number
-  allJobs: any
+  totalPages: number
+  pageCount: number
+  allTasks: any
 }
 
 const initialState = {
   isLoading: false,
   task: {},
   createdTaskId: null,
-  allJobs: [],
+  allTasks: null,
 }
 
 export const createTask = createAsyncThunk(
@@ -41,6 +43,15 @@ export const createTask = createAsyncThunk(
 export const getTask = createAsyncThunk('/task/getTask', async (id: any, thunkApi) => {
   try {
     const resp = await customFetch.get('/jobs/' + id)
+    return resp.data
+  } catch (error) {
+    return thunkApi.rejectWithValue(error)
+  }
+})
+
+export const getTasks = createAsyncThunk('/task/getTasks', async (params: any, thunkApi) => {
+  try {
+    const resp = await customFetch.get('/jobs/', { params })
     return resp.data
   } catch (error) {
     return thunkApi.rejectWithValue(error)
@@ -94,6 +105,19 @@ const taskSlice = createSlice({
       state.task = payload
     },
     [getTask.rejected.type]: (state, { payload }) => {
+      state.isLoading = false
+      toast.error(payload.message)
+    },
+    [getTasks.pending.type]: (state) => {
+      state.isLoading = true
+    },
+    [getTasks.fulfilled.type]: (state, { payload }) => {
+      state.isLoading = false
+      state.allTasks = payload.data
+      state.pageCount = payload.count
+      state.totalPages = payload.pageCount
+    },
+    [getTasks.rejected.type]: (state, { payload }) => {
       state.isLoading = false
       toast.error(payload.message)
     },

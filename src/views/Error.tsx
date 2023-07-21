@@ -1,9 +1,6 @@
 
 export const Error = () => {
   return (
-    <>
-      Error
-      <p>sdsd</p>
-    </>
+    <h1>Coming soon</h1>
   );
 };

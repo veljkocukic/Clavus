@@ -88,6 +88,7 @@
   }
 }
 
-.active-profile-options {
-  transform: scaleY(100%);
+.active-options {
+  transform: scaleY(100%) !important;
+  z-index: 99999;
 }

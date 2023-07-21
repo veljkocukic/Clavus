@@ -12,19 +12,18 @@ export const LatestTasksCard = () => {
         case 'IN_PROGRESS':
             icon = faHammer
             text = 'U TOKU'
-            color = { icon: '#ADAC10', bg: '#F7F5EC' }
+            color = { icon: '#8FADF0', bg: '#F1F5FE' }
             break;
         case 'FINISHED':
             icon = faCheck
             text = 'ZAVRŠEN'
             color = { icon: '#01A05D', bg: '#EDF8F0' }
             break
-        case 'WAITING_FOR_WORKER':
+        case 'ACTIVE':
             icon = faClock
             text = 'ČEKA RADNIKA'
-            color = { icon: '#D42B20', bg: '#FBEFED' }
+            color = { icon: '#ADAC10', bg: '#F7F5EC' }
             break
-
     }
 
 

@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button } from 'components/Button'
-import { GearButton } from 'components/GearButton'
-import { faCalendarDays } from '@fortawesome/free-solid-svg-icons'
+import { IconButton } from 'components/IconButton'
+import { faCalendarDays, faGear } from '@fortawesome/free-solid-svg-icons'
 import { Categories, priceTypes, statusStyles } from './tasksData'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from 'store'
@@ -19,6 +19,8 @@ export const ViewTask = () => {
     useEffect(() => {
         dispatch(getTask(id))
     }, [])
+
+
 
 
     const renderStatusCard = () => {
@@ -51,7 +53,7 @@ export const ViewTask = () => {
             <p><span>Pregled zadatka</span></p>
             <div className='button-options-container' >
                 <Button text='Potvrdi i oceni radnika' />
-                <GearButton />
+                <IconButton icon={faGear} />
             </div>
         </div>
 

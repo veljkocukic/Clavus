@@ -4,8 +4,9 @@
 @use 'components/iconbutton.scss';
 @use 'components/_card.scss';
 @use '_base.scss';
-@use 'layouts/layout';
-@use 'layouts/dashboar';
+@use 'layouts/dashboard';
+@use 'layouts/pagination';
+@use 'layouts/table';
 @use 'components/button';
 
 * {

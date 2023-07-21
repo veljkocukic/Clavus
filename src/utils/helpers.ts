@@ -26,3 +26,12 @@ export const convertTaskDate = (date) => {
 
   return day + '. ' + mnth
 }
+
+export const handlePagination = (page: number, setParams: React.Dispatch<any>, limit?: number) => {
+  setParams((prev: any) => {
+    const copy = { ...prev }
+    copy.page = page
+    copy.limit = limit ? limit : 30
+    return copy
+  })
+}
