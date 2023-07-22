@@ -101,7 +101,7 @@ export const CreateTask = () => {
     return <div className='page-contetnt' >
         <div className='content-title-bar' >
             <p><span>Kreiranje zadatka</span></p>
-            <Button text='Potvrdi' onClick={handleSubmit} />
+            {state.category && <Button text='Potvrdi' onClick={handleSubmit} />}
 
         </div>
         <div className='page-subtitle' >

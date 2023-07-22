@@ -5,7 +5,7 @@ import { faCalendarDays, faGear } from '@fortawesome/free-solid-svg-icons'
 import { Categories, priceTypes, statusStyles } from './tasksData'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from 'store'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 import { getTask } from 'feautures/task/taskSlice'
 import { convertTaskDate } from 'utils/helpers'
@@ -14,14 +14,12 @@ import { convertTaskDate } from 'utils/helpers'
 export const ViewTask = () => {
     const dispatch = useDispatch<AppDispatch>()
     const { id } = useParams()
-
+    const navigate = useNavigate()
     const { task } = useSelector((state: RootState) => state.tasks)
+
     useEffect(() => {
         dispatch(getTask(id))
     }, [])
-
-
-
 
     const renderStatusCard = () => {
 
@@ -31,7 +29,6 @@ export const ViewTask = () => {
             return <div className='vtb-bottom-card-layout'><p>Obavlja:</p><div><img alt='worker-image' src='https://images.unsplash.com/photo-1557862921-37829c790f19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80' /><p>Goran <br />Moler</p></div></div>
         } else {
             return <div className='vtb-bottom-card-layout' style={{ backgroundColor: s?.color }} ><p>Status:</p><div><p>{s?.label}</p><FontAwesomeIcon icon={s?.icon} color={s?.iconColor} /></div></div>
-
         }
 
     }
@@ -45,6 +42,16 @@ export const ViewTask = () => {
             return '≈ ' + task.price + ' ' + task.currency
         }
 
+    }
+
+    const SingleOffer = () => {
+        return <div className='vtb-single-offer' onClick={() => navigate('/jobOffer/1')}>
+            <img src='https://images.unsplash.com/photo-1557862921-37829c790f19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80' alt='worker-image' />
+            <div className='vtb-single-offer__info' >
+                <p>Goran <br />Moler</p>
+                <h2>3.4</h2>
+            </div>
+        </div>
     }
 
     return <div className="page-contetnt" >
@@ -72,7 +79,7 @@ export const ViewTask = () => {
         </div>
         <div className='vtb-bottom-container' >
             <div className='vtb-bottom-section' >
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }} >
+                <div className='flex align-center between h100 gap1'  >
                     <div className='card-wrapper' >
                         <div className='vtb-bottom-card-layout' >
                             <p>Datum:</p>
@@ -104,27 +111,9 @@ export const ViewTask = () => {
                         <button className='see-more' >Vidi sve</button>
                     </div>
                     <div className='vtb-offers-container__grid' >
-                        <div className='vtb-single-offer' >
-                            <img src='https://images.unsplash.com/photo-1557862921-37829c790f19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80' alt='worker-image' />
-                            <div className='vtb-single-offer__info' >
-                                <p>Goran <br />Moler</p>
-                                <h2>3.4</h2>
-                            </div>
-                        </div>
-                        <div className='vtb-single-offer' >
-                            <img src='https://images.unsplash.com/photo-1557862921-37829c790f19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80' alt='worker-image' />
-                            <div className='vtb-single-offer__info' >
-                                <p>Goran <br />Moler</p>
-                                <h2>3.4</h2>
-                            </div>
-                        </div>
-                        <div className='vtb-single-offer' >
-                            <img src='https://images.unsplash.com/photo-1557862921-37829c790f19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80' alt='worker-image' />
-                            <div className='vtb-single-offer__info' >
-                                <p>Goran <br />Moler</p>
-                                <h2>3.4</h2>
-                            </div>
-                        </div>
+                        <SingleOffer />
+                        <SingleOffer />
+                        <SingleOffer />
                     </div>
                 </div>
 

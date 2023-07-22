@@ -17,6 +17,7 @@
 .page-content {
   height: 100%;
   position: relative;
+  overflow: hidden;
 }
 
 .content-title-bar {
@@ -372,6 +373,7 @@
   margin-top: 1rem;
   height: 5rem;
   position: relative;
+  cursor: pointer;
   width: 12rem;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
   border-radius: 15px;
@@ -411,4 +413,96 @@
   font-weight: 500;
   cursor: pointer;
   border-radius: 5px;
+}
+
+.square-image {
+  height: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+.job-offer-header {
+  height: 5rem;
+  display: flex;
+  gap: 1rem;
+  & > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+
+    & > div {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
+}
+
+.joh-top {
+  font-size: 1.3rem;
+  color: base.$text-gray;
+}
+.joh-bottom {
+  color: base.$gray;
+  font-size: 1rem;
+  width: 100%;
+  text-align: start;
+}
+
+.job-offer-container {
+  width: 50%;
+  height: max-content;
+  margin-top: 1rem;
+  padding: 2rem 1rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.just-center {
+  justify-content: center;
+}
+
+.between {
+  justify-content: baseline;
+}
+
+.gap1 {
+  gap: 1rem;
+}
+
+.card-with-title {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title {
+  font-weight: 700;
+  color: base.$text-gray;
+}
+
+.pad1 {
+  padding: 1rem;
+}
+
+.page-half-section {
+  width: 100%;
+  height: 100%;
+}
+
+.page-halves-layout {
+  width: 100%;
+  display: flex;
+  height: 100%;
+  margin-top: 2rem;
+  gap: 2rem;
 }
