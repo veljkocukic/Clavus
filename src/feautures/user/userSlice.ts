@@ -1,4 +1,3 @@
-import { addUserLocalStorage, removeUserFromLocalStorage } from './../../utils/localStorage'
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import customFetch from '../../utils/axios'
 import { toast } from 'react-toastify'
@@ -78,6 +77,21 @@ export const editUser = createAsyncThunk('user/editUser', async (user: IUser, th
   }
 })
 
+export const addBioAndCat = createAsyncThunk(
+  'user/addBio',
+  async (bioCat: { bio: string; categories: string[] }, thunkApi) => {
+    try {
+      const resp = await customFetch.patch('/auth/update-bio/', bioCat)
+
+      // thunkApi.dispatch(getUser(user.id))
+
+      return resp.data
+    } catch (error) {
+      return thunkApi.rejectWithValue(error)
+    }
+  },
+)
+
 const userSlice = createSlice({
   name: 'user',
   initialState: initialState as IInitialState,
@@ -133,13 +147,21 @@ const userSlice = createSlice({
     [editUser.pending.type]: (state) => {
       state.isLoading = true
     },
-    [editUser.fulfilled.type]: (state, { payload }) => {
-      removeUserFromLocalStorage()
+    [editUser.fulfilled.type]: (state) => {
       state.isLoading = false
-      addUserLocalStorage(payload)
       toast.success('User profile updated')
     },
     [editUser.rejected.type]: (state) => {
+      state.isLoading = false
+    },
+    [addBioAndCat.pending.type]: (state) => {
+      state.isLoading = true
+    },
+    [addBioAndCat.fulfilled.type]: (state) => {
+      state.isLoading = false
+      toast.success('Detalji uspešno snimljeni.')
+    },
+    [addBioAndCat.rejected.type]: (state) => {
       state.isLoading = false
     },
   },

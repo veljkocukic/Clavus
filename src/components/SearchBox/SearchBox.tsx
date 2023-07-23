@@ -1,14 +1,74 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../../sass/main.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
+/*eslint-disable*/
+
+interface ISearchBox {
+  className?: string
+  fixedList?: any
+  onSelect?: any
+  selected?: any
+  setList?: any
+}
+
+export const SearchBox = ({ className, fixedList, onSelect, setList, selected }: ISearchBox) => {
+  const [results, setResults] = useState<any>()
+  const [focused, setFocused] = useState(false)
+
+  const handleQuery = (value: string) => {
+    const calculateSimilarity = (str1, str2) => {
+      const len1 = str1.length;
+      const len2 = str2.length;
+      const dp = Array.from({ length: len1 + 1 }, () => Array(len2 + 1).fill(0));
+
+      for (let i = 0; i <= len1; i++) {
+        for (let j = 0; j <= len2; j++) {
+          if (i === 0) dp[i][j] = j;
+          else if (j === 0) dp[i][j] = i;
+          else if (str1[i - 1] === str2[j - 1]) dp[i][j] = dp[i - 1][j - 1];
+          else
+            dp[i][j] =
+              1 +
+              Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
+        }
+      }
+
+      return dp[len1][len2];
+    };
+
+    const inputLowerCase = value.toLowerCase();
+    const sortedData = fixedList.filter(f => !selected.some(s => s.value !== f.value))
+
+    sortedData.sort((a, b) => {
+      const similarityA = calculateSimilarity(inputLowerCase, a.name.toLowerCase());
+      const similarityB = calculateSimilarity(inputLowerCase, b.name.toLowerCase());
+      return similarityA - similarityB;
+    });
+
+    setResults(sortedData.slice(0, 5))
+  }
+
+  const setSelected = (r) => {
+    setList(prev => {
+      const copy = structuredClone(prev)
+      return [...copy, r]
+    })
+    setFocused(false)
+    // setList(prev => [...prev, r])
+  }
 
 
-export const SearchBox = () => {
+
+
   return (
-    <div className='search-box-container'>
-      <input type='text' placeholder='Vodoinstalater, kuhinja, veš mašine...' />
+    <div className={'search-box-container ' + className} tabIndex={1}   >
+      <input type='text' placeholder='Vodoinstalater, kuhinja, veš mašine...' onChange={(e) => handleQuery(e.target.value)} onFocus={() => setFocused(true)} />
       <FontAwesomeIcon icon={faSearch} />
+      {focused && <div className='search-results' >
+        {results?.length > 0 ? results.map((r, i) => <div key={i} className='single-search-result' onClick={() => setSelected(r)} ><p>{r.label}</p></div>) :
+          fixedList.filter(f => !selected.some(s => s.value == f.value)).slice(0, 5).map((r, i) => <div key={i} className='single-search-result' onClick={() => setSelected(r)} ><p>{r.label}</p></div>)}
+      </div>}
     </div>
   );
 };

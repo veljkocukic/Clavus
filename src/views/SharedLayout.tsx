@@ -8,8 +8,15 @@ export const SharedLayout = () => {
 
   const location = useLocation()
   const navigate = useNavigate()
+  const user: any = JSON.parse(localStorage.getItem('user'))
   useEffect(() => {
-    if (location.pathname == '/') navigate('overview')
+    if (location.pathname == '/') {
+      if (user?.role === 'ADMIN') {
+        navigate('overview')
+      } else {
+        navigate('worker-overview')
+      }
+    }
   }, [])
 
   return (

@@ -13,19 +13,19 @@ import {
 
 export const Categories = [
   {
-    name: 'Moleraj',
+    label: 'Moleraj',
     icon: faPaintRoller,
     value: 'PAINTING',
     keyWords: ['Moler', 'Farbanje', 'Krecenje', 'Krečenje'],
   },
   {
-    name: 'Elektrika',
+    label: 'Elektrika',
     icon: faPlugCircleBolt,
     value: 'ELECTRICS',
     keyWords: ['Struja', 'Elektrika', 'Elektro', 'Elektroinstalater', 'Osigurac'],
   },
   {
-    name: 'Čišćenje',
+    label: 'Čišćenje',
     icon: faBroom,
     value: 'CLEANING',
     keyWords: [
@@ -40,15 +40,15 @@ export const Categories = [
     ],
   },
   {
-    name: 'Vodni Radovi',
+    label: 'Vodni Radovi',
     icon: faToilet,
     value: 'PLUMBING',
     keyWords: ['Vodoinstalater', 'Cev', 'Ventil', 'Merac', 'Merač'],
   },
   {
-    name: 'Stolarija',
+    label: 'Stolarija',
     icon: faDoorOpen,
-    value: 'PLUMBING',
+    value: 'CARPENTRY',
     keyWords: [
       'Stolarija',
       'Prozor',
@@ -62,13 +62,13 @@ export const Categories = [
     ],
   },
   {
-    name: 'Rashladni Uređaji',
+    label: 'Rashladni Uređaji',
     icon: faTemperatureArrowDown,
     value: 'COOLING_MACHINES',
     keyWords: ['Klime'],
   },
   {
-    name: 'Bela Tehnika',
+    label: 'Bela Tehnika',
     icon: faHardDrive,
     value: 'APPLIANCES',
     keyWords: ['Masina', 'Bela Tehnika', 'Ves Masina', 'Veš Mašina', 'Sporet', 'Šporet'],

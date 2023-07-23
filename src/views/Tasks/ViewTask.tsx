@@ -68,7 +68,7 @@ export const ViewTask = () => {
             <div className='vtb-info' >
                 <FontAwesomeIcon icon={category?.icon} />
                 <div>
-                    <h1>{category?.name}</h1>
+                    <h1>{category?.label}</h1>
                     <h3>{task?.name}</h3>
                     <p>{task?.location}</p>
                 </div>

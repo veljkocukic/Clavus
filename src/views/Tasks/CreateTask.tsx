@@ -92,7 +92,7 @@ export const CreateTask = () => {
             return <div key={i} className='card-wrapper cursor-pointer' onClick={() => setCategory(c.value)} >
                 <div className='card-icon-text' style={{ backgroundColor: colorCombinations[0].backgroundColor }}>
                     <FontAwesomeIcon icon={c.icon} color={colorCombinations[0].iconColor} />
-                    <p>{c.name}</p>
+                    <p>{c.label}</p>
                 </div>
             </div>
         })

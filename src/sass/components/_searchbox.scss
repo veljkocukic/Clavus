@@ -4,12 +4,14 @@
   width: 40%;
   height: 3rem;
   border: 1px solid base.$light-gray;
-  overflow: hidden;
   border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
   input {
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    height: 90%;
     outline: none;
     border: none;
     padding: 10px;
@@ -24,5 +26,35 @@
     transform: translateY(-50%);
     color: base.$gray;
     font-size: 1rem;
+  }
+}
+
+.search-results {
+  width: 100%;
+  height: max-content;
+  position: absolute;
+  top: 105%;
+  left: 0px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 5px #00000033;
+  overflow: hidden;
+  z-index: 999999999999999;
+}
+
+.single-search-result {
+  width: 100%;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 2rem;
+  color: base.$black;
+  transition: 0.3s ease;
+  cursor: pointer;
+  z-index: 999999999999999;
+
+  &:hover {
+    background-color: base.$pale-blue;
   }
 }
