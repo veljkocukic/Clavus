@@ -5,11 +5,14 @@ import { Loading } from './components/Loading'
 import { SharedLayout, Login, Error, ProtectedRoute } from './views'
 import 'react-toastify/dist/ReactToastify.css'
 import { adminRoutes, workerRoutes } from 'utils/data'
+import { useSelector } from 'react-redux'
+import { RootState } from 'store'
 
 function App() {
 
-  const user: any = JSON.parse(localStorage.getItem('user'))
-  const routes = user?.role === 'ADMIN' ? adminRoutes : workerRoutes
+  const localUser: any = JSON.parse(localStorage.getItem('user'))
+  const { user } = useSelector((state: RootState) => state.user)
+  const routes = user ? user?.role === 'ADMIN' ? adminRoutes : workerRoutes : localUser?.role === 'ADMIN' ? adminRoutes : workerRoutes
 
   return (
     <>

@@ -19,9 +19,11 @@ export const Tasks = () => {
     const dispatch = useDispatch<AppDispatch>()
     const { allTasks, totalPages } = useSelector((state: RootState) => state.tasks)
     const navigate = useNavigate()
+
     useEffect(() => {
         dispatch(getTasks(params))
     }, [])
+
 
     const renderOptions = (id: number) => {
         return [

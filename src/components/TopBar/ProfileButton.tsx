@@ -2,11 +2,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown, faSignOut, faUser } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from 'store'
+import { logOut } from 'feautures/user/userSlice'
 
 export const ProfileButton = () => {
 
     const [openOptions, setOpenOptions] = useState(false)
     const navigate = useNavigate()
+    const dispatch = useDispatch<AppDispatch>()
     let cName = 'profile-options'
     if (openOptions) {
         cName += ' active-options'
@@ -16,6 +20,7 @@ export const ProfileButton = () => {
 
     const handleLogOut = () => {
         localStorage.clear()
+        dispatch(logOut())
         navigate('/login')
     }
 

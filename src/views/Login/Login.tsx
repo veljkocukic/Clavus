@@ -27,7 +27,7 @@ export const Login = () => {
     phoneNumber: ''
   });
 
-  const { logged } = useSelector((state: RootState) => state.user)
+  const { user } = useSelector((state: RootState) => state.user)
 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -77,8 +77,8 @@ export const Login = () => {
   }
 
   useEffect(() => {
-    if (logged) navigate('/');
-  }, [logged]);
+    if (user) { navigate('/') }
+  }, [user]);
 
   return (
     <div className={'login-wrapper'}>

@@ -13,7 +13,7 @@ const initialState = {
   isLoading: false,
   isUserLoading: false,
   logged: false,
-  user: {},
+  user: null,
 }
 
 export interface IUser {
@@ -81,7 +81,7 @@ export const addBioAndCat = createAsyncThunk(
   'user/addBio',
   async (bioCat: { bio: string; categories: string[] }, thunkApi) => {
     try {
-      const resp = await customFetch.patch('/auth/update-bio/', bioCat)
+      const resp = await customFetch.post('/auth/update-bio/', bioCat)
 
       // thunkApi.dispatch(getUser(user.id))
 
@@ -95,16 +95,21 @@ export const addBioAndCat = createAsyncThunk(
 const userSlice = createSlice({
   name: 'user',
   initialState: initialState as IInitialState,
-  reducers: {},
+  reducers: {
+    logOut: (state) => {
+      state.user = null
+    },
+  },
   extraReducers: {
     [registerUser.pending.type]: (state) => {
       state.isLoading = true
     },
     [registerUser.fulfilled.type]: (state, { payload }) => {
       state.isLoading = false
-      localStorage.setItem('token', payload.token)
+      localStorage.setItem('token', payload.access_token)
       localStorage.setItem('user', JSON.stringify(payload.user))
       state.logged = true
+      state.user = payload.user
       toast.success('Nalog uspešno kreiran.')
     },
     [registerUser.rejected.type]: (state, { payload }) => {
@@ -118,6 +123,7 @@ const userSlice = createSlice({
       state.isLoading = false
       localStorage.setItem('token', payload?.access_token)
       localStorage.setItem('user', JSON.stringify(payload.user))
+      state.user = payload.user
       state.logged = true
     },
     [loginUser.rejected.type]: (state, { payload }) => {
@@ -157,8 +163,9 @@ const userSlice = createSlice({
     [addBioAndCat.pending.type]: (state) => {
       state.isLoading = true
     },
-    [addBioAndCat.fulfilled.type]: (state) => {
+    [addBioAndCat.fulfilled.type]: (state, { payload }) => {
       state.isLoading = false
+      localStorage.setItem('user', JSON.stringify(payload))
       toast.success('Detalji uspešno snimljeni.')
     },
     [addBioAndCat.rejected.type]: (state) => {
@@ -166,5 +173,5 @@ const userSlice = createSlice({
     },
   },
 })
-
+export const { logOut } = userSlice.actions
 export default userSlice.reducer

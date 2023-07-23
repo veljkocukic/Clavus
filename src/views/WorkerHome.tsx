@@ -2,24 +2,35 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ISelectValue, Select } from 'components/Select'
 import { faPaintRoller } from '@fortawesome/free-solid-svg-icons';
 import { Pagination } from 'components/Pagionation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SearchBox } from 'components/SearchBox/SearchBox';
 import { TextArea } from 'components/TextArea';
 import { Button } from 'components/Button';
 import { Categories } from './Tasks/tasksData';
-import { AppDispatch } from 'store';
-import { useDispatch } from 'react-redux';
+import { AppDispatch, RootState } from 'store';
+import { useDispatch, useSelector } from 'react-redux';
 import { addBioAndCat } from 'feautures/user/userSlice';
+import { getWorkerTasks } from 'feautures/task/taskSlice';
+import { convertTaskDate, handlePagination } from 'utils/helpers';
 
 export const WorkerHome = () => {
     /*eslint-disable*/
 
     const user: any = JSON.parse(localStorage.getItem('user'))
+    const workerModalClosed = localStorage.getItem('workerModalClosed')
     const [params, setParams] = useState<any>({ limit: 9, page: 1, sort: 'DATE_D' })
-    const [modalOpen, setModalOpen] = useState(true)
-    const [bio, setBio] = useState('')
+    const [modalOpen, setModalOpen] = useState(workerModalClosed ? false : true)
+    const [bio, setBio] = useState(user?.bio || '')
     const [categories, setCategories] = useState([])
+    const { allWorkerTasks, totalPagesWT, pageCountWT } = useSelector((state: RootState) => state.tasks)
     const dispatch = useDispatch<AppDispatch>()
+
+    useEffect(() => {
+        dispatch(getWorkerTasks(params))
+    }, [])
+
+    console.log(allWorkerTasks)
+
 
     const options = [
         {
@@ -51,25 +62,26 @@ export const WorkerHome = () => {
 
     const handleBioModal = async () => {
         if (bio.length > 0 || categories.length > 0) {
-            await dispatch(addBioAndCat({ bio, categories }))
+            await dispatch(addBioAndCat({ bio, categories: categories.map(c => c.value) }))
         }
+        localStorage.setItem('workerModalClosed', 'true')
         setModalOpen(false)
     }
 
-    const JobCard = () => {
+    const JobCard = ({ name, location, price, date }) => {
         return <div className='worker-job-card'>
             <div className='flex align-center just-center h100 ' >
                 <FontAwesomeIcon icon={faPaintRoller} />
             </div>
             <div className='flex between h100 column' >
                 <div>
-                    <h2>Ciscenje zgrade</h2>
-                    <p>Bulevar Patrijarha Pavla 9p, Beogard</p>
+                    <h2>{name}</h2>
+                    <p>{location}</p>
                 </div>
                 <div className='flex w100 between center' >
-                    <p className='date' >01.April 2023.</p>
+                    <p className='date' >{convertTaskDate(date) + ' ' + new Date(date).getFullYear()}</p>
                     <p className="green-text" >
-                        1500.00
+                        {price}
                     </p>
                 </div>
             </div>
@@ -93,19 +105,12 @@ export const WorkerHome = () => {
             <Select className='w15' options={options} labelText='Sortiraj po:' onChange={handleSort} name='filter' value={params.sort} />
         </div>
         <div className="worker-home-grid" >
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
+            {allWorkerTasks?.map(wt => <JobCard name={wt.name} location={wt.location} date={wt.date} price={1500} />)}
         </div>
+        <Pagination pageCount={pageCountWT} setPage={(page) => handlePagination(page, setParams, 9)} forcePage={1} />
 
-        <Pagination pageCount={5} setPage={null} forcePage={1} />
-        <div className='worker-home-modal' >
+
+        {modalOpen && <div className='worker-home-modal' >
             <div>
                 <div className='flex column gap1 w100'  >
                     <h1>Dobrodošli u tim! 🎉 </h1>
@@ -128,7 +133,7 @@ export const WorkerHome = () => {
                 </div>
                 <Button className='categories-modal-button' text='Završi' onClick={handleBioModal} />
             </div>
-        </div>
+        </div>}
     </div>
 
 }
