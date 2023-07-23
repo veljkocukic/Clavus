@@ -17,7 +17,8 @@
 .page-content {
   height: 100%;
   position: relative;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .content-title-bar {
@@ -121,14 +122,6 @@
       color: base.$gray;
       font-weight: 500;
     }
-  }
-
-  .ltc-price {
-    background-color: base.$pale-green;
-    padding: 5px;
-    font-weight: 500;
-    color: base.$green;
-    border-radius: 5px;
   }
 }
 
@@ -472,7 +465,7 @@
 }
 
 .between {
-  justify-content: baseline;
+  justify-content: space-between;
 }
 
 .gap1 {
@@ -490,6 +483,14 @@
   color: base.$text-gray;
 }
 
+.column {
+  flex-direction: column;
+}
+
+.just-end {
+  justify-content: flex-end;
+}
+
 .pad1 {
   padding: 1rem;
 }
@@ -505,4 +506,55 @@
   height: 100%;
   margin-top: 2rem;
   gap: 2rem;
+}
+
+.worker-home-grid {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1rem;
+  max-height: calc(100% - 15rem);
+  overflow: auto;
+}
+
+.worker-job-card {
+  width: 100%;
+  height: 8rem;
+  background-color: base.$pale-blue;
+  border-radius: 10px;
+  display: flex;
+  gap: 1rem;
+  cursor: pointer;
+  padding: 0.5rem;
+
+  svg {
+    color: base.$light-blue;
+    font-size: 3.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  h2,
+  p {
+    color: base.$text-gray;
+    font-size: 0.9rem;
+  }
+
+  .date {
+    font-size: 0.8rem;
+    color: base.$text-gray;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+}
+
+.green-text {
+  background-color: base.$pale-green;
+  padding: 5px;
+  font-weight: 500;
+  color: base.$green !important;
+  border-radius: 5px;
 }

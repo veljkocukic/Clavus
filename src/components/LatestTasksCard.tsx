@@ -41,7 +41,7 @@ export const LatestTasksCard = () => {
                 <FontAwesomeIcon icon={icon} color={color.icon} />
                 <p>{text}</p>
             </div>
-            <p className="ltc-price" >
+            <p className="green-text" >
                 1500.00
             </p>
         </div>

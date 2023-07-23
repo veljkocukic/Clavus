@@ -1,4 +1,3 @@
-import { userIcon } from './../icons/userIcons'
 import { faFile, faHome, faMessage, faTasks } from '@fortawesome/free-solid-svg-icons'
 
 export const adminSidebarLinks = [
@@ -28,11 +27,11 @@ export const adminSidebarLinks = [
   },
 ]
 
-export const settingsRoutes = [
+export const workerSidebarLinks = [
   {
     id: 1,
-    title: 'User',
-    path: '/settings',
-    icon: userIcon,
+    title: 'Pregled',
+    path: '/worker-overview',
+    icon: faHome,
   },
 ]

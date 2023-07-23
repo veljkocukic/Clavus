@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { adminSidebarLinks } from 'assets/links/links'
+import { adminSidebarLinks, workerSidebarLinks } from 'assets/links/links'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 const SidebarOption = ({ icon, name, path }) => {
@@ -22,7 +22,10 @@ const SidebarOption = ({ icon, name, path }) => {
 
 export const Sidebar = () => {
 
+  const user: any = JSON.parse(localStorage.getItem('user'))
+  const routes = user?.role === 'ADMIN' ? adminSidebarLinks : workerSidebarLinks
+
   return <div className="sidebar" >
-    {adminSidebarLinks.map(l => <SidebarOption key={l.id} name={l.title} icon={l.icon} path={l.path} />)}
+    {routes.map(l => <SidebarOption key={l.id} name={l.title} icon={l.icon} path={l.path} />)}
   </div>
 }

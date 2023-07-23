@@ -3,6 +3,7 @@ import { ViewJobOffer } from 'views/JobOffer/ViewJobOffer'
 import { CreateTask } from 'views/Tasks/CreateTask'
 import { Tasks } from 'views/Tasks/Tasks'
 import { ViewTask } from 'views/Tasks/ViewTask'
+import { WorkerHome } from 'views/WorkerHome'
 
 export const adminRoutes = [
   {
@@ -24,5 +25,12 @@ export const adminRoutes = [
   {
     path: '/overview',
     element: Home,
+  },
+]
+
+export const workerRoutes = [
+  {
+    path: '/worker-overview',
+    element: WorkerHome,
   },
 ]

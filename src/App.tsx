@@ -4,9 +4,13 @@ import { Slide, ToastContainer } from 'react-toastify'
 import { Loading } from './components/Loading'
 import { SharedLayout, Login, Error, ProtectedRoute } from './views'
 import 'react-toastify/dist/ReactToastify.css'
-import { adminRoutes } from 'utils/data'
+import { adminRoutes, workerRoutes } from 'utils/data'
 
 function App() {
+
+  const user: any = JSON.parse(localStorage.getItem('user'))
+  const routes = user?.role === 'ADMIN' ? adminRoutes : workerRoutes
+
   return (
     <>
       <Loading />
@@ -20,7 +24,7 @@ function App() {
               </ProtectedRoute>
             }
           >
-            {adminRoutes.map((r, i) => <Route key={i} path={r.path} element={<r.element />} />)}
+            {routes.map((r, i) => <Route key={i} path={r.path} element={<r.element />} />)}
             <Route path='*' element={<Error />} />
           </Route>
           <Route path='login' element={<Login />} />
