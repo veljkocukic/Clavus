@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import customFetch from '../../utils/axios'
 import { toast } from 'react-toastify'
-import { ITaskState } from 'views/Tasks/tasksData'
+import { IJobOffer } from 'views/Tasks/OfferModal'
 
 interface IInitialState {
   isLoading: boolean
@@ -23,11 +23,13 @@ const initialState = {
 
 export const createJobOffer = createAsyncThunk(
   'jobOffer/createJobOffer',
-  async (jobOffer: ITaskState, thunkApi) => {
+  async (jobOffer: { id: number; jobOffer: IJobOffer }, thunkApi) => {
     try {
-      const resp = await customFetch.post('/job-offer', jobOffer)
+      const resp = await customFetch.post('/job-offer/' + jobOffer.id, jobOffer.jobOffer)
+      console.log(resp)
       return resp.data
     } catch (error) {
+      console.log(error)
       return thunkApi.rejectWithValue(error)
     }
   },
@@ -55,7 +57,7 @@ export const getJobOffers = createAsyncThunk(
 )
 
 const taskSlice = createSlice({
-  name: 'task',
+  name: 'jobOffer',
   initialState: initialState as IInitialState,
   reducers: {},
   extraReducers: {
@@ -65,10 +67,12 @@ const taskSlice = createSlice({
     [createJobOffer.fulfilled.type]: (state, { payload }) => {
       state.isLoading = false
       state.createdOfferId = payload.id
-      toast.success('Zadatak uspešno kreiran.')
+      console.log('Uspesno')
+      toast.success('Ponuda uspešno poslata')
     },
     [createJobOffer.rejected.type]: (state, { payload }) => {
       state.isLoading = false
+      console.log(payload)
       toast.error(payload.message)
     },
     [getJobOffer.pending.type]: (state) => {

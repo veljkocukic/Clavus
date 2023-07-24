@@ -33,4 +33,8 @@ export const workerRoutes = [
     path: '/worker-overview',
     element: WorkerHome,
   },
+  {
+    path: '/worker-task/:id',
+    element: ViewTask,
+  },
 ]

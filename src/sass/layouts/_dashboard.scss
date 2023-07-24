@@ -657,3 +657,27 @@
     opacity: 1;
   }
 }
+
+.modal-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-height: 100vh;
+  min-width: 100vw;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+}
+
+.send-offer-modal {
+  width: 400px;
+  height: max-content;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  animation: down 0.3s ease-out forwards;
+}

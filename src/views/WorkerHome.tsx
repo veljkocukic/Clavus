@@ -12,24 +12,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addBioAndCat } from 'feautures/user/userSlice';
 import { getWorkerTasks } from 'feautures/task/taskSlice';
 import { convertTaskDate, handlePagination } from 'utils/helpers';
+import { useNavigate } from 'react-router-dom';
 
 export const WorkerHome = () => {
     /*eslint-disable*/
-
     const user: any = JSON.parse(localStorage.getItem('user'))
     const workerModalClosed = localStorage.getItem('workerModalClosed')
     const [params, setParams] = useState<any>({ limit: 9, page: 1, sort: 'DATE_D' })
     const [modalOpen, setModalOpen] = useState(workerModalClosed ? false : true)
     const [bio, setBio] = useState(user?.bio || '')
     const [categories, setCategories] = useState([])
-    const { allWorkerTasks, totalPagesWT, pageCountWT } = useSelector((state: RootState) => state.tasks)
+    const navigate = useNavigate()
+    const { allWorkerTasks, pageCountWT } = useSelector((state: RootState) => state.tasks)
     const dispatch = useDispatch<AppDispatch>()
 
     useEffect(() => {
         dispatch(getWorkerTasks(params))
     }, [])
-
-    console.log(allWorkerTasks)
 
 
     const options = [
@@ -68,8 +67,8 @@ export const WorkerHome = () => {
         setModalOpen(false)
     }
 
-    const JobCard = ({ name, location, price, date }) => {
-        return <div className='worker-job-card'>
+    const JobCard = ({ name, location, price, date, id }) => {
+        return <div className='worker-job-card' onClick={() => navigate('/worker-task/' + id)} >
             <div className='flex align-center just-center h100 ' >
                 <FontAwesomeIcon icon={faPaintRoller} />
             </div>
@@ -105,7 +104,7 @@ export const WorkerHome = () => {
             <Select className='w15' options={options} labelText='Sortiraj po:' onChange={handleSort} name='filter' value={params.sort} />
         </div>
         <div className="worker-home-grid" >
-            {allWorkerTasks?.map(wt => <JobCard name={wt.name} location={wt.location} date={wt.date} price={1500} />)}
+            {allWorkerTasks?.map(wt => <JobCard id={wt.id} key={wt.id} name={wt.name} location={wt.location} date={wt.date} price={1500} />)}
         </div>
         <Pagination pageCount={pageCountWT} setPage={(page) => handlePagination(page, setParams, 9)} forcePage={1} />
 

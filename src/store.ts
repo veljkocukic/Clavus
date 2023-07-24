@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import userSlice from './feautures/user/userSlice'
 import taskSlice from './feautures/task/taskSlice'
+import jobOfferSlice from 'feautures/jobOffer/jobOfferSlice'
 
 export const store = configureStore({
   reducer: {
     user: userSlice,
     tasks: taskSlice,
+    jobOffers: jobOfferSlice,
   },
 })
 

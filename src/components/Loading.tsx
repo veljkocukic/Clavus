@@ -8,8 +8,8 @@ export const Loading = () => {
   const userLoading = useSelector((store: RootState) => store.user.isLoading);
   const logedUser = useSelector((store: RootState) => store.user.isUserLoading);
   const tasksLoading = useSelector((store: RootState) => store.tasks.isLoading);
-
-  const loading = userLoading || logedUser || tasksLoading
+  const jobOffersLoading = useSelector((store: RootState) => store.jobOffers.isLoading);
+  const loading = userLoading || logedUser || tasksLoading || jobOffersLoading
 
   const override: CSSProperties = {
     position: 'fixed',
