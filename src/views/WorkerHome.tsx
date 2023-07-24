@@ -72,12 +72,12 @@ export const WorkerHome = () => {
             <div className='flex align-center just-center h100 ' >
                 <FontAwesomeIcon icon={faPaintRoller} />
             </div>
-            <div className='flex between h100 column' >
+            <div className='flex between h100 column w100 ml1' >
                 <div>
                     <h2>{name}</h2>
                     <p>{location}</p>
                 </div>
-                <div className='flex w100 between center' >
+                <div className='flex w100 between center w100' >
                     <p className='date' >{convertTaskDate(date) + ' ' + new Date(date).getFullYear()}</p>
                     <p className="green-text" >
                         {price}

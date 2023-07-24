@@ -3,9 +3,21 @@ import customFetch from '../../utils/axios'
 import { toast } from 'react-toastify'
 import { ITaskState } from 'views/Tasks/tasksData'
 
+interface ITaskResponse extends ITaskState {
+  jobOffers: {
+    price: number
+    id: number
+    user: {
+      name: string
+      lastName: string
+      ratings: number
+    }
+  }[]
+}
+
 interface IInitialState {
   isLoading: boolean
-  task: ITaskState
+  task: ITaskResponse
   createdTaskId: number
   totalPages: number
   totalPagesWT: number

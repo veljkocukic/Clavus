@@ -19,7 +19,7 @@ export const adminRoutes = [
     element: ViewTask,
   },
   {
-    path: '/jobOffer/:id',
+    path: '/job-offer/:id',
     element: ViewJobOffer,
   },
   {

@@ -22,9 +22,6 @@ export const ViewJobOffer = () => {
                             <p className='joh-top' >Goran Moler</p>
                             <div className='see-more' >Pogledaj profil</div>
                         </div>
-                        <p className='joh-bottom' >
-                            0637562792
-                        </p>
                     </div>
                 </div>
                 <div className='flex just-between w100 gap1 mt2' >

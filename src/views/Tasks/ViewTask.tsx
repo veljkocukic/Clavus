@@ -49,12 +49,12 @@ export const ViewTask = () => {
 
     }
 
-    const SingleOffer = () => {
-        return <div className='vtb-single-offer' onClick={() => navigate('/jobOffer/1')}>
+    const SingleOffer = ({ name, lastName, ratings }) => {
+        return <div className='vtb-single-offer' onClick={() => navigate('/job-offer/1')}>
             <img src='https://images.unsplash.com/photo-1557862921-37829c790f19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80' alt='worker-image' />
             <div className='vtb-single-offer__info' >
-                <p>Goran <br />Moler</p>
-                <h2>3.4</h2>
+                <p>{name} <br />{lastName}</p>
+                <h2>{ratings ?? 'Bez ocene'}</h2>
             </div>
         </div>
     }
@@ -126,9 +126,7 @@ export const ViewTask = () => {
                         <button className='see-more' >Vidi sve</button>
                     </div>
                     <div className='vtb-offers-container__grid' >
-                        <SingleOffer />
-                        <SingleOffer />
-                        <SingleOffer />
+                        {task?.jobOffers?.map(o => <SingleOffer key={o.id} name={o.user.name} lastName={o.user.lastName} ratings={o.user.ratings} />)}
                     </div>
                 </div>}
 

@@ -368,8 +368,8 @@
   position: relative;
   cursor: pointer;
   width: 12rem;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-  border-radius: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
   padding: 10px;
   display: flex;
   align-items: center;
@@ -392,7 +392,7 @@
 
     h2 {
       font-size: 1rem;
-      color: base.$blue;
+      color: base.$text-gray;
     }
   }
 }
