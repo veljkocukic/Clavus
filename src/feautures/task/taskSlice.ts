@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import customFetch from '../../utils/axios'
 import { toast } from 'react-toastify'
 import { ITaskState } from 'views/Tasks/tasksData'
+import { IRating } from 'views/Tasks/RateModal'
 
 interface ITaskResponse extends ITaskState {
   jobOffers: {
@@ -42,6 +43,18 @@ export const createTask = createAsyncThunk(
   async (task: ITaskState, thunkApi) => {
     try {
       const resp = await customFetch.post('/jobs', task)
+      return resp.data
+    } catch (error) {
+      return thunkApi.rejectWithValue(error)
+    }
+  },
+)
+
+export const rateAndComplete = createAsyncThunk(
+  'task/rateAndCompleteTask',
+  async (data: { id: number; rating: IRating }, thunkApi) => {
+    try {
+      const resp = await customFetch.post('/jobs/rate-and-complete/' + data.id, data.rating)
       return resp.data
     } catch (error) {
       return thunkApi.rejectWithValue(error)
@@ -124,6 +137,17 @@ const taskSlice = createSlice({
       toast.success('Zadatak uspešno kreiran.')
     },
     [createTask.rejected.type]: (state, { payload }) => {
+      state.isLoading = false
+      toast.error(payload.message)
+    },
+    [createTask.pending.type]: (state) => {
+      state.isLoading = true
+    },
+    [rateAndComplete.fulfilled.type]: (state) => {
+      state.isLoading = false
+      toast.success('Posao uspešno završen.')
+    },
+    [rateAndComplete.rejected.type]: (state, { payload }) => {
       state.isLoading = false
       toast.error(payload.message)
     },

@@ -10,6 +10,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { getTask } from 'feautures/task/taskSlice'
 import { convertTaskDate } from 'utils/helpers'
 import { OfferModal } from './OfferModal'
+import { RateModal } from './RateModal'
 
 
 export const ViewTask = () => {
@@ -19,6 +20,7 @@ export const ViewTask = () => {
     const { task } = useSelector((state: RootState) => state.tasks)
     const location = useLocation()
     const [offerModalOpen, setOfferModalOpen] = useState(false)
+    const [rateModalOpen, setRateModalOpen] = useState(false)
 
     let admin = true
     if (location.pathname.includes('worker')) {
@@ -49,8 +51,8 @@ export const ViewTask = () => {
 
     }
 
-    const SingleOffer = ({ name, lastName, ratings }) => {
-        return <div className='vtb-single-offer' onClick={() => navigate('/job-offer/1')}>
+    const SingleOffer = ({ name, lastName, ratings, id }) => {
+        return <div className='vtb-single-offer' onClick={() => navigate('/job-offer/' + id)}>
             <img src='https://images.unsplash.com/photo-1557862921-37829c790f19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80' alt='worker-image' />
             <div className='vtb-single-offer__info' >
                 <p>{name} <br />{lastName}</p>
@@ -62,7 +64,7 @@ export const ViewTask = () => {
     const renderButton = () => {
         if (admin) {
             return <>
-                {task.status == 'IN_PROGRESS' && < Button text='Potvrdi i oceni radnika' />}
+                {task.status == 'IN_PROGRESS' && < Button text='Potvrdi i oceni radnika' onClick={() => setRateModalOpen(true)} />}
                 <IconButton icon={faGear} />
             </>
         } else
@@ -126,13 +128,14 @@ export const ViewTask = () => {
                         <button className='see-more' >Vidi sve</button>
                     </div>
                     <div className='vtb-offers-container__grid' >
-                        {task?.jobOffers?.map(o => <SingleOffer key={o.id} name={o.user.name} lastName={o.user.lastName} ratings={o.user.ratings} />)}
+                        {task?.jobOffers?.map(o => <SingleOffer key={o.id} id={o.id} name={o.user.name} lastName={o.user.lastName} ratings={o.user.ratings} />)}
                     </div>
                 </div>}
 
             </div>
 
         </div >
+        {rateModalOpen && <RateModal setOpenModal={setRateModalOpen} />}
         {offerModalOpen && <OfferModal setOpenModal={setOfferModalOpen} price={task.price} priceType={task.priceType} amount={task.amount} currency={task.currency} />}
     </div >
 }

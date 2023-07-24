@@ -53,7 +53,7 @@ export const Tasks = () => {
                     text = 'U TOKU'
                     color = { icon: '#8FADF0', bg: '#F1F5FE' }
                     break;
-                case 'FINISHED':
+                case 'DONE':
                     icon = faCheck
                     text = 'ZAVRŠEN'
                     color = { icon: '#01A05D', bg: '#EDF8F0' }

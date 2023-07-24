@@ -452,32 +452,6 @@
   padding: 2rem 1rem;
 }
 
-.flex {
-  display: flex;
-}
-
-.align-center {
-  align-items: center;
-}
-
-.just-center {
-  justify-content: center;
-}
-
-.between {
-  justify-content: space-between;
-}
-
-.gap1 {
-  gap: 1rem;
-}
-.gap2 {
-  gap: 2rem;
-}
-.gap3 {
-  gap: 3rem;
-}
-
 .card-with-title {
   width: 100%;
   display: flex;
@@ -487,18 +461,6 @@
 .card-title {
   font-weight: 700;
   color: base.$text-gray;
-}
-
-.column {
-  flex-direction: column;
-}
-
-.just-end {
-  justify-content: flex-end;
-}
-
-.pad1 {
-  padding: 1rem;
 }
 
 .page-half-section {
@@ -671,7 +633,7 @@
   z-index: 99999;
 }
 
-.send-offer-modal {
+.modal {
   width: 400px;
   height: max-content;
   padding: 1rem;
@@ -680,4 +642,16 @@
   display: flex;
   flex-direction: column;
   animation: down 0.3s ease-out forwards;
+}
+
+.rate-number {
+  font-size: 4rem;
+  font-weight: 700;
+  color: base.$gray;
+  transition: 0.15s ease-in;
+  cursor: pointer;
+
+  &:hover {
+    color: base.$light-blue;
+  }
 }

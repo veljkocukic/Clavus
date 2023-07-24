@@ -35,6 +35,18 @@ export const createJobOffer = createAsyncThunk(
   },
 )
 
+export const acceptJobOffer = createAsyncThunk(
+  'jobOffer/createJobOffer',
+  async (jobOfferId: number, thunkApi) => {
+    try {
+      const resp = await customFetch.post('/job-offer/accept/' + jobOfferId)
+      return resp.data
+    } catch (error) {
+      return thunkApi.rejectWithValue(error)
+    }
+  },
+)
+
 export const getJobOffer = createAsyncThunk('/jobOffer/getJobOffer', async (id: any, thunkApi) => {
   try {
     const resp = await customFetch.get('/job-offer/' + id)
@@ -67,12 +79,21 @@ const taskSlice = createSlice({
     [createJobOffer.fulfilled.type]: (state, { payload }) => {
       state.isLoading = false
       state.createdOfferId = payload.id
-      console.log('Uspesno')
       toast.success('Ponuda uspešno poslata')
     },
     [createJobOffer.rejected.type]: (state, { payload }) => {
       state.isLoading = false
-      console.log(payload)
+      toast.error(payload.message)
+    },
+    [acceptJobOffer.pending.type]: (state) => {
+      state.isLoading = true
+    },
+    [acceptJobOffer.fulfilled.type]: (state) => {
+      state.isLoading = false
+      toast.success('Ponuda uspešno prihvaćena.')
+    },
+    [acceptJobOffer.rejected.type]: (state, { payload }) => {
+      state.isLoading = false
       toast.error(payload.message)
     },
     [getJobOffer.pending.type]: (state) => {

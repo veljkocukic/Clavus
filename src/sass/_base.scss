@@ -115,6 +115,15 @@ $font-family: 'Poppins', sans-serif;
 .w100 {
   width: 100% !important;
 }
+.w30 {
+  width: 30rem !important;
+}
+.w25 {
+  width: 25rem !important;
+}
+.w20 {
+  width: 20rem !important;
+}
 .w15 {
   width: 15rem !important;
 }
@@ -220,4 +229,63 @@ $font-family: 'Poppins', sans-serif;
 
 .bgPaleYellow {
   background-color: $pale-yellow !important;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.just-end {
+  justify-content: flex-end;
+}
+
+.pad1 {
+  padding: 1rem !important;
+}
+
+.pad2 {
+  padding: 2rem !important;
+}
+
+.pad3 {
+  padding: 3rem !important;
+}
+
+.pad4 {
+  padding: 4rem !important;
+}
+.pad5 {
+  padding: 5rem !important;
+}
+
+.flex {
+  display: flex;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.just-center {
+  justify-content: center;
+}
+
+.between {
+  justify-content: space-between;
+}
+
+.gap1 {
+  gap: 1rem;
+}
+.gap2 {
+  gap: 2rem;
+}
+.gap3 {
+  gap: 3rem;
+}
+.gap4 {
+  gap: 4rem;
+}
+.gap5 {
+  gap: 5rem;
 }
