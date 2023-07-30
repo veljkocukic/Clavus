@@ -19,10 +19,30 @@ const initialState = {
 export interface IUser {
   name: string
   email: string
+  address?: string
+  categories?: string[]
   password: string
   lastName: string
   phoneNumber: string
   role: string
+  totalJobsDone?: number
+  totalJobsPosted?: number
+  totalRatings?: number
+  ratings?: {
+    description: string
+    rating: number
+    ratingGiverUser: {
+      name: string
+      lastName: string
+    }
+  }[]
+  jobs?: {
+    id: number
+    category: string
+    name: string
+    date: string
+    location: string
+  }[]
   id: number
 }
 
@@ -47,7 +67,7 @@ export const loginUser = createAsyncThunk('user/loginUser', async (user: any, th
 
 export const getUser = createAsyncThunk('/user/getUser', async (id: any, thunkApi) => {
   try {
-    const resp = await customFetch.get('/auth/' + id)
+    const resp = await customFetch.get('/users/' + id)
 
     return resp.data
   } catch (error) {

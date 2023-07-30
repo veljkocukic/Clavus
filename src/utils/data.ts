@@ -1,5 +1,6 @@
 import { Home } from 'views'
 import { ViewJobOffer } from 'views/JobOffer/ViewJobOffer'
+import { ViewProfile } from 'views/Profile/ViewProfile'
 import { CreateTask } from 'views/Tasks/CreateTask'
 import { Tasks } from 'views/Tasks/Tasks'
 import { ViewTask } from 'views/Tasks/ViewTask'
@@ -25,6 +26,10 @@ export const adminRoutes = [
   {
     path: '/overview',
     element: Home,
+  },
+  {
+    path: '/profile/:id',
+    element: ViewProfile,
   },
 ]
 

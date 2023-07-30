@@ -29,7 +29,7 @@ export const ProfileButton = () => {
         <p>{(user?.name ?? '') + ' ' + (user?.lastName ?? '')}</p>
         <FontAwesomeIcon icon={faChevronDown} color='#8fadf0' />
         <div className={cName} onClick={e => e.stopPropagation()} >
-            <div>
+            <div onClick={() => navigate('/profile/' + user.id)} >
                 <FontAwesomeIcon icon={faUser} color='#8fadf0' />
                 <p>Profil</p>
             </div>

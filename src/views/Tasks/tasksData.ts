@@ -181,6 +181,7 @@ export interface ITableTask {
   id: number
   name: string
   status: string
+  category: string
   date: Date
 }
 

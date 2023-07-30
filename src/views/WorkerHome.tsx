@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ISelectValue, Select } from 'components/Select'
-import { faPaintRoller } from '@fortawesome/free-solid-svg-icons';
 import { Pagination } from 'components/Pagionation';
 import { useEffect, useState } from 'react';
 import { SearchBox } from 'components/SearchBox/SearchBox';
@@ -11,7 +10,7 @@ import { AppDispatch, RootState } from 'store';
 import { useDispatch, useSelector } from 'react-redux';
 import { addBioAndCat } from 'feautures/user/userSlice';
 import { getWorkerTasks } from 'feautures/task/taskSlice';
-import { convertTaskDate, handlePagination } from 'utils/helpers';
+import { convertTaskDate, getCategoryIcon, handlePagination } from 'utils/helpers';
 import { useNavigate } from 'react-router-dom';
 
 export const WorkerHome = () => {
@@ -67,25 +66,7 @@ export const WorkerHome = () => {
         setModalOpen(false)
     }
 
-    const JobCard = ({ name, location, price, date, id }) => {
-        return <div className='worker-job-card' onClick={() => navigate('/worker-task/' + id)} >
-            <div className='flex align-center just-center h100 ' >
-                <FontAwesomeIcon icon={faPaintRoller} />
-            </div>
-            <div className='flex between h100 column w100 ml1' >
-                <div>
-                    <h2>{name}</h2>
-                    <p>{location}</p>
-                </div>
-                <div className='flex w100 between center w100' >
-                    <p className='date' >{convertTaskDate(date) + ' ' + new Date(date).getFullYear()}</p>
-                    <p className="green-text" >
-                        {price}
-                    </p>
-                </div>
-            </div>
-        </div>
-    }
+
 
     const handleRemoveCat = (cat) => {
         setCategories(prev => {
@@ -104,7 +85,7 @@ export const WorkerHome = () => {
             <Select className='w15' options={options} labelText='Sortiraj po:' onChange={handleSort} name='filter' value={params.sort} />
         </div>
         <div className="worker-home-grid" >
-            {allWorkerTasks?.map(wt => <JobCard id={wt.id} key={wt.id} name={wt.name} location={wt.location} date={wt.date} price={1500} />)}
+            {allWorkerTasks?.map(wt => <JobCard category={wt.category} id={wt.id} key={wt.id} name={wt.name} location={wt.location} date={wt.date} price={1500} />)}
         </div>
         <Pagination pageCount={pageCountWT} setPage={(page) => handlePagination(page, setParams, 9)} forcePage={1} />
 
@@ -135,4 +116,36 @@ export const WorkerHome = () => {
         </div>}
     </div>
 
+}
+
+
+interface IJobCard {
+    name: string
+    location: string
+    price?: number
+    date: string
+    id: number
+    className?: string
+    category: string
+}
+export const JobCard = ({ name, location, price, date, id, className, category }: IJobCard) => {
+    const navigate = useNavigate()
+    const icon = getCategoryIcon(category)
+    return <div className={'worker-job-card ' + className} onClick={() => navigate('/worker-task/' + id)} >
+        <div className='flex align-center just-center h100 ' >
+            <FontAwesomeIcon icon={icon} />
+        </div>
+        <div className='flex between h100 column w100 ml1' >
+            <div>
+                <h2>{name}</h2>
+                <p>{location}</p>
+            </div>
+            <div className='flex w100 between center w100' >
+                <p className='date' >{convertTaskDate(date) + ' ' + new Date(date).getFullYear()}</p>
+                {price && <p className="green-text" >
+                    {price}
+                </p>}
+            </div>
+        </div>
+    </div>
 }

@@ -1,3 +1,5 @@
+import { Categories } from 'views/Tasks/tasksData'
+
 export const checkValid = (invalidFields: string[], name: string) => {
   return invalidFields.includes(name)
 }
@@ -34,4 +36,9 @@ export const handlePagination = (page: number, setParams: React.Dispatch<any>, l
     copy.limit = limit ? limit : 30
     return copy
   })
+}
+
+export const getCategoryIcon = (category: string) => {
+  const cat = Categories.find((c) => c.value == category)
+  return cat.icon
 }

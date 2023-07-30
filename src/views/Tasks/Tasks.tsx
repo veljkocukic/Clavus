@@ -1,15 +1,16 @@
 import { IconButton } from 'components/IconButton'
-import { faCheck, faFilter, faHammer, faPaintRoller, faEye, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faFilter, faHammer, faEye, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClock, faEdit } from '@fortawesome/free-regular-svg-icons'
 import { Pagination } from 'components/Pagionation'
 import { useEffect, useState } from 'react'
-import { convertTaskDate, handlePagination } from 'utils/helpers'
+import { convertTaskDate, getCategoryIcon, handlePagination } from 'utils/helpers'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from 'store'
 import { getTasks } from 'feautures/task/taskSlice'
 import { ITableTask } from './tasksData'
 import { useNavigate } from 'react-router-dom'
+import { Button } from 'components/Button'
 
 
 
@@ -72,7 +73,7 @@ export const Tasks = () => {
         }
 
         return allTasks.map((t: ITableTask, i: number) => <div className='tr' key={t.id} style={{ zIndex: 100 - i }} >
-            <FontAwesomeIcon icon={faPaintRoller} className='w4' />
+            <FontAwesomeIcon icon={getCategoryIcon(t.category)} className='w4' />
             <p className='w15 ml1' >{t.name}</p>
             <p className='w15' >{convertTaskDate(t.date) + ' ' + new Date(t.date).getFullYear()}</p>
             {getStatusStyle(t.status)}
@@ -84,7 +85,7 @@ export const Tasks = () => {
     return <div className="page-content" >
         <div className='content-title-bar' >
             <p><span>Svi zadaci</span></p>
-            <IconButton icon={faFilter} />
+            <div className='flex gap1' > <Button onClick={() => navigate('/tasks/create')} text='DODAJ ZADATAK' /><IconButton icon={faFilter} /></div>
         </div>
         <div className='table-container' >
             <div className='th'>

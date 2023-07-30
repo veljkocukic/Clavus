@@ -27,17 +27,17 @@ export const LatestTasksCard = () => {
     }
 
 
-    return <div className="latest-tasks-card" >
-        <div className="ltc-title" >
+    return <div className="info-card" >
+        <div className="ic-title" >
             <div>
                 <h2>Čišćenje predsoblja</h2>
                 <p>Čišćenje</p>
             </div>
-            <p className="ltc-date">20.Maj 19:30</p>
+            <p className="ic-date">20.Maj 19:30</p>
 
         </div>
-        <div className="ltc-bottom" >
-            <div className="ltc-status" style={{ backgroundColor: color.bg }} >
+        <div className="ic-bottom" >
+            <div className="ic-status" style={{ backgroundColor: color.bg }} >
                 <FontAwesomeIcon icon={icon} color={color.icon} />
                 <p>{text}</p>
             </div>

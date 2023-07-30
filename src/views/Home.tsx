@@ -45,15 +45,15 @@ export const Home = () => {
       </div>
     </div>
     <div className='home-bottom-section'  >
-      <div className='latest-tasks-cards-container' >
-        <div className='latest-tasks-cards-title' >
+      <div className='info-cards-container' >
+        <div className='info-cards-title' >
           <p>Poslednja ažuriranja:</p>
           <button className='see-more' >Vidi sve</button>
         </div>
         <LatestTasksCard />
         <LatestTasksCard />
       </div>
-      <div className='latest-tasks-cards-container' >
+      <div className='info-cards-container' >
         <LatestTasksCard />
       </div>
     </div>
