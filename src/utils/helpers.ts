@@ -42,3 +42,16 @@ export const getCategoryIcon = (category: string) => {
   const cat = Categories.find((c) => c.value == category)
   return cat.icon
 }
+
+export const handleNameCase = (name: string): string => {
+  const e = ['n', 'r', 's', 'š', 'p', 't']
+  const ar = ['aleksandar', 'mitar', 'александар', 'митар', 'petar', 'петар']
+
+  if (ar.includes(name.toLowerCase())) {
+    return name.slice(0, -2) + 're' // cirilica treba da se hendla
+  }
+
+  if (e.includes(name.toLowerCase())) {
+    return name + 'e'
+  }
+}

@@ -713,4 +713,9 @@
   background-color: white;
   border-radius: 15px;
   padding: 1rem 3rem;
+  animation: down 0.3s ease;
+
+  h2 {
+    color: base.$text-gray;
+  }
 }

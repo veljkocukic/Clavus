@@ -72,7 +72,7 @@ export const OfferModal = ({ price, priceType, currency, amount, setOpenModal }:
     }
 
     return <div className='modal-wrapper' >
-        <div className='send-offer-modal'>
+        <div className='send-offer-modal' tabIndex={1} onBlur={() => setOpenModal(false)} >
             <h3>Ponuda za posao</h3>
             <TextArea className='w100 h10 mt1' labelText='Detalji:' name='description' onChange={handleDescription} value={state?.description} />
             <div className='w100 flex align-center between mt1 gap1'  >
@@ -80,11 +80,11 @@ export const OfferModal = ({ price, priceType, currency, amount, setOpenModal }:
                 <Select invalid={checkValid(invalidFields, 'currency')} className='w100' labelText='Valuta' name='currency' value={state?.currency} options={currencies} onChange={handleSelect} />
                 <Select invalid={checkValid(invalidFields, 'priceType')} className='w100' labelText='Mera' name='priceType' value={state?.priceType} options={priceTypes} onChange={handleSelect} />
             </div>
-            <div className='w100 flex align-center between mt2' >
+            <div className='w100 flex align-center between mt2 gap1' >
                 {state?.priceType && state?.priceType !== 'WHOLE' && <Input labelText='Kolicina' name='amount' value={state?.amount} type='number' onChange={handleChange} />}
                 <h2>≈ {state?.price && (state?.price * (state?.amount ?? 1) + ' ' + state?.currency)}</h2>
             </div>
-            <div className='w100 flex just-center mt5'><Button text='Posalji prijavu' onClick={handleSubmit} /></div>
+            <div className='w100 flex just-center mt5'><Button text='Pošalji prijavu' onClick={handleSubmit} /></div>
         </div>
     </div>
 }

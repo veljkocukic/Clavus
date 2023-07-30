@@ -68,7 +68,7 @@ export const ViewTask = () => {
                 <IconButton icon={faGear} />
             </>
         } else
-            return <Button text='Pošalji ponudu' onClick={() => setOfferModalOpen(true)} />
+            return task.status == 'ACTIVE' ? <Button text='Pošalji ponudu' onClick={() => setOfferModalOpen(true)} /> : <></>
     }
 
     return <div className="page-contetnt" >

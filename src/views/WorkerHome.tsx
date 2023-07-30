@@ -10,7 +10,7 @@ import { AppDispatch, RootState } from 'store';
 import { useDispatch, useSelector } from 'react-redux';
 import { addBioAndCat } from 'feautures/user/userSlice';
 import { getWorkerTasks } from 'feautures/task/taskSlice';
-import { convertTaskDate, getCategoryIcon, handlePagination } from 'utils/helpers';
+import { convertTaskDate, getCategoryIcon, handleNameCase, handlePagination } from 'utils/helpers';
 import { useNavigate } from 'react-router-dom';
 
 export const WorkerHome = () => {
@@ -78,7 +78,7 @@ export const WorkerHome = () => {
 
     return <div className="page-content" >
         <div className='content-title-bar' >
-            <p><span>Zdravo, </span>{user?.name}</p>
+            <p><span>Zdravo, </span>{handleNameCase(user?.name)}</p>
         </div>
         <div className='page-subtitle' >
             <p>Poslovi iz vaših kategorija</p>

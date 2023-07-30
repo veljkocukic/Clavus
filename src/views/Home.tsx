@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from 'components/Button';
 import { LatestTasksCard } from 'components/LatestTasksCard';
 import { useNavigate } from 'react-router-dom';
+import { handleNameCase } from 'utils/helpers';
 
 export const Home = () => {
 
@@ -11,7 +12,7 @@ export const Home = () => {
 
   return <div className="page-content" >
     <div className='content-title-bar' >
-      <p><span>Zdravo,</span> {user?.name}</p>
+      <p><span>Zdravo,</span> {handleNameCase(user?.name)}</p>
       <Button onClick={() => navigate('/tasks/create')} text='DODAJ ZADATAK' />
     </div>
     <div className='home-cards-container mt2' >
