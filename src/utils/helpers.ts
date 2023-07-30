@@ -51,7 +51,9 @@ export const handleNameCase = (name: string): string => {
     return name.slice(0, -2) + 're' // cirilica treba da se hendla
   }
 
-  if (e.includes(name.toLowerCase())) {
+  if (e.includes(name.toLowerCase().charAt(name.length - 1))) {
     return name + 'e'
   }
+
+  return name
 }
