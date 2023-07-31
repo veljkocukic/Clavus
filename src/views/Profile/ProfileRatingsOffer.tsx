@@ -17,7 +17,6 @@ export const ProfileRatingsOffer = ({ setOpenModal, id }: IProfileRatingsOffer) 
 
     useEffect(() => {
         dispatch(getUserRatings({ id, params }))
-
         return () => {
             dispatch(clearRatings())
         }

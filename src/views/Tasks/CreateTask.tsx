@@ -21,7 +21,12 @@ export const CreateTask = () => {
     const navigate = useNavigate()
     const { createdTaskId } = useSelector((state: RootState) => state.tasks)
     const dispatch = useDispatch<AppDispatch>()
+    const [cats, setCats] = useState(Categories)
 
+
+    useEffect(() => {
+        console.log(cats)
+    }, [cats])
 
     const handleSubmit = async () => {
         if (invalidFields.length > 0) {
@@ -29,7 +34,6 @@ export const CreateTask = () => {
             return
         }
         dispatch(createTask(state))
-
     }
 
     useEffect(() => {
@@ -85,10 +89,9 @@ export const CreateTask = () => {
     }
 
 
-
     // CREATE COLOR SHUFFLE
     const renderCards = () => {
-        return Categories.map((c, i) => {
+        return cats.map((c, i) => {
             return <div key={i} className='card-wrapper cursor-pointer' onClick={() => setCategory(c.value)} >
                 <div className='card-icon-text' style={{ backgroundColor: colorCombinations[0].backgroundColor }}>
                     <FontAwesomeIcon icon={c.icon} color={colorCombinations[0].iconColor} />
@@ -108,7 +111,7 @@ export const CreateTask = () => {
             {!state.category ?
                 <>
                     <p>Izaberite kategoriju:</p>
-                    <SearchBox />
+                    <SearchBox sortList={(r) => setCats([...r])} fixedList={Categories} />
                 </> :
                 <>
                     <p>Unesite detalje:</p>

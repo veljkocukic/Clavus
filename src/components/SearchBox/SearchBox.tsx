@@ -7,12 +7,12 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons'
 interface ISearchBox {
   className?: string
   fixedList?: any
-  onSelect?: any
   selected?: any
   setList?: any
+  sortList?: any
 }
 
-export const SearchBox = ({ className, fixedList, onSelect, setList, selected }: ISearchBox) => {
+export const SearchBox = ({ className, fixedList, setList, selected, sortList }: ISearchBox) => {
   const [results, setResults] = useState<any>()
   const [focused, setFocused] = useState(false)
 
@@ -38,15 +38,16 @@ export const SearchBox = ({ className, fixedList, onSelect, setList, selected }:
     };
 
     const inputLowerCase = value.toLowerCase();
-    const sortedData = fixedList.filter(f => !selected.some(s => s.value !== f.value))
+    const sortedData = !sortList ? fixedList.filter(f => !selected.some(s => s.value !== f.value)) : fixedList
 
     sortedData.sort((a, b) => {
-      const similarityA = calculateSimilarity(inputLowerCase, a.name.toLowerCase());
-      const similarityB = calculateSimilarity(inputLowerCase, b.name.toLowerCase());
+      const similarityA = calculateSimilarity(inputLowerCase, a.label.toLowerCase());
+      const similarityB = calculateSimilarity(inputLowerCase, b.label.toLowerCase());
       return similarityA - similarityB;
     });
 
     setResults(sortedData.slice(0, 5))
+    sortList && sortList(sortedData)
   }
 
   const setSelected = (r) => {
@@ -65,7 +66,7 @@ export const SearchBox = ({ className, fixedList, onSelect, setList, selected }:
     <div className={'search-box-container ' + className} tabIndex={1}   >
       <input type='text' placeholder='Vodoinstalater, kuhinja, veš mašine...' onChange={(e) => handleQuery(e.target.value)} onFocus={() => setFocused(true)} />
       <FontAwesomeIcon icon={faSearch} />
-      {focused && <div className='search-results' >
+      {!sortList && focused && <div className='search-results' >
         {results?.length > 0 ? results.map((r, i) => <div key={i} className='single-search-result' onClick={() => setSelected(r)} ><p>{r.label}</p></div>) :
           fixedList.filter(f => !selected.some(s => s.value == f.value)).slice(0, 5).map((r, i) => <div key={i} className='single-search-result' onClick={() => setSelected(r)} ><p>{r.label}</p></div>)}
       </div>}
