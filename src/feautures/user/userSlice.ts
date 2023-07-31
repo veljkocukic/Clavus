@@ -7,6 +7,19 @@ interface IInitialState {
   isUserLoading: boolean
   user: IUser
   logged: boolean
+  userRatings: {
+    data: {
+      rating: number
+      description: string
+      date: string
+      ratingGiverUser: {
+        name: string
+        lastName: string
+      }
+    }[]
+    count: number
+    pageCount: number
+  }
 }
 
 const initialState = {
@@ -14,6 +27,11 @@ const initialState = {
   isUserLoading: false,
   logged: false,
   user: null,
+  userRatings: {
+    data: [],
+    count: 0,
+    pageCount: 0,
+  },
 }
 
 export interface IUser {
@@ -97,6 +115,18 @@ export const editUser = createAsyncThunk('user/editUser', async (user: IUser, th
   }
 })
 
+export const getUserRatings = createAsyncThunk(
+  '/user/getUserRatings',
+  async (payload: { id: number; params: any }, thunkApi) => {
+    try {
+      const resp = await customFetch.get('/users/ratings/' + payload.id, { params: payload.params })
+      return resp.data
+    } catch (error) {
+      return thunkApi.rejectWithValue(error)
+    }
+  },
+)
+
 export const addBioAndCat = createAsyncThunk(
   'user/addBio',
   async (bioCat: { bio: string; categories: string[] }, thunkApi) => {
@@ -118,6 +148,13 @@ const userSlice = createSlice({
   reducers: {
     logOut: (state) => {
       state.user = null
+    },
+    clearRatings: (state) => {
+      state.userRatings = {
+        data: [],
+        pageCount: 0,
+        count: 0,
+      }
     },
   },
   extraReducers: {
@@ -170,6 +207,18 @@ const userSlice = createSlice({
     [getMe.rejected.type]: (state) => {
       state.isUserLoading = false
     },
+    [getUserRatings.pending.type]: (state) => {
+      state.isUserLoading = true
+    },
+    [getUserRatings.fulfilled.type]: (state, { payload }) => {
+      state.isUserLoading = false
+      state.userRatings.data = [...state.userRatings.data, ...payload.data]
+      state.userRatings.count = payload.count
+      state.userRatings.pageCount = payload.pageCount
+    },
+    [getUserRatings.rejected.type]: (state) => {
+      state.isUserLoading = false
+    },
     [editUser.pending.type]: (state) => {
       state.isLoading = true
     },
@@ -193,5 +242,5 @@ const userSlice = createSlice({
     },
   },
 })
-export const { logOut } = userSlice.actions
+export const { logOut, clearRatings } = userSlice.actions
 export default userSlice.reducer

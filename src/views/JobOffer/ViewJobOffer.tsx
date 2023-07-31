@@ -45,7 +45,7 @@ export const ViewJobOffer = () => {
                     <img className='square-image' src='https://images.unsplash.com/photo-1557862921-37829c790f19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80' alt='worker-image' />
                     <div>
                         <div>
-                            <p className='joh-top' >{jobOffer?.user?.name + ' ' + jobOffer?.user?.lastName}</p>
+                            <p className='joh-top' >{jobOffer?.user && (jobOffer?.user?.name + ' ' + jobOffer?.user?.lastName)}</p>
                             <div className='see-more' >Pogledaj profil</div>
                         </div>
                     </div>
@@ -60,7 +60,7 @@ export const ViewJobOffer = () => {
                     <div className='card-wrapper' >
                         <div className='card-icon-count h100' >
                             <h3>Ocene <br /> klijenata</h3>
-                            <p>{jobOffer?.ratings ?? '/'}</p>
+                            <p>{jobOffer?.user?.ratings ?? '/'}</p>
                         </div>
                     </div>
                 </div>

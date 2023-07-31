@@ -24,12 +24,14 @@ export const ProfileButton = () => {
         navigate('/login')
     }
 
+    const navigateLink = user.role === 'ADMIN' ? '/profile/' : '/worker-profile/'
+
     return <div className="profile-button-container" onClick={() => setOpenOptions(!openOptions)} tabIndex={1} onBlur={() => setOpenOptions(false)}>
         <img alt='profile-pic' src='https://images.unsplash.com/photo-1557862921-37829c790f19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80' />
         <p>{(user?.name ?? '') + ' ' + (user?.lastName ?? '')}</p>
         <FontAwesomeIcon icon={faChevronDown} color='#8fadf0' />
         <div className={cName} onClick={e => e.stopPropagation()} >
-            <div onClick={() => navigate('/profile/' + user.id)} >
+            <div onClick={() => navigate(navigateLink + user.id)} >
                 <FontAwesomeIcon icon={faUser} color='#8fadf0' />
                 <p>Profil</p>
             </div>

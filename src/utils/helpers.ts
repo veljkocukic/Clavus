@@ -33,7 +33,7 @@ export const handlePagination = (page: number, setParams: React.Dispatch<any>, l
   setParams((prev: any) => {
     const copy = { ...prev }
     copy.page = page
-    copy.limit = limit ? limit : 30
+    copy.limit = limit ? limit : 5
     return copy
   })
 }

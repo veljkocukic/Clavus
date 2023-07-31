@@ -72,7 +72,7 @@ export const OfferModal = ({ price, priceType, currency, amount, setOpenModal }:
     }
 
     return <div className='modal-wrapper' >
-        <div className='send-offer-modal' tabIndex={1} onBlur={() => setOpenModal(false)} >
+        <div className='send-offer-modal' >
             <h3>Ponuda za posao</h3>
             <TextArea className='w100 h10 mt1' labelText='Detalji:' name='description' onChange={handleDescription} value={state?.description} />
             <div className='w100 flex align-center between mt1 gap1'  >

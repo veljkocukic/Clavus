@@ -42,4 +42,8 @@ export const workerRoutes = [
     path: '/worker-task/:id',
     element: ViewTask,
   },
+  {
+    path: '/worker-profile/:id',
+    element: ViewProfile,
+  },
 ]

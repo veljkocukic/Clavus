@@ -1,15 +1,16 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { getUser } from 'feautures/user/userSlice'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { AppDispatch, RootState } from 'store'
-import { Categories } from 'views/Tasks/tasksData'
 import { JobCard } from 'views/WorkerHome'
+import { ProfileRatingsOffer } from './ProfileRatingsOffer'
 
 export const ViewProfile = () => {
 
     const { user } = useSelector((state: RootState) => state.user)
+    const [openModal, setOpenModal] = useState(false)
+
     const dispatch = useDispatch<AppDispatch>()
     const { id } = useParams()
 
@@ -35,11 +36,6 @@ export const ViewProfile = () => {
                 <h1>4</h1>
             </div>
         </div>
-    }
-
-    const getCategoryIcon = category => {
-        const cat = Categories.find(c => c.label === category)
-        return cat.icon
     }
 
     return <div className="page-content" >
@@ -77,13 +73,11 @@ export const ViewProfile = () => {
                         </div>
                     </div>
                 </div>
-                <div className='selected-categories-grid mt1' >
-                    {user && user.categories.map((c, i) => <div key={i} className='selected-category-item' > <FontAwesomeIcon icon={getCategoryIcon(c)} /> {c}</div>)}
-                </div>
+
             </div>
             <div className="page-half-section" >
                 <div className="flex column gap1">
-                    <div className="flex w100 between align-center"><p>Ocene klijenata:</p> <p className="see-more" >Vidi sve</p></div>
+                    <div className="flex w100 between align-center"><p>Ocene klijenata:</p> <p className="see-more" onClick={() => setOpenModal(true)} >Vidi sve</p></div>
                     <RatingCard />
                     <RatingCard />
                 </div>
@@ -93,5 +87,6 @@ export const ViewProfile = () => {
                 </div>
             </div>
         </div>
+        {openModal && <ProfileRatingsOffer id={Number(id)} setOpenModal={setOpenModal} />}
     </div>
 }
