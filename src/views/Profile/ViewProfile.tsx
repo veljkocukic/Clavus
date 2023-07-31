@@ -23,17 +23,17 @@ export const ViewProfile = () => {
         admin = false
     }
 
-    const RatingCard = () => {
+    const RatingCard = ({ name, lastName, description, rating, date }) => {
         return <div className='info-card h7' >
             <div className="ic-title" >
                 <div>
-                    <h2>Ivan Ivanovic</h2>
+                    <h2>{name + ' ' + lastName} </h2>
                 </div>
-                <p className="ic-date">20.Maj 19:30</p>
+                <p className="ic-date">{date}</p>
             </div>
             <div className="ic-bottom__rating mt0" >
-                <p>Text text text text text text text</p>
-                <h1>4</h1>
+                <p>{description}</p>
+                <h1>{rating}</h1>
             </div>
         </div>
     }
@@ -77,9 +77,10 @@ export const ViewProfile = () => {
             </div>
             <div className="page-half-section" >
                 <div className="flex column gap1">
-                    <div className="flex w100 between align-center"><p>Ocene klijenata:</p> <p className="see-more" onClick={() => setOpenModal(true)} >Vidi sve</p></div>
-                    <RatingCard />
-                    <RatingCard />
+                    <div className="flex w100 between align-center"><p>Ocene klijenata:</p> {user?.ratings.length > 0 && <p className="see-more" onClick={() => setOpenModal(true)} >Vidi sve</p>}</div>
+                    {
+                        user?.ratings.length > 0 ? user?.ratings?.map((r, i) => <RatingCard key={i} name={r.ratingGiverUser.name} lastName={r.ratingGiverUser.lastName} description={r.description} rating={r.rating} date={r.date} />) : <h3>Nema ocena</h3>
+                    }
                 </div>
                 <div className="flex column gap1 mt1">
                     <div className="flex w100 between align-center"><p>{admin ? 'Postavljeni oglasi' : 'Obavljeni poslovi'}</p> <p className="see-more" >Vidi sve</p></div>

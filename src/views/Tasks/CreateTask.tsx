@@ -23,10 +23,10 @@ export const CreateTask = () => {
     const dispatch = useDispatch<AppDispatch>()
     const [cats, setCats] = useState(Categories)
 
-
     useEffect(() => {
-        console.log(cats)
-    }, [cats])
+        createdTaskId && navigate('/tasks/' + createdTaskId)
+    }, [createdTaskId])
+
 
     const handleSubmit = async () => {
         if (invalidFields.length > 0) {
@@ -35,10 +35,6 @@ export const CreateTask = () => {
         }
         dispatch(createTask(state))
     }
-
-    useEffect(() => {
-        createdTaskId && navigate('/tasks/' + createdTaskId)
-    }, [createdTaskId])
 
     const setCategory = (c) => {
         setState(prev => {

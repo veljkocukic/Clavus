@@ -49,6 +49,7 @@ export interface IUser {
   ratings?: {
     description: string
     rating: number
+    date: string
     ratingGiverUser: {
       name: string
       lastName: string
