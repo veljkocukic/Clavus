@@ -2,11 +2,13 @@ import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { Slide, ToastContainer } from 'react-toastify'
 import { Loading } from './components/Loading'
-import { SharedLayout, Login, Error, ProtectedRoute } from './views'
+import { SharedLayout, Error, ProtectedRoute, Login } from './views'
 import 'react-toastify/dist/ReactToastify.css'
 import { adminRoutes, workerRoutes } from 'utils/data'
 import { useSelector } from 'react-redux'
 import { RootState } from 'store'
+import { Auth } from 'views/Login/Auth'
+import { Register } from 'views/Login/Register'
 
 function App() {
 
@@ -30,7 +32,9 @@ function App() {
             {routes.map((r, i) => <Route key={i} path={r.path} element={<r.element />} />)}
             <Route path='*' element={<Error />} />
           </Route>
-          <Route path='login' element={<Login />} />
+          <Route path='auth' element={<Auth />} />
+          <Route path='auth/login' element={<Login />} />
+          <Route path='auth/register' element={<Register />} />
         </Routes>
       </Router>
       <ToastContainer

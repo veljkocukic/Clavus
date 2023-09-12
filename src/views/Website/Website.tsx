@@ -23,7 +23,6 @@ export const Website = () => {
     const [invalidFields, setInvalidFields] = useState(tasksValidation)
     const [state, setState] = useState<ITaskState>(tasksInitialState)
 
-
     const handleCheck = (name: string) => {
         setState(prev => {
             const copy = { ...prev }
@@ -31,6 +30,7 @@ export const Website = () => {
             return copy
         })
     }
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value, type } = e.target
         if (!(type == 'textarea')) {
@@ -184,6 +184,9 @@ export const Website = () => {
             <div className='flex w100 between center'>
                 <h1>Clavus</h1>
                 <h3>RADI NA CLAVUSU</h3>
+                <div>
+
+                </div>
             </div>
             <div className='footer-bottom' >
                 © Clavus 2023.

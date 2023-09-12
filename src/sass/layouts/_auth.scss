@@ -1,0 +1,111 @@
+@use "../base";
+
+.auth-screen{
+    width: 100%;
+    height: 100vh;
+    background-color: base.$pale-blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .auth-options{
+    width: 20rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .auth-button{
+    height: 2.5rem;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    font-size: .9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:1rem;
+  
+    img{
+      height: 50%;
+    }
+  
+  }
+  
+  .auth-options{
+    h1{
+      font-family: 'Merienda', sans-serif;
+      font-size: 2.5rem;
+    }
+  
+    p{
+      color:base.$text-gray;
+      font-family: 'Urbanist';
+      font-size: .9rem;
+    }
+  }
+  
+  .line{
+    width: 100%;
+    height: 1px;
+    border-radius: 5px;
+    background-color: base.$text-gray;
+  }
+  
+  .or-container{
+    display: flex;
+    margin-top: 1rem;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap:.5rem;
+    p{
+      font-weight: bold;
+    }
+  }
+
+
+.auth-wrapper{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+}
+
+.auth-form{
+    width: 70%;
+    height: 100%;
+    background-color: base.$pale-blue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-side{
+    width: 30%;
+    height: 100%;
+    color:white;
+    background-color: base.$blue;
+    padding-top: 15rem;
+    display: flex;
+    align-items: flex-start;
+    font-family: 'Merienda', sans-serif;
+    font-size: 2.5rem;
+    justify-content: center;
+}
+
+.small-text{
+  text-align: center;
+  font-size: .9rem;
+  margin-top: 15px;
+
+  span{
+    font-weight: bold;
+    color:base.$blue;
+    cursor: pointer;
+  }
+}

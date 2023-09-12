@@ -1,38 +1,34 @@
 
 import React, { useEffect, useState } from 'react';
-import '../../sass/layouts/_login.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import {
-  loginUser,
-  registerUser,
-} from '../../feautures/user/userSlice';
+import { loginUser } from '../../feautures/user/userSlice';
 import { AppDispatch, RootState } from '../../store';
-import { LoginCard } from './LoginCard';
-import { RegisterCard } from './RegisterCard';
 import { Button } from '../../components/Button';
 import { standardFieldValidation } from '../../utils/validationUtils';
+import { Input } from 'components/Input';
+import { toast } from 'react-toastify';
 
 export const Login = () => {
-  const [invalidRegisterFields, setInvalidRegisterFields] = useState([])
+  const [invalidFields, setInvalidFields] = useState([])
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const [isMember, setIsMember] = useState(false);
   const [inputValues, setInputValues] = useState<any>({
-    name: '',
-    lastName: '',
     email: '',
     password: '',
-    role: 'ADMIN',
-    phoneNumber: ''
   });
 
   const { user } = useSelector((state: RootState) => state.user)
 
+  useEffect(() => {
+    if (user) { navigate('/') }
+  }, [user]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
-    standardFieldValidation(e, setInvalidRegisterFields)
+    if (e.target.type !== 'password') {
+      standardFieldValidation(e, setInvalidFields)
+    }
     setInputValues((prev: any) => {
       const copy = { ...prev };
       copy[name] = value
@@ -40,74 +36,47 @@ export const Login = () => {
     });
   };
 
-
-  const handleSubmit = (type: string) => {
-
-    const { email, password } = inputValues;
-    //  REGISTER
-    if (type === 'register') {
-      dispatch(registerUser(inputValues));
-    } else {
-      const loginValues = { email, password };
-      dispatch(loginUser(loginValues));
+  const handleSubmit = () => {
+    if (invalidFields.length > 0) {
+      toast.warn('Email mora biti validan.')
+      return
     }
-    //  LOGIN
-
+    dispatch(loginUser(inputValues));
   };
 
-  const changeSlide = () => {
-    setInputValues({
-      name: '',
-      lastName: '',
-      email: '',
-      password: '',
-      role: 'ADMIN',
-      phoneNumber: ''
-    });
-    setIsMember(!isMember);
-  };
-
-  const handleRoles = (name: string) => {
-    setInputValues((prev: any) => {
-      const copy = structuredClone(prev)
-      copy.role = name
-      return copy
-
-    })
-  }
-
-  useEffect(() => {
-    if (user) { navigate('/') }
-  }, [user]);
 
   return (
-    <div className={'login-wrapper'}>
-      <div className='login-container'>
-        <div
-          className={
-            isMember ? 'absolute-background isMember' : 'absolute-background'
-          }
-        >
-          <span>{!isMember ? 'Nemate nalog?' : 'Već imate nalog?'}</span>
-          <Button
-            className='btn btn-border-1'
-            onClick={changeSlide}
-            text={!isMember ? 'Registracija' : 'Prijava'}
+    <div className='auth-wrapper' >
+      <div className='auth-form' >
+        <div className='login-form w25'>
+          <div className='login-title mb3'>
+            <h1>Dobrodošli</h1>
+            <p>Prijavite se za nastavak</p>
+          </div>
+          <Input
+            type='email'
+            className='w100 mb1'
+            name='email'
+            labelText='Email'
+            value={inputValues.email}
+            onChange={handleChange}
+            invalid={invalidFields.includes('email')}
           />
+          <Input
+            className='w100'
+            type='password'
+            name='password'
+            labelText='Password'
+            value={inputValues.password}
+            onChange={handleChange}
+          />
+          <Button text='PRIJAVA' className='mt2 w100' onClick={handleSubmit} />
+          <p className='small-text' ><span >Zaboravljena lozinka</span></p>
+          <p className='small-text' >Nemate nalog? <span onClick={() => navigate('/auth/register')} >Registracija</span></p>
         </div>
-        <RegisterCard
-          inputValues={inputValues}
-          handleChange={handleChange}
-          isMember={isMember}
-          handleSubmit={handleSubmit}
-          handleRoles={handleRoles}
-          invalidRegisterFields={invalidRegisterFields}
-        />
-        <LoginCard
-          inputValues={inputValues}
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-        />
+      </div>
+      <div className='auth-side' >
+        Clavus
       </div>
     </div>
   );
