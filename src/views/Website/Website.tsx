@@ -17,7 +17,6 @@ import { CheckBox } from 'components/TopBar/CheckBox'
 import { standardFieldValidation, validateSelect } from 'utils/validationUtils'
 
 export const Website = () => {
-    /*eslint-disable*/
     const [categories, setCategories] = useState([])
     const [modalOpen, setModalOpen] = useState(false)
     const [invalidFields, setInvalidFields] = useState(tasksValidation)
@@ -67,7 +66,7 @@ export const Website = () => {
         <main className='website-main' >
             <div className='website-title-search' >
                 Koja vam je usluga potrebna?
-                <SearchBox className='w30 h4 mt3' selected={categories} setList={setCategories} fixedList={Categories} onOptionClick={(r) => setModalOpen(true)} />
+                <SearchBox className='w30 h4 mt3' selected={categories} setList={setCategories} fixedList={Categories} onOptionClick={() => setModalOpen(true)} />
             </div>
             <div className='website-phone' >
                 <img src={iphone} />
