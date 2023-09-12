@@ -3,6 +3,7 @@ import '../sass/main.scss'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { Sidebar } from '../components/Sidebar'
 import { TopBar } from '../components/TopBar/TopBar'
+import { Website } from './Website/Website'
 
 export const SharedLayout = () => {
 
@@ -20,12 +21,13 @@ export const SharedLayout = () => {
   }, [])
 
   return (
-    <div className='layout-wrapper'>
-      <TopBar />
-      <Sidebar />
-      <div className='dashboard-container'>
-        <Outlet />
+    location.pathname.includes('sajt') ? <Website /> :
+      <div className='layout-wrapper'>
+        <TopBar />
+        <Sidebar />
+        <div className='dashboard-container'>
+          <Outlet />
+        </div>
       </div>
-    </div>
   )
 }

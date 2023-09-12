@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import '../../sass/main.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { useOnClickOutside } from '../../utils/hooks/useClickOutside'
 /*eslint-disable*/
 
 interface ISearchBox {
@@ -10,11 +11,18 @@ interface ISearchBox {
   selected?: any
   setList?: any
   sortList?: any
+  onOptionClick?: any
 }
 
-export const SearchBox = ({ className, fixedList, setList, selected, sortList }: ISearchBox) => {
+export const SearchBox = ({ className, fixedList, setList, selected, sortList, onOptionClick }: ISearchBox) => {
   const [results, setResults] = useState<any>()
   const [focused, setFocused] = useState(false)
+  const ref = useRef()
+
+  useOnClickOutside(ref, () => {
+    setFocused(false)
+  })
+
 
   const handleQuery = (value: string) => {
     const calculateSimilarity = (str1, str2) => {
@@ -59,16 +67,19 @@ export const SearchBox = ({ className, fixedList, setList, selected, sortList }:
     // setList(prev => [...prev, r])
   }
 
-
+  const handleOptionClick = (o) => {
+    setSelected(o)
+    onOptionClick && onOptionClick(o)
+  }
 
 
   return (
-    <div className={'search-box-container ' + className} tabIndex={1}   >
+    <div ref={ref} className={'search-box-container ' + className} tabIndex={1}>
       <input type='text' placeholder='Vodoinstalater, kuhinja, veš mašine...' onChange={(e) => handleQuery(e.target.value)} onFocus={() => setFocused(true)} />
       <FontAwesomeIcon icon={faSearch} />
-      {!sortList && focused && <div className='search-results' >
-        {results?.length > 0 ? results.map((r, i) => <div key={i} className='single-search-result' onClick={() => setSelected(r)} ><p>{r.label}</p></div>) :
-          fixedList.filter(f => !selected.some(s => s.value == f.value)).slice(0, 5).map((r, i) => <div key={i} className='single-search-result' onClick={() => setSelected(r)} ><p>{r.label}</p></div>)}
+      {!sortList && focused && <div className='search-results'>
+        {results?.length > 0 ? results.map((r, i) => <div key={i} className='single-search-result' onClick={() => handleOptionClick(r)} ><p>{r.label}</p></div>) :
+          fixedList.filter(f => !selected.some(s => s.value == f.value)).slice(0, 5).map((r, i) => <div key={i} className='single-search-result' onClick={() => handleOptionClick(r)} ><p>{r.label}</p></div>)}
       </div>}
     </div>
   );

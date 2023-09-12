@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap'); //  variables
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap&family=Urbanist:wght@200;300&display=swap'); //  variables
 $primary-color: #307ff4;
 $blue: #0050d0;
 $secondary-gray: #a6abb2;
@@ -117,6 +117,9 @@ $font-family: 'Poppins', sans-serif;
 
 .w100 {
   width: 100% !important;
+}
+.w70 {
+  width: 70rem !important;
 }
 .w30 {
   width: 30rem !important;
@@ -291,4 +294,8 @@ $font-family: 'Poppins', sans-serif;
 }
 .gap5 {
   gap: 5rem !important;
+}
+
+.flex-row-reverse{
+  flex-direction: row-reverse;
 }
