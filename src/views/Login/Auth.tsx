@@ -1,8 +1,10 @@
 import googleLogo from '../../assets/icons/googleLogo.png'
 import appleLogo from '../../assets/icons/appleLogo.png'
 import { Button } from 'components/Button'
+import { useNavigate } from 'react-router-dom'
 
 export const Auth = () => {
+    const navigate = useNavigate()
     return <div className='auth-screen'>
         <div className='auth-options'>
             <h1>Clavus</h1>
@@ -18,7 +20,7 @@ export const Auth = () => {
                 <p>ili</p>
                 <div className='line' ></div>
             </div>
-            <Button text='Prijava mejlom' className='w20 mt1' />
+            <Button text='Prijava mejlom' onClick={() => navigate('login')} className='w20 mt1' />
         </div>
     </div>
 }

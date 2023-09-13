@@ -1,6 +1,7 @@
 import { SearchBox } from 'components/SearchBox/SearchBox'
 import { TopBar } from 'components/TopBar/TopBar'
 import iphone from 'assets/images/iphone.png'
+import macbook from 'assets/images/macbook.png'
 import firstStep from 'assets/images/firstStep.png'
 import secondStep from 'assets/images/secondStep.png'
 import thirdStep from 'assets/images/thirdStep.png'
@@ -65,11 +66,12 @@ export const Website = () => {
         <TopBar login />
         <main className='website-main' >
             <div className='website-title-search' >
-                Koja vam je usluga potrebna?
+                <h1>Koja vam je usluga potrebna?</h1>
                 <SearchBox className='w30 h4 mt3' selected={categories} setList={setCategories} fixedList={Categories} onOptionClick={() => setModalOpen(true)} />
             </div>
-            <div className='website-phone' >
-                <img src={iphone} />
+            <div className='website-photos' >
+                <img className='website-phone' src={iphone} />
+                <img className='website-computer' src={macbook} />
             </div>
         </main>
         <section className='website-details' >

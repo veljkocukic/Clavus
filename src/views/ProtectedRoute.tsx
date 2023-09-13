@@ -1,11 +1,11 @@
-import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 
 export const ProtectedRoute = ({ children }: any) => {
   const token = localStorage.getItem('token');
+  const location = useLocation()
 
-  if (!token) {
-    return <Navigate to='login' />;
+  if (!token && !location.pathname.includes('sajt')) {
+    return <Navigate to='auth' />;
   } else
     return children;
 };

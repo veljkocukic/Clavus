@@ -10,6 +10,15 @@
     gap:1rem;
     align-items: center;
     justify-content: space-between;
+    overflow: hidden;
+
+    @media screen and (max-width: 1145px) {
+       flex-direction: column;
+       height:max-content;
+       padding-top: 15rem;
+      }
+    
+
 }
 
 .website-container{
@@ -26,23 +35,54 @@
     align-items: flex-start;
     flex-direction: column;
     color:white;
-    font-size: 5rem;
     letter-spacing: 5px;
+    h1{
+        font-weight: lighter;
+        font-size: 5vw;
+    }
+
+    @media screen and (max-width: 1145px) {
+        text-align: center;
+        .search-box-container{
+            width: 100% !important;
+        }
+       }
+
+
 }
 
-.website-phone{
+.website-photos{
     width: 30%;
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    margin-top: 4rem;
     position: relative;
     pointer-events: none !important;
+    @media screen and (max-width: 1145px) {
+        margin: 0;
+        min-height: 25rem;
+       }
 
-    img{
-        max-height: 90%;
+    .website-computer{
+        max-height: 55%;
         object-fit: contain;
+        position: absolute;
+        top:50%;
+        left:60%;
+        transform: translate(-50% ,-50%);
+        z-index: 1;
     }
+    
+    .website-phone{
+        max-height: 60%;
+        object-fit: contain;
+        margin-left: 4rem;
+        position: absolute;
+        top:45%;
+        left:70%;
+        transform: translate(-50% ,-50%);
+        z-index: 2;
+    }
+
 }
 
 .web-secttion-title{
@@ -84,6 +124,7 @@
 .website-steps{
     background-color: #FAFAFA;
     padding: 5rem;
+    overflow: hidden;
 }
 
 .website-single-step{
@@ -229,3 +270,64 @@
       animation: down 0.5s ease-out forwards;
     }
   }
+
+  @media screen and (max-width: 1145px) {
+    .website-details{
+        >div{
+            margin: 1rem;
+            >p{
+                width: 100%;
+                margin-bottom: 1rem;
+                text-align: center;
+    
+            }
+            flex-direction: column;
+        }
+    padding: .5rem;
+    }
+
+   }
+
+
+  @media screen and (max-width: 790px) {
+    
+    .website-main{
+        padding: .5rem;
+        padding-top: 15rem;
+    }
+
+    .website-steps{
+        padding: .5rem;
+    }
+
+    .website-single-step{
+        flex-direction: column;
+        padding: 0 1rem;
+        text-align: center;
+    }
+
+    .web-secttion-title{
+        font-size: 7vw;
+    }
+
+    .website-title-search{
+        min-width: 100%;
+    }
+
+
+    .top-bar-container{
+        padding: .1rem .4rem;
+    }
+
+    .website-details{
+        padding-top: 1rem;
+        >div>p{
+            font-size: 1.3rem;
+            line-height: 2.5rem;
+        }
+        img{
+            max-width: 80% !important;
+
+        }
+    }
+   }

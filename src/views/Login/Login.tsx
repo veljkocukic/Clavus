@@ -21,7 +21,9 @@ export const Login = () => {
   const { user } = useSelector((state: RootState) => state.user)
 
   useEffect(() => {
-    if (user) { navigate('/') }
+    const isOnAuth = location.pathname.includes('auth')
+
+    if (user && !isOnAuth) { navigate('/') }
   }, [user]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -38,11 +38,9 @@
       position: absolute;
       top: 0;
       left: 0;
-      // background-color: base.$pale-blue;
-      -webkit-box-shadow: 0px 2px 4px -3px rgba(0,0,0,0.68);
-      -moz-box-shadow: 0px 2px 4px -3px rgba(0,0,0,0.68);
-      box-shadow: 0px 2px 4px -3px rgba(0,0,0,0.68);
+      background-color: base.$pale-blue;
       border: none;
+      border-bottom: 2px solid base.$light-gray;
       outline: none;
       font-size: 1.2rem;
       border-radius: 5px;
@@ -77,9 +75,8 @@
   height: 30px;
   border-radius: 5px;
   position: relative;
-  -webkit-box-shadow: 0px 2px 4px -3px rgba(0,0,0,0.68);
-  -moz-box-shadow: 0px 2px 4px -3px rgba(0,0,0,0.68);
-  box-shadow: 0px 2px 4px -3px rgba(0,0,0,0.68);
+  background-color: base.$pale-blue;
+  border-bottom: 2px solid base.$light-gray;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -110,9 +107,8 @@ textarea {
   position: absolute;
   top: 0;
   left: 0;
-  -webkit-box-shadow: 0px 2px 4px -3px rgba(0,0,0,0.68);
-  -moz-box-shadow: 0px 2px 4px -3px rgba(0,0,0,0.68);
-  box-shadow: 0px 2px 4px -3px rgba(0,0,0,0.68);
+  background-color: base.$pale-blue;
+
   border: none;
   outline: none;
   font-size: 1.2rem;
