@@ -23,8 +23,7 @@ export const Tasks = () => {
 
     useEffect(() => {
         dispatch(getTasks(params))
-    }, [])
-
+    }, [params])
 
     const renderOptions = (id: number) => {
         return [
