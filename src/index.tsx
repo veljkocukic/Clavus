@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import App from './App';
 import { store } from '../src/store';
 import './sass/main.scss';
+import { WebSocketProvider, socket } from 'context/WebSocketContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -10,7 +11,9 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <Provider store={store}>
-    <App />
+    <WebSocketProvider value={socket} >
+      <App />
+    </WebSocketProvider>
   </Provider>
 );
 

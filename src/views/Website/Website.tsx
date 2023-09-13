@@ -63,9 +63,9 @@ export const Website = () => {
         })
     }
     return <div className='website-container' >
-        <TopBar login />
+        <TopBar login className='bottom-shadow h5' />
         <main className='website-main' >
-            <div className='website-title-search' >
+            <div className='website-title-search ' >
                 <h1>Koja vam je usluga potrebna?</h1>
                 <SearchBox className='w30 h4 mt3' selected={categories} setList={setCategories} fixedList={Categories} onOptionClick={() => setModalOpen(true)} />
             </div>
@@ -185,9 +185,6 @@ export const Website = () => {
             <div className='flex w100 between center'>
                 <h1>Clavus</h1>
                 <h3>RADI NA CLAVUSU</h3>
-                <div>
-
-                </div>
             </div>
             <div className='footer-bottom' >
                 © Clavus 2023.

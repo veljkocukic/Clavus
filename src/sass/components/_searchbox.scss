@@ -40,7 +40,7 @@
   border-radius: 10px;
   box-shadow: 0 4px 5px #00000033;
   overflow: hidden;
-  z-index: 999999999999999;
+  z-index: 999999999999999 !important;
 }
 
 .single-search-result {

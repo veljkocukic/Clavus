@@ -10,10 +10,12 @@ export const Auth = () => {
             <h1>Clavus</h1>
             <p>Mesto za obavljanje vaših poslova</p>
             <div className='auth-button w20 mt4' >
-                <img src={googleLogo} alt='google-logo' />  Continue with Google
+                <img src={googleLogo} alt='google-logo' />
+                Continue with Google
             </div>
             <div className='auth-button w20 mt1 ' >
-                <img src={appleLogo} alt='apple-logo' />Log in with Apple
+                <img src={appleLogo} alt='apple-logo' />
+                Log in with Apple
             </div>
             <div className='or-container' >
                 <div className='line' ></div>

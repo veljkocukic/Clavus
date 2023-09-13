@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button } from 'components/Button'
 import { Input } from 'components/Input'
@@ -23,9 +24,9 @@ export const CreateTask = () => {
     const dispatch = useDispatch<AppDispatch>()
     const [cats, setCats] = useState(Categories)
 
-    useEffect(() => {
-        createdTaskId && navigate('/tasks/' + createdTaskId)
-    }, [createdTaskId])
+    // useEffect(() => {
+    //     createdTaskId && navigate('/tasks/' + createdTaskId)
+    // }, [createdTaskId])
 
 
     const handleSubmit = async () => {
