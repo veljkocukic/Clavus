@@ -12,8 +12,6 @@ import { ITableTask } from './tasksData'
 import { useNavigate } from 'react-router-dom'
 import { Button } from 'components/Button'
 
-
-
 export const Tasks = () => {
     /*eslint-disable*/
     const [params, setParams] = useState({ page: 1, limit: 5 })

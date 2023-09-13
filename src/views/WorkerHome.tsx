@@ -22,13 +22,12 @@ export const WorkerHome = () => {
     const [bio, setBio] = useState(user?.bio || '')
     const [categories, setCategories] = useState([])
     const navigate = useNavigate()
-    const { allWorkerTasks, pageCountWT } = useSelector((state: RootState) => state.tasks)
+    const { allWorkerTasks, totalPagesWT } = useSelector((state: RootState) => state.tasks)
     const dispatch = useDispatch<AppDispatch>()
 
     useEffect(() => {
         dispatch(getWorkerTasks(params))
-    }, [])
-
+    }, [params])
 
     const options = [
         {
@@ -87,7 +86,7 @@ export const WorkerHome = () => {
         <div className="worker-home-grid" >
             {allWorkerTasks?.map(wt => <JobCard category={wt.category} id={wt.id} key={wt.id} name={wt.name} location={wt.location} date={wt.date} price={1500} />)}
         </div>
-        <Pagination pageCount={pageCountWT} setPage={(page) => handlePagination(page, setParams, 9)} forcePage={1} />
+        <Pagination pageCount={totalPagesWT} setPage={(page) => handlePagination(page, setParams, 9)} forcePage={1} />
 
 
         {modalOpen && <div className='worker-home-modal' >
