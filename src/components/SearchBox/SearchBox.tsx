@@ -12,6 +12,7 @@ interface ISearchBox {
   setList?: any
   sortList?: any
   onOptionClick?: any
+  handleSearchSelect?: any
 }
 
 export const SearchBox = ({ className, fixedList, setList, selected, sortList, onOptionClick }: ISearchBox) => {

@@ -9,19 +9,27 @@ import fourthStep from 'assets/images/fourthStep.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleCheck, faFile, faHandsPraying, faHeadset, faList } from '@fortawesome/free-solid-svg-icons'
 import { Categories, currencies, ITaskState, priceTypes, tasksInitialState, tasksValidation } from 'views/Tasks/tasksData'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { Input } from 'components/Input'
 import { TextArea } from 'components/TextArea'
 import { checkValid } from 'utils/helpers'
 import { ISelectValue, Select } from 'components/Select'
 import { CheckBox } from 'components/TopBar/CheckBox'
 import { standardFieldValidation, validateSelect } from 'utils/validationUtils'
+import { Button } from 'components/Button'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { useOnClickOutside } from 'utils/hooks/useClickOutside'
 
 export const Website = () => {
     const [categories, setCategories] = useState([])
     const [modalOpen, setModalOpen] = useState(false)
+    const modalRef = useRef()
     const [invalidFields, setInvalidFields] = useState(tasksValidation)
     const [state, setState] = useState<ITaskState>(tasksInitialState)
+    const navigate = useNavigate()
+
+    useOnClickOutside(modalRef, () => setModalOpen(false))
 
     const handleCheck = (name: string) => {
         setState(prev => {
@@ -62,12 +70,30 @@ export const Website = () => {
             return copy
         })
     }
+
+    const handleSubmit = () => {
+        if (invalidFields.length > 0) {
+            toast.warn('Sva polja moraju biti validna.')
+            return
+        }
+        localStorage.setItem('creatingTask', JSON.stringify(state))
+        navigate('auth/register')
+    }
+
+    const handleSearchSelect = (v) => {
+        setModalOpen(true)
+        setState(prev => {
+            const copy = structuredClone(prev)
+            copy.category = v.value
+            return copy
+        })
+    }
     return <div className='website-container' >
         <TopBar login className='bottom-shadow h5' />
         <main className='website-main' >
             <div className='website-title-search ' >
                 <h1>Koja usluga vam je potrebna?</h1>
-                <SearchBox className='w30 h4 mt3' selected={categories} setList={setCategories} fixedList={Categories} onOptionClick={() => setModalOpen(true)} />
+                <SearchBox className='w30 h4 mt3' onOptionClick={handleSearchSelect} selected={categories} setList={setCategories} fixedList={Categories} />
             </div>
             <div className='website-photos' >
                 <img className='website-phone' src={iphone} />
@@ -156,9 +182,9 @@ export const Website = () => {
                 </div>
             </div>
         </section>
-        {modalOpen && <div className='website-modal' tabIndex={1} onBlur={() => setModalOpen(false)} >
-            <div>
-                <div className='ct-form-container' >
+        {modalOpen && <div className='website-modal'  >
+            <div ref={modalRef} >
+                <div className='ct-form-container'  >
                     <div className='ct-form-section' >
                         <Input invalid={checkValid(invalidFields, 'name')} className='w100' labelText='Naziv zadatka' name='name' value={state.name} type='text' onChange={handleChange} />
                         <TextArea className='w100 h10' name='description' labelText='Description' value={state.description} onChange={handleChange} />
@@ -179,6 +205,8 @@ export const Website = () => {
                     <div className='ct-form-section' >
                     </div>
                 </div>
+                <div className='flex just-end mt1' ><Button text='Nastavi' onClick={handleSubmit} /></div>
+
             </div>
         </div>}
         <footer className='web-footer' >

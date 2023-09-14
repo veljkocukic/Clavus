@@ -25,7 +25,6 @@ export const Register = () => {
 
     const { user } = useSelector((state: RootState) => state.user)
 
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
         standardFieldValidation(e, setInvalidFields)

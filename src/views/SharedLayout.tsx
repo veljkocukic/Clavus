@@ -6,13 +6,15 @@ import { TopBar } from '../components/TopBar/TopBar'
 import { Website } from './Website/Website'
 import { WebSocketContext } from 'context/WebSocketContext'
 import { Notification } from 'components/Notification/Notification'
+import { handleNotification } from 'utils/notificationsHandler'
+import { ITaskState } from './Tasks/tasksData'
 
 export const SharedLayout = () => {
 
   const location = useLocation()
   const navigate = useNavigate()
   const user: any = JSON.parse(localStorage.getItem('user'))
-  const localUser: any = JSON.parse(localStorage.getItem('user'))
+  const creatingTask: ITaskState = JSON.parse(localStorage.getItem('creatingTask'))
 
   const socket = useContext(WebSocketContext)
   const [notification, setNotification] = useState({
@@ -23,24 +25,7 @@ export const SharedLayout = () => {
   })
 
   useEffect(() => {
-    socket.on('job', (data) => {
-      if (localUser.categories.includes(data.category)) {
-        const timer = setTimeout(() => {
-          setNotification(prev => {
-            const copy = { ...prev }
-            copy.on = false
-            return copy
-          })
-          return () => clearTimeout(timer);
-        }, 5000);
-        setNotification(prev => {
-          const copy = { ...prev }
-          copy.on = true
-          copy.text = 'Postavljen je novi oglas u vašoj kategoriji.'
-          return copy
-        })
-      }
-    })
+    socket.on('job', data => handleNotification(data, setNotification, user, navigate))
     return () => {
       socket.off('job')
     }
@@ -50,7 +35,7 @@ export const SharedLayout = () => {
   useEffect(() => {
     if (location.pathname == '/') {
       if (user?.role === 'ADMIN') {
-        navigate('overview')
+        navigate(creatingTask ? 'tasks/create' : 'overview')
       } else {
         navigate('worker-overview')
       }

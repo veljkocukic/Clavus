@@ -23,11 +23,19 @@ export const CreateTask = () => {
     const { createdTaskId } = useSelector((state: RootState) => state.tasks)
     const dispatch = useDispatch<AppDispatch>()
     const [cats, setCats] = useState(Categories)
+    const creatingTask: ITaskState = JSON.parse(localStorage.getItem('creatingTask'))
+
 
     // useEffect(() => {
     //     createdTaskId && navigate('/tasks/' + createdTaskId)
     // }, [createdTaskId])
 
+    useEffect(() => {
+        if (creatingTask) {
+            setState(creatingTask)
+            localStorage.removeItem('creatingTask')
+        }
+    }, [])
 
     const handleSubmit = async () => {
         if (invalidFields.length > 0) {

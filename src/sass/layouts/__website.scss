@@ -288,6 +288,21 @@
 
 
   @media screen and (max-width: 790px) {
+
+    .website-modal{
+        align-items: flex-end;
+        & > div {
+            min-width: 100vw;
+            min-height: 80vh;
+            padding: 1rem;
+            border-bottom-right-radius:0;
+            border-bottom-left-radius:0;
+          }
+
+          .ct-form-container{
+              flex-direction: column;
+          }
+    }
     
     .website-main{
         padding: .5rem;
