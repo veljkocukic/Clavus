@@ -1,4 +1,5 @@
 import { Button } from 'components/Button';
+import { NotificationIcon } from 'components/Notification/NotificationIcon';
 import { useNavigate } from 'react-router-dom';
 import { ProfileButton } from './ProfileButton';
 
@@ -16,7 +17,13 @@ export const TopBar = ({ login, className }: ITopBar) => {
   return (
     <div className={cName}>
       <h1>Clavus</h1>
-      {!login ? <ProfileButton /> : <Button text='Prijava' onClick={() => navigate('/auth/prijava')} />}
+      {!login ?
+        <div className='flex gap1' >
+          <ProfileButton />
+          <NotificationIcon />
+        </div> :
+        <Button text='Prijava' onClick={() => navigate('/auth/prijava')} />
+      }
     </div>
   );
 };

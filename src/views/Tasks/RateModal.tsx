@@ -1,6 +1,6 @@
 import { Button } from 'components/Button'
 import { TextArea } from 'components/TextArea'
-import { rateAndComplete } from 'feautures/task/taskSlice'
+import { getTask, rateAndComplete } from 'feautures/task/taskSlice'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
@@ -22,6 +22,7 @@ export const RateModal = ({ setOpenModal }: { setOpenModal: React.Dispatch<React
 
         const resp = await dispatch(rateAndComplete({ id: Number(id), rating: state }))
         if (resp.meta.requestStatus === 'fulfilled') {
+            await dispatch(getTask(id))
             setOpenModal(false)
         }
     }

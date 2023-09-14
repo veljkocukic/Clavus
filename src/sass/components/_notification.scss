@@ -1,3 +1,5 @@
+@use '../base';
+
 .notification{
     width: 35rem;
     border-radius: 10px;
@@ -35,6 +37,31 @@
     }
 }
 
+.notification-menu{
+    background-color: base.$pale-blue;
+    position: relative;
+    cursor: pointer;
+    height: 3.5rem;
+    aspect-ratio: 1/1;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 1px 3px 5px 0px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+  
+    &:hover{
+        >svg{
+            transform: rotate(30deg) scale(1.2);
+        }
+    }
+
+    svg {
+        transition: .3s ease-out;
+        color: base.$light-blue;
+        font-size: 1.5rem;
+    }
+}
 
 @keyframes notify {
     0%{

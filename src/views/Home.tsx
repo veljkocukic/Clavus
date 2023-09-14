@@ -12,9 +12,10 @@ import { handleNameCase } from 'utils/helpers';
 export const Home = () => {
 
   const user: any = JSON.parse(localStorage.getItem('user'))
-  const navigate = useNavigate()
   const { jobsOverview } = useSelector((state: RootState) => state.tasks)
   const dispatch = useDispatch<AppDispatch>()
+  const navigate = useNavigate()
+
   useEffect(() => {
     dispatch(getJobsOverview(null))
   }, [])

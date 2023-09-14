@@ -1,9 +1,9 @@
 
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../../feautures/user/userSlice';
-import { AppDispatch, RootState } from '../../store';
+import { AppDispatch } from '../../store';
 import { Button } from '../../components/Button';
 import { standardFieldValidation } from '../../utils/validationUtils';
 import { Input } from 'components/Input';
@@ -18,12 +18,10 @@ export const Login = () => {
     password: '',
   });
 
-  const { user } = useSelector((state: RootState) => state.user)
+  const user = localStorage.getItem('user')
 
   useEffect(() => {
-    const isOnAuth = location.pathname.includes('auth')
-
-    if (user && !isOnAuth) { navigate('/') }
+    if (user) { navigate('/') }
   }, [user]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,7 +36,7 @@ export const Login = () => {
     });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (invalidFields.length > 0) {
       toast.warn('Email mora biti validan.')
       return

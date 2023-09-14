@@ -23,8 +23,13 @@ export const Register = () => {
         phoneNumber: ''
     });
 
+
     const { user } = useSelector((state: RootState) => state.user)
     const creatingTask = localStorage.getItem('creatingTask')
+
+    useEffect(() => {
+        if (user) { navigate('/') }
+    }, [user]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target

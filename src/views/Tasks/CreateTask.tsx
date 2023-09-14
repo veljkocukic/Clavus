@@ -11,7 +11,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { AppDispatch, RootState } from 'store'
+import { AppDispatch } from 'store'
 import { checkValid } from 'utils/helpers'
 import { standardFieldValidation, validateSelect } from 'utils/validationUtils'
 import { Categories, colorCombinations, currencies, ITaskState, priceTypes, tasksInitialState, tasksValidation } from './tasksData'
@@ -20,15 +20,10 @@ export const CreateTask = () => {
     const [state, setState] = useState<ITaskState>(tasksInitialState)
     const [invalidFields, setInvalidFields] = useState(tasksValidation)
     const navigate = useNavigate()
-    const { createdTaskId } = useSelector((state: RootState) => state.tasks)
     const dispatch = useDispatch<AppDispatch>()
     const [cats, setCats] = useState(Categories)
     const creatingTask: ITaskState = JSON.parse(localStorage.getItem('creatingTask'))
 
-
-    // useEffect(() => {
-    //     createdTaskId && navigate('/tasks/' + createdTaskId)
-    // }, [createdTaskId])
 
     useEffect(() => {
         if (creatingTask) {
@@ -42,7 +37,10 @@ export const CreateTask = () => {
             toast.warn('Polja moraju biti validna')
             return
         }
-        dispatch(createTask(state))
+        const resp = await dispatch(createTask(state))
+        if (resp.meta.requestStatus === 'fulfilled') {
+            navigate('/tasks/' + resp.payload.id)
+        }
     }
 
     const setCategory = (c) => {
