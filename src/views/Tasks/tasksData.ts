@@ -120,13 +120,13 @@ export const priceTypes = [
   },
 ]
 
-export const tasksValidation = ['name', 'price', 'currency', 'priceType', 'location', 'date']
+export const tasksValidation = ['name', 'price', 'location', 'date']
 
 export const tasksInitialState: ITaskState = {
   name: '',
   price: null,
-  currency: '',
-  priceType: '',
+  currency: 'RSD',
+  priceType: 'WHOLE',
   location: '',
   date: '',
   category: '',

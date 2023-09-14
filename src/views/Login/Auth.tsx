@@ -22,7 +22,7 @@ export const Auth = () => {
                 <p>ili</p>
                 <div className='line' ></div>
             </div>
-            <Button text='Prijava mejlom' onClick={() => navigate('login')} className='w20 mt1' />
+            <Button text='Nastavi mejlom' onClick={() => navigate('login')} className='w20 mt1' />
         </div>
     </div>
 }

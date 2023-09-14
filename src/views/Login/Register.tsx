@@ -24,6 +24,7 @@ export const Register = () => {
     });
 
     const { user } = useSelector((state: RootState) => state.user)
+    const creatingTask = localStorage.getItem('creatingTask')
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
@@ -116,10 +117,10 @@ export const Register = () => {
                         invalid={invalidFields.includes('phoneNumber')}
 
                     />
-                    <div style={{ display: 'flex', gap: '1rem', justifyContent: 'space-between', width: '100%' }} className='mt1' >
+                    {!creatingTask && <div style={{ display: 'flex', gap: '1rem', justifyContent: 'space-between', width: '100%' }} className='mt1' >
                         <CheckBox onChange={handleRoles} name='WORKER' active={inputValues.role === 'WORKER'} text={'Radnik'} />
                         <CheckBox onChange={handleRoles} name='ADMIN' active={inputValues.role === 'ADMIN'} text={'Oglasnik'} />
-                    </div>
+                    </div>}
                     <Button
                         onClick={handleSubmit}
                         className={'mt3 w100'}

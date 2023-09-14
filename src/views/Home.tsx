@@ -2,13 +2,22 @@ import { faCheckCircle, faClock, faHammer, faList } from '@fortawesome/free-soli
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from 'components/Button';
 import { LatestTasksCard } from 'components/LatestTasksCard';
+import { getJobsOverview } from 'feautures/task/taskSlice';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { AppDispatch, RootState } from 'store';
 import { handleNameCase } from 'utils/helpers';
 
 export const Home = () => {
 
   const user: any = JSON.parse(localStorage.getItem('user'))
   const navigate = useNavigate()
+  const { jobsOverview } = useSelector((state: RootState) => state.tasks)
+  const dispatch = useDispatch<AppDispatch>()
+  useEffect(() => {
+    dispatch(getJobsOverview(null))
+  }, [])
 
   return <div className="page-content" >
     <div className='content-title-bar' >
@@ -19,28 +28,28 @@ export const Home = () => {
       <div className='card-wrapper' >
         <div className='card-icon-count' >
           <FontAwesomeIcon icon={faList} color={'#8FADF0'} />
-          <p>10</p>
+          <p>{jobsOverview.allJobs || 0}</p>
         </div>
         <h3>Svi zadaci</h3>
       </div>
       <div className='card-wrapper bgPaleGreen' >
         <div className='card-icon-count' >
           <FontAwesomeIcon icon={faCheckCircle} color={'#01A05D'} />
-          <p>7</p>
+          <p>{jobsOverview.completed || 0}</p>
         </div>
         <h3>Obavljeni zadaci</h3>
       </div>
       <div className='card-wrapper bgPaleYellow' >
         <div className='card-icon-count' >
           <FontAwesomeIcon icon={faHammer} color={'#ADAC10'} />
-          <p>2</p>
+          <p>{jobsOverview.inProgress || 0}</p>
         </div>
         <h3>U toku</h3>
       </div>
       <div className='card-wrapper bgPaleRed' >
         <div className='card-icon-count' >
           <FontAwesomeIcon icon={faClock} color={'#D42B20'} />
-          <p>2</p>
+          <p>{jobsOverview.waitingForWorker || 0}</p>
         </div>
         <h3>Čekaju radnika</h3>
       </div>

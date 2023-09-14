@@ -113,7 +113,7 @@ export const ViewTask = () => {
                 <div className='vtb-expenses-container' >
                     <h3>Troškovi:</h3>
                     <div>
-                        <div className='expenses-parameter' style={{ gridArea: ' 1 / 1 / 2 / 2' }} >{task.amount}</div>
+                        <div className='expenses-parameter' style={{ gridArea: ' 1 / 1 / 2 / 2' }} >{task.price}</div>
                         <div className='expenses-parameter' style={{ gridArea: ' 1 / 2 / 2 / 3' }}>{task.currency}</div>
                         <div className='expenses-parameter' style={{ gridArea: ' 1 / 3 / 2 / 4' }}>{priceType?.label}</div>
                         {task?.priceType !== 'WHOLE' && <div className='expenses-parameter' style={{ gridArea: ' 2 / 1 / 3 / 2' }}>{task?.amount}</div>}

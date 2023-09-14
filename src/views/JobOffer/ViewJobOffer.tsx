@@ -33,7 +33,7 @@ export const ViewJobOffer = () => {
         <div className='content-title-bar' >
             <p><span>Pregled ponude</span></p>
             <div className='button-options-container' >
-                <Button text='Prihvati ponudu' onClick={handleAcceptOffer} />
+                {!jobOffer.expired && <Button text='Prihvati ponudu' onClick={handleAcceptOffer} />}
                 <IconButton icon={faGear} />
             </div>
         </div>
@@ -54,12 +54,12 @@ export const ViewJobOffer = () => {
                     <div className='card-wrapper' >
                         <div className='card-icon-count h100' >
                             <h3>Obavljeni zadaci</h3>
-                            <p>{jobOffer?.jobsDone ?? 0}</p>
+                            <p>{jobOffer?.user?.jobsDone ?? 0}</p>
                         </div>
                     </div>
                     <div className='card-wrapper' >
                         <div className='card-icon-count h100' >
-                            <h3>Ocene <br /> klijenata</h3>
+                            <h3>Prosečna ocena <br /> klijenata</h3>
                             <p>{jobOffer?.user?.ratings ?? '/'}</p>
                         </div>
                     </div>

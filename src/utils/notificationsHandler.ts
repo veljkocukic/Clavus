@@ -23,6 +23,7 @@ export const handleNotification = (data:INotificationData,setNotification,localU
         })
     }
     const isAdmin = localUser.role === 'ADMIN'
+    console.log(data)
 
         if(isAdmin){
             switch(data.type){

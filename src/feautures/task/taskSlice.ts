@@ -26,6 +26,12 @@ interface IInitialState {
   pageCountWT: number
   allTasks: any
   allWorkerTasks: any
+  jobsOverview:{
+    allJobs:number,
+    completed:number,
+    inProgress:number,
+    waitingForWorker:number,
+  }
 }
 
 const initialState = {
@@ -36,6 +42,12 @@ const initialState = {
   allWorkerTasks: null,
   pageCountWT: null,
   totalPagesWT: null,
+  jobsOverview:{
+    allJobs:null,
+    completed:null,
+    inProgress:null,
+    waitingForWorker:null,
+  }
 }
 
 export const createTask = createAsyncThunk(
@@ -55,6 +67,7 @@ export const rateAndComplete = createAsyncThunk(
   async (data: { id: number; rating: IRating }, thunkApi) => {
     try {
       const resp = await customFetch.post('/jobs/rate-and-complete/' + data.id, data.rating)
+      console.log(resp)
       return resp.data
     } catch (error) {
       return thunkApi.rejectWithValue(error)
@@ -83,6 +96,15 @@ export const getTask = createAsyncThunk('/task/getTask', async (id: any, thunkAp
 export const getTasks = createAsyncThunk('/task/getTasks', async (params: any, thunkApi) => {
   try {
     const resp = await customFetch.get('/jobs', { params })
+    return resp.data
+  } catch (error) {
+    return thunkApi.rejectWithValue(error)
+  }
+})
+
+export const getJobsOverview = createAsyncThunk('/task/getJobsOverview', async (_: any, thunkApi) => {
+  try {
+    const resp = await customFetch.get('/jobs/overview')
     return resp.data
   } catch (error) {
     return thunkApi.rejectWithValue(error)
@@ -159,6 +181,17 @@ const taskSlice = createSlice({
       state.task = payload
     },
     [getTask.rejected.type]: (state, { payload }) => {
+      state.isLoading = false
+      toast.error(payload.message)
+    },
+    [getJobsOverview.pending.type]: (state) => {
+      state.isLoading = true
+    },
+    [getJobsOverview.fulfilled.type]: (state, { payload }) => {
+      state.isLoading = false
+      state.jobsOverview = payload
+    },
+    [getJobsOverview.rejected.type]: (state, { payload }) => {
       state.isLoading = false
       toast.error(payload.message)
     },

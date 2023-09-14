@@ -13,6 +13,7 @@ interface IInitialState {
 }
 
 const initialState = {
+  expired:false,
   isLoading: false,
   jobOffer: {},
   totalPages: null,
