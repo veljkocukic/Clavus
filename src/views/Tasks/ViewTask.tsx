@@ -12,7 +12,6 @@ import { convertTaskDate } from 'utils/helpers'
 import { OfferModal } from './OfferModal'
 import { RateModal } from './RateModal'
 
-
 export const ViewTask = () => {
     const dispatch = useDispatch<AppDispatch>()
     const { id } = useParams()
@@ -77,7 +76,6 @@ export const ViewTask = () => {
             <p><span>Pregled zadatka</span></p>
             <div className='button-options-container' >
                 {renderButton()}
-
             </div>
         </div>
 

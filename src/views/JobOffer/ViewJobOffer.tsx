@@ -2,18 +2,21 @@ import { faGear } from '@fortawesome/free-solid-svg-icons'
 import { Button } from 'components/Button'
 import { IconButton } from 'components/IconButton'
 import { acceptJobOffer, getJobOffer } from 'feautures/jobOffer/jobOfferSlice'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { AppDispatch, RootState } from 'store'
+import { ProfileRatingsOffer } from 'views/Profile/ProfileRatingsOffer'
 import { priceTypes } from 'views/Tasks/tasksData'
 
 export const ViewJobOffer = () => {
-
+    /*eslint-disable*/
     const dispatch = useDispatch<AppDispatch>()
+    const [openModal, setOpenModal] = useState(false)
     const { jobOffer } = useSelector((state: RootState) => state.jobOffers)
     const navigate = useNavigate()
     const { id } = useParams()
+
 
     useEffect(() => {
         dispatch(getJobOffer(id))
@@ -38,15 +41,13 @@ export const ViewJobOffer = () => {
             </div>
         </div>
         <div className='page-halves-layout' >
-
             <div className='page-half-section' >
-
                 <div className='job-offer-header' >
                     <img className='square-image' src='https://images.unsplash.com/photo-1557862921-37829c790f19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80' alt='worker-image' />
                     <div>
                         <div>
                             <p className='joh-top' >{jobOffer?.user && (jobOffer?.user?.name + ' ' + jobOffer?.user?.lastName)}</p>
-                            <div className='see-more' >Pogledaj profil</div>
+                            <div className='see-more' onClick={() => setOpenModal(true)} >Pogledaj ocene</div>
                         </div>
                     </div>
                 </div>
@@ -71,8 +72,6 @@ export const ViewJobOffer = () => {
                     </div>
                 </div>
 
-
-
             </div>
             <div className='page-half-section ' >
                 <div className='vtb-expenses-container mt5 ml2' >
@@ -87,6 +86,7 @@ export const ViewJobOffer = () => {
                 </div>
             </div>
         </div>
+        {openModal && <ProfileRatingsOffer id={jobOffer.userId} setOpenModal={setOpenModal} />}
 
     </div>
 }

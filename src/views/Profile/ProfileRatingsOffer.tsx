@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from 'store'
 import { useOnClickOutside } from 'utils/hooks/useClickOutside'
-/*eslint-disable*/
 export const ProfileRatingsOffer = ({ setOpenModal, id }: IProfileRatingsOffer) => {
 
     const [params, setParams] = useState({ page: 1, limit: 5 })
