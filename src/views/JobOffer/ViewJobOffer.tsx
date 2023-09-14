@@ -60,8 +60,8 @@ export const ViewJobOffer = () => {
                     </div>
                     <div className='card-wrapper' >
                         <div className='card-icon-count h100' >
-                            <h3>Prosečna ocena <br /> klijenata</h3>
-                            <p>{jobOffer?.user?.ratings ?? '/'}</p>
+                            <h3>Prosečna ocena</h3>
+                            <p>{jobOffer?.user?.ratings?.toFixed(1) ?? '/'}</p>
                         </div>
                     </div>
                 </div>

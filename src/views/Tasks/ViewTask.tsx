@@ -126,7 +126,7 @@ export const ViewTask = () => {
                         <button className='see-more' >Vidi sve</button>
                     </div>
                     <div className='vtb-offers-container__grid' >
-                        {task?.jobOffers?.map(o => <SingleOffer key={o.id} id={o.id} name={o.user.name} lastName={o.user.lastName} ratings={o.user.ratings} />)}
+                        {task?.jobOffers?.map(o => <SingleOffer key={o.id} id={o.id} name={o.user.name} lastName={o.user.lastName} ratings={o.user.ratings?.toFixed(1) ?? '/'} />)}
                     </div>
                 </div>}
 
