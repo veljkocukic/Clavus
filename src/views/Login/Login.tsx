@@ -45,8 +45,14 @@ export const Login = () => {
   };
 
 
+  const handleEnter = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Enter') {
+      handleSubmit()
+    }
+  }
+
   return (
-    <div className='auth-wrapper' >
+    <div className='auth-wrapper' tabIndex={1} onKeyDown={handleEnter}>
       <div className='auth-form' >
         <div className='login-form w25'>
           <div className='login-title mb3'>

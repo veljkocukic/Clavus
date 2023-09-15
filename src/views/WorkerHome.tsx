@@ -20,7 +20,6 @@ export const WorkerHome = () => {
     const [modalOpen, setModalOpen] = useState(false)
     const [bio, setBio] = useState(user?.bio || '')
     const [categories, setCategories] = useState([])
-    const navigate = useNavigate()
     const { allWorkerTasks, totalPagesWT } = useSelector((state: RootState) => state.tasks)
     const dispatch = useDispatch<AppDispatch>()
 
@@ -29,7 +28,6 @@ export const WorkerHome = () => {
     }, [params])
 
     useEffect(() => {
-        console.log(user.categories)
         if (user.categories.length < 1) {
             setModalOpen(true)
         }
@@ -62,7 +60,6 @@ export const WorkerHome = () => {
         })
     }
 
-
     const handleBioModal = async () => {
         if (bio.length > 0 || categories.length > 0) {
             const cats = categories.map(c => c.value)
@@ -71,8 +68,6 @@ export const WorkerHome = () => {
         }
         setModalOpen(false)
     }
-
-
 
     const handleRemoveCat = (cat) => {
         setCategories(prev => {
