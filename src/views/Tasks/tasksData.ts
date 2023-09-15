@@ -183,6 +183,7 @@ export interface ITableTask {
   status: string
   category: string
   date: Date
+  jobOffers: number
 }
 
 export const offerModalInvalidFields = ['priceType', 'currency', 'price']

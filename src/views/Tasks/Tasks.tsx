@@ -63,9 +63,11 @@ export const Tasks = () => {
                     break
             }
 
-            return <div className="table-status" style={{ backgroundColor: color.bg }} >
-                <FontAwesomeIcon icon={icon} color={color.icon} />
-                <p>{text}</p>
+            return <div className='w15' >
+                <div className="table-status w7" style={{ backgroundColor: color.bg }} >
+                    <FontAwesomeIcon icon={icon} color={color.icon} />
+                    <p>{text}</p>
+                </div>
             </div>
         }
 
@@ -74,6 +76,7 @@ export const Tasks = () => {
             <p className='w15 ml1' >{t.name}</p>
             <p className='w15' >{convertTaskDate(t.date) + ' ' + new Date(t.date).getFullYear()}</p>
             {getStatusStyle(t.status)}
+            <p className='w15' >{t.jobOffers}</p>
             <IconButton className='table-icon' options={renderOptions(t.id)} icon={faEdit} />
         </div>)
     }
@@ -88,7 +91,8 @@ export const Tasks = () => {
             <div className='th'>
                 <p className='w15 ml5' >Naziv zadatka</p>
                 <p className='w15' >Datum</p>
-                <p>Status</p>
+                <p className='w15' >Status</p>
+                <p>Ponude</p>
             </div>
             <div className='table-tr-container' >
                 {allTasks && renderRows()}
