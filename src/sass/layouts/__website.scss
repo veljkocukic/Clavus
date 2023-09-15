@@ -29,6 +29,9 @@
 
 .website-title-search{
     max-width: 70%;
+    transform: translateX(-30%);
+    opacity: 0;
+    transition: .7s ease-out;
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -53,6 +56,9 @@
 .website-photos{
     width: 30%;
     height: 100%;
+    transform: translateX(30%);
+    opacity: 0;
+    transition: 1s ease;
     margin-top: 4rem;
     position: relative;
     pointer-events: none !important;
@@ -344,3 +350,8 @@
         }
     }
    }
+
+.slide-in {
+    transform: translateX(0) !important;
+    opacity: 1 !important;
+  }

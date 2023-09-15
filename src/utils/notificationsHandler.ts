@@ -1,7 +1,5 @@
 export const handleNotification = (data:INotificationData,setNotification,localUser, navigate) =>{
 
-    console.log(data)
-
     const closeNotification = () =>{
         setNotification(prev=>{
             const copy = {...prev}

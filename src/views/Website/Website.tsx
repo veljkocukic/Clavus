@@ -9,7 +9,7 @@ import fourthStep from 'assets/images/fourthStep.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleCheck, faFile, faHandsPraying, faHeadset, faList } from '@fortawesome/free-solid-svg-icons'
 import { Categories, currencies, ITaskState, priceTypes, tasksInitialState, tasksValidation } from 'views/Tasks/tasksData'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Input } from 'components/Input'
 import { TextArea } from 'components/TextArea'
 import { checkValid } from 'utils/helpers'
@@ -30,6 +30,30 @@ export const Website = () => {
     const navigate = useNavigate()
 
     useOnClickOutside(modalRef, () => setModalOpen(false))
+
+    /*eslint-disable*/
+    const [isMainIntersecting, setIsMainIntersecting] = useState(false)
+    const mainRef = useRef(null)
+
+    useEffect(() => {
+        const mainObserver = new IntersectionObserver(([entry]) => {
+            setIsMainIntersecting(entry.isIntersecting);
+        });
+        mainObserver.observe(mainRef.current);
+        return () => mainObserver.disconnect();
+    }, []);
+
+    useEffect(() => {
+        if (isMainIntersecting) {
+            mainRef.current.querySelectorAll("div").forEach((e) => {
+                e.classList.add("slide-in");
+            });
+        } else {
+            mainRef.current.querySelectorAll("div").forEach((e) => {
+                e.classList.remove("slide-in");
+            })
+        }
+    }, [isMainIntersecting]);
 
     const handleCheck = (name: string) => {
         setState(prev => {
@@ -90,7 +114,7 @@ export const Website = () => {
     }
     return <div className='website-container' >
         <TopBar login className='bottom-shadow h5' />
-        <main className='website-main' >
+        <main ref={mainRef} className='website-main' >
             <div className='website-title-search ' >
                 <h1>Koja usluga vam je potrebna?</h1>
                 <SearchBox className='w30 h4 mt3' onOptionClick={handleSearchSelect} selected={categories} setList={setCategories} fixedList={Categories} />
