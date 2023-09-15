@@ -16,9 +16,8 @@ import { useNavigate } from 'react-router-dom';
 export const WorkerHome = () => {
     /*eslint-disable*/
     const user: any = JSON.parse(localStorage.getItem('user'))
-    const workerModalClosed = localStorage.getItem('workerModalClosed')
     const [params, setParams] = useState<any>({ limit: 9, page: 1, sort: 'DATE_D' })
-    const [modalOpen, setModalOpen] = useState(workerModalClosed ? false : true)
+    const [modalOpen, setModalOpen] = useState(false)
     const [bio, setBio] = useState(user?.bio || '')
     const [categories, setCategories] = useState([])
     const navigate = useNavigate()
@@ -26,8 +25,15 @@ export const WorkerHome = () => {
     const dispatch = useDispatch<AppDispatch>()
 
     useEffect(() => {
-        dispatch(getWorkerTasks(params))
+        user.categories.length > 1 && dispatch(getWorkerTasks(params))
     }, [params])
+
+    useEffect(() => {
+        console.log(user.categories)
+        if (user.categories.length < 1) {
+            setModalOpen(true)
+        }
+    }, [])
 
     const options = [
         {
@@ -59,9 +65,10 @@ export const WorkerHome = () => {
 
     const handleBioModal = async () => {
         if (bio.length > 0 || categories.length > 0) {
-            await dispatch(addBioAndCat({ bio, categories: categories.map(c => c.value) }))
+            const cats = categories.map(c => c.value)
+            localStorage.setItem('user', JSON.stringify({ ...user, categories: cats }))
+            await dispatch(addBioAndCat({ bio, categories: cats }))
         }
-        localStorage.setItem('workerModalClosed', 'true')
         setModalOpen(false)
     }
 
@@ -93,7 +100,7 @@ export const WorkerHome = () => {
             <div>
                 <div className='flex column gap1 w100'  >
                     <h1>Dobrodošli u tim! 🎉 </h1>
-                    <p style={{ fontSize: '1.3rem' }} >Unesite više podataka o sebi kako biste lakše našli odgovarajuće poslove</p>
+                    <p style={{ fontSize: '1.3rem' }} >Odaberite svoje oblasti rada kako biste nastavili.</p>
                 </div>
                 <div className='flex between w100 gap3 h100 center mt3' >
                     <div className='search-categories-container w100 mt3' >
