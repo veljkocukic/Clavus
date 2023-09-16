@@ -85,7 +85,7 @@
   .ic-title {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
 
     p {
       font-weight: 500;
@@ -93,8 +93,20 @@
     }
 
     & > div {
+
+      max-width: 70%;
+      overflow: hidden;
+      white-space:nowrap; 
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+
       h2 {
         color: base.$black;
+        max-width: 100%;
+        white-space: nowrap;
+        white-space:nowrap; 
+        text-overflow: ellipsis;
         font-size: 1.2rem;
         font-weight: 500;
       }
@@ -906,8 +918,25 @@
     }
   }
 
-  .ratings-modal{
+  .ratings-modal,.send-offer-modal {
     width: 90%;
+  }
+
+  .home-bottom-section{
+    flex-direction: column;
+  }
+
+  .ic-title{
+
+
+
+    >div h2{
+      font-size: 1rem !important;
+    }
+  }
+
+  .ic-date{
+    font-weight: normal !important;
   }
 
   }

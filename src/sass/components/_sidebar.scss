@@ -1,6 +1,7 @@
 @use '../base';
 
 .sidebar {
+  z-index: 9999999;
   min-width: 300px;
   height: 100%;
   border-radius: 15px;
@@ -12,6 +13,7 @@
   padding-top: 7rem;
   z-index: 1;
   gap: 2rem;
+  transition: .2s ease-in;
   box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
@@ -106,6 +108,10 @@
   }
 }
 
+.open-sidebar{
+  
+}
+
 @media screen and (max-width: 905px) {
 
   .sidebar{
@@ -115,9 +121,17 @@
     min-width: 30px !important;
     top:0;
     left:0;
-    z-index:99;
     border-top-left-radius:0 ;
     border-bottom-left-radius:0 ;
+  }
+
+  .open-sidebar{
+    width: 300px !important;
+
+    .option-active{
+      width: 20rem;
+      margin-left:7rem;
+    }
   }
 
   .side-bar-toggle{

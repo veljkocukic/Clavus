@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button } from 'components/Button'
 import { Input } from 'components/Input'
 import { ISelectValue, Select } from 'components/Select'
@@ -10,6 +11,7 @@ import { AppDispatch } from 'store'
 import { checkValid } from 'utils/helpers'
 import { standardFieldValidation, validateSelect } from 'utils/validationUtils'
 import { currencies, offerModalInvalidFields, priceTypes } from './tasksData'
+import { faClose } from '@fortawesome/free-solid-svg-icons'
 
 export const OfferModal = ({ price, priceType, currency, amount, setOpenModal }: IOfferModal) => {
     const [state, setState] = useState<IJobOffer>({
@@ -72,8 +74,11 @@ export const OfferModal = ({ price, priceType, currency, amount, setOpenModal }:
     }
 
     return <div className='modal-wrapper' >
-        <div className='send-offer-modal' >
-            <h3>Ponuda za posao</h3>
+        <div className='send-offer-modal'  >
+            <div className='flex center between ' >
+                <h3>Ponuda za posao</h3>
+                <FontAwesomeIcon style={{ cursor: 'pointer' }} icon={faClose} fontSize='1.3rem' onClick={() => setOpenModal(false)} />
+            </div>
             <TextArea className='w100 h10 mt1' labelText='Detalji:' name='description' onChange={handleDescription} value={state?.description} />
             <div className='w100 flex align-center between mt1 gap1'  >
                 <Input invalid={checkValid(invalidFields, 'price')} className='w100' labelText='Cena' name='price' value={state?.price} type='number' onChange={handleChange} />

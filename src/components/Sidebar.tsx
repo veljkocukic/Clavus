@@ -1,6 +1,7 @@
 import { faGripLines } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { adminSidebarLinks, workerSidebarLinks } from 'assets/links/links'
+import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 const SidebarOption = ({ icon, name, path }) => {
@@ -13,6 +14,7 @@ const SidebarOption = ({ icon, name, path }) => {
   if (active) {
     cName += ' option-active'
   }
+
   return <div className={cName} onClick={() => navigate(path)} >
     <FontAwesomeIcon icon={icon} />
     <p>{name}</p>
@@ -24,9 +26,14 @@ export const Sidebar = () => {
 
   const user: any = JSON.parse(localStorage.getItem('user'))
   const routes = user?.role === 'ADMIN' ? adminSidebarLinks : workerSidebarLinks
+  const [open, setOpen] = useState(true)
+  let sidebarCName = 'sidebar'
+  if (open) {
+    sidebarCName += ' open-sidebar'
+  }
 
-  return <div className="sidebar" >
-    <div className='side-bar-toggle' > <FontAwesomeIcon icon={faGripLines} /> </div>
+  return <div className={sidebarCName} style={{ zIndex: '9999999' }} >
+    <div className='side-bar-toggle' onClick={() => setOpen(prev => !prev)} > <FontAwesomeIcon icon={faGripLines} /> </div>
     {routes.map(l => <SidebarOption key={l.id} name={l.title} icon={l.icon} path={l.path} />)}
   </div>
 }
