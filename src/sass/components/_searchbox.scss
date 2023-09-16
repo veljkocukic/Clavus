@@ -26,7 +26,8 @@
     top: 50%;
     transform: translateY(-50%);
     color: base.$gray;
-    font-size: 1rem;
+    background-color: white;
+    padding-left: 1rem;
   }
 }
 
@@ -60,3 +61,4 @@
     background-color: base.$pale-blue;
   }
 }
+

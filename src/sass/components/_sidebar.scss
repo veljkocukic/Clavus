@@ -9,7 +9,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 5rem;
+  padding-top: 7rem;
   z-index: 1;
   gap: 2rem;
   box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
@@ -18,7 +18,7 @@
 .sidebar-option {
   height: 3rem;
   cursor: pointer;
-  transition: 0.4s ease-in;
+  transition: 0.2s ease-in;
   position: relative;
   width: 80%;
   border-radius: 10px;
@@ -29,6 +29,8 @@
   gap: 2rem;
   font-size: 1.5rem;
   z-index: 9 !important;
+  box-shadow: 0 1px 3px #00000022;
+
 
   svg {
     color: base.$light-blue;
@@ -41,7 +43,7 @@
   }
 
   &:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
 
   .sidebar-option-mask {
@@ -57,12 +59,74 @@
   }
 }
 .option-active {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  /* Move the ::after element 30 pixels to the left */
-  .sidebar-option-mask {
-    z-index: -1 !important;
-    transform-origin: right;
-    transform: scaleX(100%);
+  width: 300px;
+  margin-left: 5rem;
+  // border-top-right-radius: 0;
+  // border-bottom-right-radius: 0;
+  // /* Move the ::after element 30 pixels to the left */
+  // .sidebar-option-mask {
+  //   z-index: -1 !important;
+  //   transform-origin: right;
+  //   transform: scaleX(100%);
+  // }
+}
+
+
+.side-bar-toggle{
+  width: 50px;
+  aspect-ratio: 1/1;
+  border-radius: 10px;
+  background-color: white;
+  position: absolute;
+  top:2rem;
+  left: .7rem;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color:base.$light-blue;
+  cursor: pointer;
+  box-shadow: 0 1px 3px #00000022;
+
+}
+
+.profile-option{
+  height: 3rem;
+  aspect-ratio: 1/1;
+  box-shadow: 0 1px 3px #00000022;
+  border-radius: 10px;
+  position: absolute;
+  bottom:2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    color: base.$light-blue;
   }
 }
+
+@media screen and (max-width: 905px) {
+
+  .sidebar{
+    position: fixed;
+    height: 100%;
+    width: 4.5rem;
+    min-width: 30px !important;
+    top:0;
+    left:0;
+    z-index:99;
+    border-top-left-radius:0 ;
+    border-bottom-left-radius:0 ;
+  }
+
+  .side-bar-toggle{
+    display: flex;
+  }
+
+  .option-active{
+    width: 6rem;
+    margin-left:3rem;
+  }
+ }
+

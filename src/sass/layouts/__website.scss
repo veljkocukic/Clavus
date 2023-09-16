@@ -28,6 +28,7 @@
 }
 
 .website-title-search{
+    z-index: 2;
     max-width: 70%;
     transform: translateX(-30%);
     opacity: 0;
@@ -54,6 +55,7 @@
 }
 
 .website-photos{
+    z-index: 1;
     width: 30%;
     height: 100%;
     transform: translateX(30%);
@@ -331,11 +333,6 @@
 
     .website-title-search{
         min-width: 100%;
-    }
-
-
-    .top-bar-container{
-        padding: .1rem .4rem;
     }
 
     .website-details{

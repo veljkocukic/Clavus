@@ -33,7 +33,7 @@
     "spaced-comment": "error",
     "quotes": ["error", "single"],
     "no-duplicate-imports": "error",
-    "unused-imports/no-unused-imports-ts": 0
+    "unused-imports/no-unused-imports-ts": "off"
 
   }
 }

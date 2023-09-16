@@ -94,7 +94,7 @@ export const ViewTask = () => {
         </div>
         <div className='vtb-bottom-container' >
             <div className='vtb-bottom-section' >
-                <div className='flex align-center between h100 gap1'  >
+                <div className='flex align-center between h100 gap1 column-645'  >
                     <div className='card-wrapper' >
                         <div className='vtb-bottom-card-layout' >
                             <p>Datum:</p>

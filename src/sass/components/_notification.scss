@@ -74,3 +74,11 @@
         opacity: 1;
     }
 }
+
+@media screen and (max-width: 645px) {
+
+    .notification{
+        width: 90vw;
+    }
+
+}

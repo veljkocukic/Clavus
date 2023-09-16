@@ -4,7 +4,7 @@
 
 .top-bar-container {
   z-index: 99;
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 8rem;
   left: 0;
@@ -94,3 +94,28 @@
   transform: scaleY(100%) !important;
   z-index: 99999;
 }
+
+@media screen and (max-width: 905px) {
+
+
+
+  .top-bar-container{
+    padding:0;
+    padding-left: 5rem;
+    padding-right: 1rem;
+
+    h1 {
+      font-family: 'Merienda', sans-serif;
+      font-size: 1.5rem;
+    }
+
+  }
+
+  .profile-button-container{
+    // min-width: 55px;
+    // width: 55px;
+    transform: scale(.8);
+  }
+
+}
+

@@ -7,6 +7,7 @@
   border-radius: 10px;
   position: relative;
   border-bottom: 5px solid base.$light-gray;
+  overflow: hidden;
 
   h3 {
     font-size: 1.3rem;
@@ -16,7 +17,7 @@
     color: base.$gray;
   }
 
-  .card-icon-count {
+  .card-icon-count, .home-card-icon-count {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -34,4 +35,28 @@
       max-width: 50%;
     }
   }
+}
+
+@media screen and (max-width: 645px) {
+
+  .card-icon-count{
+    flex-direction: column;
+    padding: unset !important;
+    padding-top: 1rem;
+    padding-bottom: .5rem;
+    p{
+      font-size: 1.5rem !important ;
+      text-align: center !important;
+      width: 100%;
+      margin-bottom: .5rem;
+    }
+
+    h3{
+      font-size: 1.2rem !important ;
+      text-align: center !important;
+      max-width: 100% !important;
+      width: 100%;
+    }
+  } 
+
 }

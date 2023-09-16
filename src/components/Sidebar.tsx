@@ -1,10 +1,10 @@
+import { faGripLines } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { adminSidebarLinks, workerSidebarLinks } from 'assets/links/links'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 const SidebarOption = ({ icon, name, path }) => {
   /*eslint-disable*/
-
   const location = useLocation()
   const pathname = `/${location.pathname.split('/')[1]}`
   const navigate = useNavigate()
@@ -26,6 +26,7 @@ export const Sidebar = () => {
   const routes = user?.role === 'ADMIN' ? adminSidebarLinks : workerSidebarLinks
 
   return <div className="sidebar" >
+    <div className='side-bar-toggle' > <FontAwesomeIcon icon={faGripLines} /> </div>
     {routes.map(l => <SidebarOption key={l.id} name={l.title} icon={l.icon} path={l.path} />)}
   </div>
 }

@@ -85,7 +85,7 @@ export const Tasks = () => {
     return <div className="page-content" >
         <div className='content-title-bar' >
             <p><span>Svi zadaci</span></p>
-            <div className='flex gap1' > <Button onClick={() => navigate('/tasks/create')} text='DODAJ ZADATAK' /><IconButton icon={faFilter} /></div>
+            <div className='flex gap1' > <Button onClick={() => navigate('/tasks/create')} text='Dodaj zadatak' /><IconButton icon={faFilter} /></div>
         </div>
         <div className='table-container' >
             <div className='th'>
