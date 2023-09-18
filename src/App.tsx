@@ -46,7 +46,7 @@ function App() {
         closeOnClick
         rtl={false}
         pauseOnFocusLoss
-        style={{ borderColor: 'red' }}
+        style={{ borderColor: 'red', zIndex: 99999999999999 }}
         transition={Slide}
         draggable
         pauseOnHover

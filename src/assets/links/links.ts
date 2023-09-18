@@ -13,18 +13,18 @@ export const adminSidebarLinks = [
     path: '/tasks',
     icon: faTasks,
   },
+  { id: 3,
+    title: 'Poruke',
+    path: '/messages',
+    icon: faMessage
+  },
   {
-    id: 3,
+    id: 4,
     title: 'Izveštaji',
     path: '/reports',
     icon: faFile,
   },
-  {
-    id: 4,
-    title: 'Prepiske',
-    path: '/messages',
-    icon: faMessage,
-  },
+
 ]
 
 export const workerSidebarLinks = [
@@ -33,5 +33,10 @@ export const workerSidebarLinks = [
     title: 'Pregled',
     path: '/worker-overview',
     icon: faHome,
+  },
+  { id: 2,
+    title: 'Poruke',
+    path: '/messages',
+    icon: faMessage
   },
 ]

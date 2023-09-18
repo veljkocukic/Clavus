@@ -5,6 +5,7 @@ import { CreateTask } from 'views/Tasks/CreateTask'
 import { Tasks } from 'views/Tasks/Tasks'
 import { ViewTask } from 'views/Tasks/ViewTask'
 import { WorkerHome } from 'views/WorkerHome'
+import { Messages } from 'views/Messages/Messages'
 
 export const adminRoutes = [
   {
@@ -30,6 +31,14 @@ export const adminRoutes = [
   {
     path: '/profile/:id',
     element: ViewProfile,
+  }, 
+  {
+    path: '/messages',
+    element: Messages,
+  },
+  {
+    path: '/messages/:conversationId/:receiverId',
+    element: Messages,
   },
 ]
 
@@ -45,5 +54,13 @@ export const workerRoutes = [
   {
     path: '/worker-profile/:id',
     element: ViewProfile,
+  },
+  {
+    path: '/messages/:conversationId/:receiverId',
+    element: Messages,
+  },
+  {
+    path: '/messages',
+    element: Messages,
   },
 ]

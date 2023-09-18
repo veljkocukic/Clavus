@@ -1,5 +1,4 @@
 export const handleNotification = (data:INotificationData,setNotification,localUser, navigate) =>{
-
     const closeNotification = () =>{
         setNotification(prev=>{
             const copy = {...prev}
@@ -21,7 +20,6 @@ export const handleNotification = (data:INotificationData,setNotification,localU
         })
     }
     const isAdmin = localUser.role === 'ADMIN'
-    console.log(data)
 
         if(isAdmin){
             switch(data.type){

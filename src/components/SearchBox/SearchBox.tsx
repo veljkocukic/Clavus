@@ -13,9 +13,10 @@ interface ISearchBox {
   sortList?: any
   onOptionClick?: any
   handleSearchSelect?: any
+  placeholder?: string
 }
 
-export const SearchBox = ({ className, fixedList, setList, selected, sortList, onOptionClick }: ISearchBox) => {
+export const SearchBox = ({ className, fixedList, setList, selected, sortList, onOptionClick, placeholder }: ISearchBox) => {
   const [results, setResults] = useState<any>()
   const [focused, setFocused] = useState(false)
   const ref = useRef()
@@ -76,7 +77,7 @@ export const SearchBox = ({ className, fixedList, setList, selected, sortList, o
 
   return (
     <div ref={ref} className={'search-box-container ' + className} tabIndex={1}>
-      <input type='text' placeholder='Vodoinstalater, kuhinja, veš mašine...' onChange={(e) => handleQuery(e.target.value)} onFocus={() => setFocused(true)} />
+      <input type='text' placeholder={placeholder ?? 'Vodoinstalater, kuhinja, veš mašine...'} onChange={(e) => handleQuery(e.target.value)} onFocus={() => setFocused(true)} />
       <FontAwesomeIcon icon={faSearch} />
       {!sortList && focused && <div className='search-results'>
         {results?.length > 0 ? results.map((r, i) => <div key={i} className='single-search-result' onClick={() => handleOptionClick(r)} ><p>{r.label}</p></div>) :
