@@ -37,7 +37,7 @@ export const adminRoutes = [
     element: Messages,
   },
   {
-    path: '/messages/:conversationId/:receiverId',
+    path: '/messages/:conversationId',
     element: Messages,
   },
 ]
@@ -56,7 +56,7 @@ export const workerRoutes = [
     element: ViewProfile,
   },
   {
-    path: '/messages/:conversationId/:receiverId',
+    path: '/messages/:conversationId',
     element: Messages,
   },
   {

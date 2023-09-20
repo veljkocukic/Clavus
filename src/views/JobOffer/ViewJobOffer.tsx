@@ -1,7 +1,9 @@
-import { faGear } from '@fortawesome/free-solid-svg-icons'
+import { faGear, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button } from 'components/Button'
 import { IconButton } from 'components/IconButton'
 import { acceptJobOffer, getJobOffer } from 'feautures/jobOffer/jobOfferSlice'
+import { goToConversation } from 'feautures/messages/messagesSlice'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -32,6 +34,13 @@ export const ViewJobOffer = () => {
     const priceType = priceTypes.find(p => p.value == jobOffer?.priceType)
 
 
+    const handleGoToConversation = async () => {
+        const resp = await dispatch(goToConversation(jobOffer.userId))
+        if (resp.meta.requestStatus = 'fulfilled') {
+            navigate('/messages/' + resp.payload.conversationId)
+        }
+    }
+
     return <div className='page-content' >
         <div className='content-title-bar' >
             <p><span>Pregled ponude</span></p>
@@ -47,7 +56,10 @@ export const ViewJobOffer = () => {
                     <div>
                         <div>
                             <p className='joh-top' >{jobOffer?.user && (jobOffer?.user?.name + ' ' + jobOffer?.user?.lastName)}</p>
-                            <div className='see-more' onClick={() => setOpenModal(true)} >Pogledaj ocene</div>
+                            <div className='send-message felx column between h100' >
+                                <FontAwesomeIcon icon={faPaperPlane} onClick={handleGoToConversation} />
+                                <div className='see-more' onClick={() => setOpenModal(true)} >Pogledaj ocene</div>
+                            </div>
                         </div>
                     </div>
                 </div>

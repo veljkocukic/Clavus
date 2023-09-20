@@ -39,6 +39,18 @@ export const getMessages = createAsyncThunk(
   },
 )
 
+export const goToConversation = createAsyncThunk(
+  '/messages/goToConversation',
+  async (receiverId: any, thunkApi) => {
+    try {
+      const resp = await customFetch.get('messages/goto-conversation/'+receiverId)
+      return resp.data
+    } catch (error) {
+      return thunkApi.rejectWithValue(error)
+    }
+  },
+)
+
 export const sendMessage = createAsyncThunk(
   '/messages/sendMessage',
   async (message: any, thunkApi) => {
@@ -51,13 +63,11 @@ export const sendMessage = createAsyncThunk(
   },
 )
 
-
 const messagesSlice = createSlice({
   name: 'messasges',
   initialState: initialState as IInitialState,
   reducers: {},
   extraReducers: {
-   
     [getConversations.pending.type]: (state) => {
       state.isLoading = true
     },
@@ -66,6 +76,16 @@ const messagesSlice = createSlice({
       state.conversations = payload
     },
     [getConversations.rejected.type]: (state, { payload }) => {
+      state.isLoading = false
+      toast.error(payload.message)
+    },
+    [goToConversation.pending.type]: (state) => {
+      state.isLoading = true
+    },
+    [goToConversation.fulfilled.type]: (state) => {
+      state.isLoading = false
+    },
+    [goToConversation.rejected.type]: (state, { payload }) => {
       state.isLoading = false
       toast.error(payload.message)
     },

@@ -8,6 +8,7 @@ import { AppDispatch, RootState } from 'store'
 import { getConversations, getMessages, sendMessage } from 'feautures/messages/messagesSlice'
 import { useNavigate, useParams } from 'react-router-dom'
 import { socket } from 'context/WebSocketContext'
+import { Button } from 'components/Button'
 
 const SingleMessage = ({ text, sender }) => {
 
@@ -21,11 +22,17 @@ const SingleMessage = ({ text, sender }) => {
     </div>
 }
 
-const SingleConversation = ({ conversationId, name, lastName, receiverId }) => {
+const SingleConversation = ({ conversationId, receiver, setCurrentChat }) => {
     const navigate = useNavigate()
+    const { name, lastName } = receiver
+
+    const handleClick = () => {
+        navigate('/messages/' + conversationId)
+        setCurrentChat(receiver)
+    }
 
     return <div className='single-message-list-item'
-        onClick={() => navigate('/messages/' + conversationId + '/' + receiverId)} >
+        onClick={handleClick} >
         <img src='https://images.unsplash.com/photo-1557862921-37829c790f19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80' alt='user-image' />
         <div>
             <h4>{name + ' ' + lastName}</h4>
@@ -39,9 +46,10 @@ export const Messages = () => {
     const dispatch = useDispatch<AppDispatch>()
     const { conversations, messages } = useSelector((state: RootState) => state.messages)
     const [localMessages, setLocalMessages] = useState([])
-    const { conversationId, receiverId } = useParams()
+    const { conversationId } = useParams()
     const [params, setParams] = useState({ page: 1, limit: 20 })
     const [messageContent, setMessageContent] = useState('')
+    const [currentChat, setCurrentChat] = useState(null)
 
     useEffect(() => {
         socket.on('message', data => {
@@ -64,6 +72,13 @@ export const Messages = () => {
 
     useEffect(() => {
         setParams({ page: 1, limit: 20 })
+        const c = conversations.find(c => c.id == conversationId)
+        const obj = {
+            id: c.id,
+            name: c.participants[0].name,
+            lastName: c.participants[0].lastName
+        }
+        setCurrentChat(obj)
         if (localMessages.length > 1) {
             setLocalMessages([])
         }
@@ -87,7 +102,7 @@ export const Messages = () => {
         if (e.key === 'Enter') {
             await dispatch(sendMessage({
                 conversationId: Number(conversationId),
-                receiverId: Number(receiverId),
+                receiverId: currentChat.receiverId,
                 userId: user.id,
                 content: messageContent
             }))
@@ -103,35 +118,39 @@ export const Messages = () => {
             <div className="messages-list" >
                 <SearchBox className='w100' placeholder='Pretrazite poruke' />
                 {conversations.map(c => <SingleConversation
-                    name={c.participants[0].name}
-                    lastName={c.participants[0].lastName}
+                    receiver={c?.participants[0]}
                     key={c.id}
                     conversationId={c.id}
-                    receiverId={c.participants[0].id}
+                    setCurrentChat={setCurrentChat}
                 />
                 )}
             </div>
             <div className="messages-chat" >
-                <div className="messages-chat__top" >
+                {currentChat && <> <div className="messages-chat__top" >
                     <div className="messages-chat__top-name" >
                         <img src='https://images.unsplash.com/photo-1557862921-37829c790f19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80' alt='user-image' />
-                        <h4>Petar Petrovic</h4>
+                        <div className='flex gap5' >
+                            <h4>{currentChat.name + ' ' + currentChat.lastName}</h4>
+                        </div>
                     </div>
-                    <FontAwesomeIcon icon={faWarning} />
-                </div>
-                <div className='messages-chat__list' >
-                    <div className='messages-chat__list-scroll' >
-                        {localMessages.map(m => <SingleMessage text={m.content} sender={m.senderId == user.id} />)}
+                    <div className='flex gap1 center' >
+                        <Button text='Prihvati ponudu' className='h1' />
+                        <FontAwesomeIcon icon={faWarning} />
                     </div>
                 </div>
-                <div className='messages-chat__input' >
-                    <div className='media-input' onClick={() => mediaInputRef.current.click()} >
-                        <FontAwesomeIcon icon={faPhotoVideo} />
-                        <input ref={mediaInputRef} type='file' />
+                    <div className='messages-chat__list' >
+                        <div className='messages-chat__list-scroll' >
+                            {localMessages.map(m => <SingleMessage text={m.content} sender={m.senderId == user.id} />)}
+                        </div>
                     </div>
-                    <input onChange={e => setMessageContent(e.target.value)} value={messageContent}
-                        type='text' placeholder='Unesite poruku...' onKeyDown={handleEnter} />
-                </div>
+                    <div className='messages-chat__input' >
+                        <div className='media-input' onClick={() => mediaInputRef.current.click()} >
+                            <FontAwesomeIcon icon={faPhotoVideo} />
+                            <input ref={mediaInputRef} type='file' />
+                        </div>
+                        <input onChange={e => setMessageContent(e.target.value)} value={messageContent}
+                            type='text' placeholder='Unesite poruku...' onKeyDown={handleEnter} />
+                    </div></>}
             </div>
         </div>
     </div>
