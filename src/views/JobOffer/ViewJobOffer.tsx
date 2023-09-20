@@ -27,7 +27,7 @@ export const ViewJobOffer = () => {
     const handleAcceptOffer = async () => {
         const resp = await dispatch(acceptJobOffer(jobOffer.id))
         if (resp.meta.requestStatus === 'fulfilled') {
-            navigate('/messsages/' + resp.payload.id)
+            navigate('/messages/' + resp.payload.id)
         }
     }
 
