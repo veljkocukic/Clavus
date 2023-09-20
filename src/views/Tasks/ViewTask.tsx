@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from 'store'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { getTask } from 'feautures/task/taskSlice'
-import { convertTaskDate } from 'utils/helpers'
+import { convertTaskDate, convertToHoursMins } from 'utils/helpers'
 import { OfferModal } from './OfferModal'
 import { RateModal } from './RateModal'
 
@@ -99,7 +99,10 @@ export const ViewTask = () => {
                         <div className='vtb-bottom-card-layout' >
                             <p>Datum:</p>
                             <div>
-                                <p>{convertTaskDate(task.date)} <br />{new Date(task.date).getFullYear()}</p>
+                                <div className='flex column gap1 w100 h100 between' >
+                                    <p>{convertTaskDate(task.date)}</p>
+                                    <p>{convertToHoursMins(task.date)}</p>
+                                </div>
                                 <FontAwesomeIcon color='#dee0ea' icon={faCalendarDays} />
                             </div>
                         </div>

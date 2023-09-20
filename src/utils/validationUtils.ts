@@ -174,6 +174,17 @@ export const standardFieldValidation = (
         return copy
       })
       break
+      case 'datetime-local':
+        setInvalidFields((prev: string[]) => {
+          let copy = [...prev]
+          if (value) {
+            copy = copy.filter((f) => f !== name)
+          } else {
+            !copy.includes(name) && copy.push(name)
+          }
+          return copy
+        })
+        break
     default:
       greaterThanZero(Number(value), name, setInvalidFields)
       break

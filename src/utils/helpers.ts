@@ -29,6 +29,19 @@ export const convertTaskDate = (date) => {
   return day + '. ' + mnth
 }
 
+export const convertToHoursMins = date =>{
+  const dt = new Date(date)
+  let hours:any = (dt.getHours())
+  if(hours<=9){
+    hours = '0'+hours
+  }
+  let mins:any = dt.getMinutes()
+  if(mins<=9){
+    mins = '0'+hours
+  }
+  return hours + ' : ' + mins
+}
+
 export const handlePagination = (page: number, setParams: React.Dispatch<any>, limit?: number) => {
   setParams((prev: any) => {
     const copy = { ...prev }

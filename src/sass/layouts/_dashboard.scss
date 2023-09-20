@@ -310,8 +310,8 @@
   height: 100%;
   padding: 0.5rem;
   p {
-    font-weight: 700;
     margin-left: 1rem;
+    width: max-content;
     color: base.$text-gray;
   }
 
@@ -336,7 +336,7 @@
       font-weight: normal;
       font-size: 1.1rem;
       margin: 0;
-      width: 50%;
+      width: max-content;
     }
 
     svg {

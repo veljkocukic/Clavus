@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import '../sass/components/_inputs.scss';
 
 export interface IInput {
@@ -16,6 +16,7 @@ export interface IInput {
 export const Input = ({ labelText, value, type, onChange, name, className, invalid, customInvalidMessage }: IInput) => {
   const [focused, setFocused] = useState(false);
   const [wasFocused, setWasFocused] = useState(false);
+  const inputRef = useRef(null)
 
   const parsedValue = value || ''
   let labelCName = 'label'
@@ -32,6 +33,7 @@ export const Input = ({ labelText, value, type, onChange, name, className, inval
   return (
     <div
       className={'input ' + className}
+      onClick={() => inputRef?.current?.click()}
     >
       <label
         className={labelCName}
@@ -45,9 +47,12 @@ export const Input = ({ labelText, value, type, onChange, name, className, inval
           required
           type={type}
           value={parsedValue}
+          ref={inputRef}
           onChange={onChange}
+          style={!value ? { color: 'transparent' } : {}}
           onFocus={() => {
             setFocused(true);
+            inputRef.current.showPicker()
           }}
           onBlur={() => {
             setFocused(false);
