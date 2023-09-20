@@ -10,7 +10,7 @@ import { AppDispatch, RootState } from 'store';
 import { useDispatch, useSelector } from 'react-redux';
 import { addBioAndCat } from 'feautures/user/userSlice';
 import { getWorkerTasks } from 'feautures/task/taskSlice';
-import { convertTaskDate, getCategoryIcon, handleNameCase, handlePagination } from 'utils/helpers';
+import { convertTaskDate, convertToHoursMins, getCategoryIcon, handleNameCase, handlePagination } from 'utils/helpers';
 import { useNavigate } from 'react-router-dom';
 
 export const WorkerHome = () => {
@@ -20,6 +20,7 @@ export const WorkerHome = () => {
     const [modalOpen, setModalOpen] = useState(false)
     const [bio, setBio] = useState(user?.bio || '')
     const [categories, setCategories] = useState([])
+    const [city, setCity] = useState(null)
     const { allWorkerTasks, totalPagesWT } = useSelector((state: RootState) => state.tasks)
     const dispatch = useDispatch<AppDispatch>()
 
@@ -61,7 +62,7 @@ export const WorkerHome = () => {
     }
 
     const handleBioModal = async () => {
-        if (bio.length > 0 || categories.length > 0) {
+        if (bio.length > 0 && categories.length > 0 && city.value) {
             const cats = categories.map(c => c.value)
             localStorage.setItem('user', JSON.stringify({ ...user, categories: cats }))
             await dispatch(addBioAndCat({ bio, categories: cats }))
@@ -95,10 +96,15 @@ export const WorkerHome = () => {
             <div>
                 <div className='flex column gap1 w100'  >
                     <h1>Dobrodošli u tim! 🎉 </h1>
-                    <p style={{ fontSize: '1.3rem' }} >Odaberite svoje oblasti rada kako biste nastavili.</p>
+                    <div className='flex w100 between align-center' >
+                        <p style={{ fontSize: '1.3rem' }} >Odaberite svoje oblasti rada kako biste nastavili.</p>
+                        <Select labelText='Grad rada' name='city' value={city?.value} invalid={!city}
+                            options={[{ label: 'Beograd', value: 1 }]} onChange={(value) => setCity(value)} />
+                    </div>
                 </div>
                 <div className='flex between w100 gap3 h100 center mt3' >
                     <div className='search-categories-container w100 mt3' >
+
                         <div className='w100 '>
                             <p>Izaberite oblasti rada:</p>
                             <SearchBox selected={categories} setList={setCategories} fixedList={Categories} className='w100' />
@@ -142,7 +148,7 @@ export const JobCard = ({ name, location, price, date, id, className, category }
                 <p>{location}</p>
             </div>
             <div className='flex w100 between center w100' >
-                <p className='date' >{convertTaskDate(date) + ' ' + new Date(date).getFullYear()}</p>
+                <p className='date' >{convertTaskDate(date) + ' ' + convertToHoursMins(date)}</p>
                 {price && <p className="green-text" >
                     {price}
                 </p>}

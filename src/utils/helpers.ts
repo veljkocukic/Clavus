@@ -32,14 +32,16 @@ export const convertTaskDate = (date) => {
 export const convertToHoursMins = date =>{
   const dt = new Date(date)
   let hours:any = (dt.getHours())
-  if(hours<=9){
+
+  if(hours<=9 ){
     hours = '0'+hours
   }
   let mins:any = dt.getMinutes()
+
   if(mins<=9){
-    mins = '0'+hours
+    mins = '0'+mins
   }
-  return hours + ' : ' + mins
+  return hours + ':' + mins
 }
 
 export const handlePagination = (page: number, setParams: React.Dispatch<any>, limit?: number) => {

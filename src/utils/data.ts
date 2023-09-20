@@ -64,3 +64,29 @@ export const workerRoutes = [
     element: Messages,
   },
 ]
+
+
+export const cities = [
+  {label:'Beograd',value:'BEOGRAD'},
+  {label:'Novi Sad',value:'NOVI_SAD'},
+  {label:'Niš',value:'NIS'},
+  {label:'Kragujevac',value:'KRAGUJEVAC'},
+  {label:'Kraljevo',value:'KRALJEVO'},
+  {label:'Kruševac',value:'KRUSEVAC'},
+  {label:'Čačak',value:'CACAK'},
+  {label:'Vranje',value:'VRANJE'},
+  {label:'Leskovac',value:'LESKOVAC'},
+  {label:'Subotica',value:'SUBOTICA'},
+  {label:'Zrenjanin',value:'ZRENJANIN'},
+  {label:'Zaječar',value:'ZAJECAR'},
+  {label:'Negotin',value:'ZRENJANIN'},
+  {label:'Zrenjanin',value:'NEGOTIN'},
+  {label:'Novi Pazar',value:'NOVI_PAZAR'},
+  {label:'Sjenica',value:'SJENICA'},
+  {label:'Smederevo',value:'SMEDEREVO'},
+  {label:'Jagodina',value:'JAGODINA'},
+  {label:'Vrnjačka Banja',value:'VRNJACKA_BANJA'},
+  {label:'Soko Banja',value:'Soko Banja'},
+  {label:'Požarevac',value:'POZAREVAC'},
+  {label:'Valjevo',value:'VALJEVO'},
+]
