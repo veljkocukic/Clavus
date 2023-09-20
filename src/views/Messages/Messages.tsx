@@ -9,7 +9,6 @@ import { getConversations, getMessages, removeJobOffer, sendMessage } from 'feau
 import { useNavigate, useParams } from 'react-router-dom'
 import { socket } from 'context/WebSocketContext'
 import { acceptJobOffer } from 'feautures/jobOffer/jobOfferSlice'
-import { toast } from 'react-toastify'
 
 const SingleMessage = ({ text, sender }) => {
 
