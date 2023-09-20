@@ -72,13 +72,15 @@ export const Messages = () => {
 
     useEffect(() => {
         setParams({ page: 1, limit: 20 })
-        const c = conversations.find(c => c.id == conversationId)
-        const obj = {
-            id: c.id,
-            name: c.participants[0].name,
-            lastName: c.participants[0].lastName
+        if (conversationId) {
+            const c = conversations.find(c => c.id == conversationId)
+            const obj = {
+                id: c.id,
+                name: c.participants[0].name,
+                lastName: c.participants[0].lastName
+            }
+            setCurrentChat(obj)
         }
-        setCurrentChat(obj)
         if (localMessages.length > 1) {
             setLocalMessages([])
         }
