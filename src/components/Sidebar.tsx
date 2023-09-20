@@ -26,7 +26,7 @@ export const Sidebar = () => {
 
   const user: any = JSON.parse(localStorage.getItem('user'))
   const routes = user?.role === 'ADMIN' ? adminSidebarLinks : workerSidebarLinks
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
   let sidebarCName = 'sidebar'
   if (open) {
     sidebarCName += ' open-sidebar'

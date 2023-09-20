@@ -66,7 +66,19 @@ export const sendMessage = createAsyncThunk(
 const messagesSlice = createSlice({
   name: 'messasges',
   initialState: initialState as IInitialState,
-  reducers: {},
+  reducers: {
+    removeJobOffer:(state,{payload})=>{
+      console.log(payload)
+      state.conversations = state.conversations.map(c=>{
+        if(c.id !== payload.cId){
+          return c
+        }else{
+          c.jobOffers = c.jobOffers.filter(jo=>jo!==payload.oId)
+          return c
+        }
+      })
+    }
+  },
   extraReducers: {
     [getConversations.pending.type]: (state) => {
       state.isLoading = true
@@ -102,5 +114,5 @@ const messagesSlice = createSlice({
     },
   },
 })
-
+export const {removeJobOffer} = messagesSlice.actions
 export default messagesSlice.reducer

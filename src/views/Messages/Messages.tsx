@@ -1,14 +1,15 @@
 /*eslint-disable*/
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { SearchBox } from 'components/SearchBox/SearchBox'
-import { faWarning, faPhotoVideo } from '@fortawesome/free-solid-svg-icons'
+import { faWarning, faPhotoVideo, faCheckCircle, faClose } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from 'store'
-import { getConversations, getMessages, sendMessage } from 'feautures/messages/messagesSlice'
+import { getConversations, getMessages, removeJobOffer, sendMessage } from 'feautures/messages/messagesSlice'
 import { useNavigate, useParams } from 'react-router-dom'
 import { socket } from 'context/WebSocketContext'
-import { Button } from 'components/Button'
+import { acceptJobOffer } from 'feautures/jobOffer/jobOfferSlice'
+import { toast } from 'react-toastify'
 
 const SingleMessage = ({ text, sender }) => {
 
@@ -22,13 +23,13 @@ const SingleMessage = ({ text, sender }) => {
     </div>
 }
 
-const SingleConversation = ({ conversationId, receiver, setCurrentChat }) => {
+const SingleConversation = ({ conversationId, receiver, setCurrentChat, jobOffers }) => {
     const navigate = useNavigate()
     const { name, lastName } = receiver
 
     const handleClick = () => {
         navigate('/messages/' + conversationId)
-        setCurrentChat(receiver)
+        setCurrentChat({ ...receiver, jobOffers })
     }
 
     return <div className='single-message-list-item'
@@ -37,6 +38,38 @@ const SingleConversation = ({ conversationId, receiver, setCurrentChat }) => {
         <div>
             <h4>{name + ' ' + lastName}</h4>
             <p>Tekst poslate poruke u chatu nekom pre</p>
+        </div>
+    </div>
+}
+
+const OffersModal = ({ setModalOpen, currentChat }) => {
+
+    const dispatch = useDispatch<AppDispatch>()
+
+    const handleAccept = async (id: number) => {
+        const resp = await dispatch(acceptJobOffer(id))
+        if (resp.meta.requestStatus = 'fulfilled') {
+            setModalOpen(false)
+            dispatch(removeJobOffer({ cId: currentChat.id, oId: id }))
+        }
+    }
+
+    return <div className='offers-modal' >
+        <div className='offers-content' >
+            <div className='offers-content__close'  >
+                <FontAwesomeIcon icon={faClose} onClick={() => setModalOpen(false)} />
+            </div>
+            <div className='offers-content__scroll' >
+                {currentChat.jobOffers.map(o =>
+                    <div className='offers-content__single-offer' key={o.id} >
+                        <h3>{o.job.name}</h3>
+                        <div className='accept-offer-chat' onClick={() => handleAccept(o.id)} >
+                            <FontAwesomeIcon icon={faCheckCircle} />
+                            <p>Prihvati ponudu</p>
+                        </div>
+                    </div>)}
+            </div>
+
         </div>
     </div>
 }
@@ -50,6 +83,7 @@ export const Messages = () => {
     const [params, setParams] = useState({ page: 1, limit: 20 })
     const [messageContent, setMessageContent] = useState('')
     const [currentChat, setCurrentChat] = useState(null)
+    const [modalOpen, setModalOpen] = useState(false)
 
     useEffect(() => {
         socket.on('message', data => {
@@ -70,21 +104,23 @@ export const Messages = () => {
         dispatch(getMessages(params))
     }, [params])
 
+
     useEffect(() => {
         setParams({ page: 1, limit: 20 })
-        if (conversationId) {
+        if (conversationId && conversations.length > 0) {
             const c = conversations.find(c => c.id == conversationId)
             const obj = {
                 id: c.id,
                 name: c.participants[0].name,
-                lastName: c.participants[0].lastName
+                lastName: c.participants[0].lastName,
+                jobOffers: c.jobOffers
             }
             setCurrentChat(obj)
         }
         if (localMessages.length > 1) {
             setLocalMessages([])
         }
-    }, [conversationId])
+    }, [conversationId, conversations])
 
     useEffect(() => {
         if (messages && conversationId) {
@@ -112,6 +148,24 @@ export const Messages = () => {
         }
     }
 
+    const handleAcceptOffer = async () => {
+        if (currentChat?.jobOffers.length > 1) {
+            setModalOpen(true)
+        } else {
+            const resp = await dispatch(acceptJobOffer(currentChat?.jobOffers[0].id))
+            if (resp.meta.requestStatus = 'fulfilled') {
+                setModalOpen(false)
+                dispatch(removeJobOffer({ cId: currentChat.id, oId: currentChat?.jobOffers[0].id }))
+                setCurrentChat(prev => {
+                    const copy = structuredClone(prev)
+                    copy.jobOffers = []
+                    return copy
+                })
+            }
+        }
+    }
+
+
     return <div className='page-content' >
         <div className='content-title-bar'>
             <p>Poruke</p>
@@ -122,6 +176,7 @@ export const Messages = () => {
                 {conversations.map(c => <SingleConversation
                     receiver={c?.participants[0]}
                     key={c.id}
+                    jobOffers={c.jobOffers}
                     conversationId={c.id}
                     setCurrentChat={setCurrentChat}
                 />
@@ -135,8 +190,11 @@ export const Messages = () => {
                             <h4>{currentChat.name + ' ' + currentChat.lastName}</h4>
                         </div>
                     </div>
-                    <div className='flex gap1 center' >
-                        <Button text='Prihvati ponudu' className='h1' />
+                    <div className='flex gap1 h100 align-center' >
+                        {currentChat?.jobOffers?.length > 0 && <div className='accept-offer-chat' onClick={handleAcceptOffer} >
+                            <FontAwesomeIcon icon={faCheckCircle} />
+                            <p>Prihvati ponudu</p>
+                        </div>}
                         <FontAwesomeIcon icon={faWarning} />
                     </div>
                 </div>
@@ -155,5 +213,6 @@ export const Messages = () => {
                     </div></>}
             </div>
         </div>
+        {modalOpen && <OffersModal currentChat={currentChat} setModalOpen={setModalOpen} />}
     </div>
 }
