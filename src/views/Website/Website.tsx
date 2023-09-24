@@ -213,7 +213,7 @@ export const Website = () => {
                         <Input invalid={checkValid(invalidFields, 'name')} className='w100' labelText='Naziv zadatka' name='name' value={state.name} type='text' onChange={handleChange} />
                         <TextArea className='w100 h10' name='description' labelText='Description' value={state.description} onChange={handleChange} />
                         <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem' }} >
-                            <Input invalid={checkValid(invalidFields, 'location')} className='w100' labelText='Lokacija' name='location' value={state.location} type='text' onChange={handleChange} />
+                            {/* <Input invalid={checkValid(invalidFields, 'location')} className='w100' labelText='Lokacija' name='location' value={state.location} type='text' onChange={handleChange} /> */}
                             <Input invalid={checkValid(invalidFields, 'date')} className='w100' labelText='Datum' name='date' value={state.date} type='date' onChange={handleChange} />
                         </div>
                         <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem' }} >

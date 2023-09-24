@@ -127,7 +127,7 @@ export const tasksInitialState: ITaskState = {
   price: null,
   currency: 'RSD',
   priceType: 'WHOLE',
-  location: '',
+  location: null,
   date: '',
   category: '',
   description: '',
@@ -139,7 +139,10 @@ export interface ITaskState {
   price: number
   currency: string
   priceType: string
-  location: string
+  location: {
+    value:string | number,
+    label:string
+  }
   date: string
   withoutMonitoring: false
   description: string

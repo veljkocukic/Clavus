@@ -20,7 +20,6 @@ export const WorkerHome = () => {
     const [modalOpen, setModalOpen] = useState(false)
     const [bio, setBio] = useState(user?.bio || '')
     const [categories, setCategories] = useState([])
-    const [city, setCity] = useState(null)
     const { allWorkerTasks, totalPagesWT } = useSelector((state: RootState) => state.tasks)
     const dispatch = useDispatch<AppDispatch>()
 
@@ -62,7 +61,7 @@ export const WorkerHome = () => {
     }
 
     const handleBioModal = async () => {
-        if (bio.length > 0 && categories.length > 0 && city.value) {
+        if (bio.length > 0 && categories.length > 0) {
             const cats = categories.map(c => c.value)
             localStorage.setItem('user', JSON.stringify({ ...user, categories: cats }))
             await dispatch(addBioAndCat({ bio, categories: cats }))
@@ -98,8 +97,8 @@ export const WorkerHome = () => {
                     <h1>Dobrodošli u tim! 🎉 </h1>
                     <div className='flex w100 between align-center' >
                         <p style={{ fontSize: '1.3rem' }} >Odaberite svoje oblasti rada kako biste nastavili.</p>
-                        <Select labelText='Grad rada' name='city' value={city?.value} invalid={!city}
-                            options={[{ label: 'Beograd', value: 1 }]} onChange={(value) => setCity(value)} />
+                        {/* <Select labelText='Grad rada' name='city' value={city?.value} invalid={!city}
+                            options={[{ label: 'Beograd', value: 1 }]} onChange={(value) => setCity(value)} /> */}
                     </div>
                 </div>
                 <div className='flex between w100 gap3 h100 center mt3' >
@@ -128,7 +127,10 @@ export const WorkerHome = () => {
 
 interface IJobCard {
     name: string
-    location: string
+    location: {
+        label: string
+        value: string
+    }
     price?: number
     date: string
     id: number
@@ -145,7 +147,7 @@ export const JobCard = ({ name, location, price, date, id, className, category }
         <div className='flex between h100 column w100 ml1' >
             <div>
                 <h2>{name}</h2>
-                <p>{location}</p>
+                <p>{location.label}</p>
             </div>
             <div className='flex w100 between center w100' >
                 <p className='date' >{convertTaskDate(date) + ' ' + convertToHoursMins(date)}</p>

@@ -183,6 +183,12 @@
   justify-items: center;
 }
 
+.ct-map-container {
+  width: 100%;
+  height: 50%;
+  border-radius: 10px;
+}
+
 .card-icon-text {
   display: flex;
   align-items: center;
@@ -1059,4 +1065,77 @@
     }
   }
 
+}
+
+.worker-map-container{
+  width: 100%;
+  height: 100%;
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  margin-top: 1rem;
+  background: transparent;
+  overflow: hidden;
+  position: relative;
+  border-radius: 10px;
+}
+
+.wh-map{
+  width: 100%;
+  height: 100%;
+}
+
+.wh-map-options{
+    width: max-content;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    gap:1rem;
+    border-radius: 1.5rem;
+    border: 1px solid base.$light-blue;
+    cursor: pointer;
+    transition: .1s ease-in;
+  
+    p{
+      font-size: .8rem;
+      color: base.$light-blue;
+    }
+  
+    svg{
+      color: base.$light-blue;
+    }
+  
+    &:hover{
+      background-color: base.$light-blue;
+  
+      p,svg{
+        color: base.$pale-blue;
+  
+      }
+    }
+}
+
+.wm-city-select{
+  position: absolute;
+  width: 15rem;
+  height: max-content;
+  padding: 1rem;
+  top:1rem;
+  right: 1rem;
+  z-index:99999;
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.wm-dot{
+  width: 15px;
+  height: 15px;
+  background-color: rgb(0, 140, 255);
+  border: 1px solid white;
+  cursor: pointer;
+  outline: none;
 }

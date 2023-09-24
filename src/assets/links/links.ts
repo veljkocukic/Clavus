@@ -1,4 +1,4 @@
-import { faFile, faHome, faMessage, faTasks } from '@fortawesome/free-solid-svg-icons'
+import { faFile, faHome, faMapLocationDot, faMessage, faTasks } from '@fortawesome/free-solid-svg-icons'
 
 export const adminSidebarLinks = [
   {
@@ -38,5 +38,10 @@ export const workerSidebarLinks = [
     title: 'Poruke',
     path: '/messages',
     icon: faMessage
+  },
+  { id: 2,
+    title: 'Oblast rada',
+    path: '/map',
+    icon: faMapLocationDot
   },
 ]
