@@ -7,6 +7,10 @@ interface IInitialState {
   isUserLoading: boolean
   user: IUser
   logged: boolean
+  areaOfWork:{
+    lat:number
+    lng:number
+  }
   userRatings: {
     data: {
       rating: number
@@ -46,6 +50,10 @@ export interface IUser {
   totalJobsDone?: number
   totalJobsPosted?: number
   totalRatings?: number
+  areaOfWork:{
+    lat:number
+    lng:number
+  }[]
   ratings?: {
     description: string
     rating: number
@@ -133,15 +141,25 @@ export const addBioAndCat = createAsyncThunk(
   async (bioCat: { bio: string; categories: string[] }, thunkApi) => {
     try {
       const resp = await customFetch.post('/auth/update-bio/', bioCat)
-
-      // thunkApi.dispatch(getUser(user.id))
-
       return resp.data
     } catch (error) {
       return thunkApi.rejectWithValue(error)
     }
   },
 )
+
+export const updateAreaOfWork = createAsyncThunk(
+  'user/updateAreaOfWork',
+  async (areaOfWork:any, thunkApi) => {
+    try {
+      const resp = await customFetch.patch('/users/area', areaOfWork)
+      return resp.data
+    } catch (error) {
+      return thunkApi.rejectWithValue(error)
+    }
+  },
+)
+
 
 const userSlice = createSlice({
   name: 'user',
@@ -228,6 +246,17 @@ const userSlice = createSlice({
       toast.success('User profile updated')
     },
     [editUser.rejected.type]: (state) => {
+      state.isLoading = false
+    },
+    [updateAreaOfWork.pending.type]: (state) => {
+      state.isLoading = true
+    },
+    [updateAreaOfWork.fulfilled.type]: (state,{payload}) => {
+      state.isLoading = false
+      state.areaOfWork = payload
+      toast.success('Oblast rada uspešno sačuvana')
+    },
+    [updateAreaOfWork.rejected.type]: (state) => {
       state.isLoading = false
     },
     [addBioAndCat.pending.type]: (state) => {

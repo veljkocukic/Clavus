@@ -39,7 +39,7 @@ export const workerSidebarLinks = [
     path: '/messages',
     icon: faMessage
   },
-  { id: 2,
+  { id: 3,
     title: 'Oblast rada',
     path: '/map',
     icon: faMapLocationDot

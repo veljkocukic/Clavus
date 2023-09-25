@@ -72,3 +72,22 @@ export const handleNameCase = (name: string): string => {
 
   return name
 }
+
+
+export const calculatePolygonCenter = (polygon) => {
+  let sumLat = 0;
+  let sumLng = 0;
+  const numPoints = polygon.length;
+
+  // Calculate the sum of latitudes and longitudes
+  for (const point of polygon) {
+    sumLat += point.lat;
+    sumLng += point.lng;
+  }
+
+  // Calculate the average latitude and longitude to find the centroid
+  const centroidLat = sumLat / numPoints;
+  const centroidLng = sumLng / numPoints;
+
+  return { lat: centroidLat, lng: centroidLng };
+}

@@ -5,20 +5,24 @@ import { Wrapper } from '@googlemaps/react-wrapper'
 import { useEffect, useRef, useState } from 'react'
 import { Map } from './Map'
 import { faCheck, faEdit } from '@fortawesome/free-solid-svg-icons'
-import { Select } from 'components/Select'
+import { ISelectValue, Select } from 'components/Select'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from 'store'
+import { updateAreaOfWork } from 'feautures/user/userSlice'
+import { cities, cityPolygons } from 'utils/data'
+import { calculatePolygonCenter } from 'utils/helpers'
 
 export const WorkerMap = () => {
     const [map, setMap] = useState(null)
     const [editToggled, setEditToggled] = useState(false)
     const [city, setCity] = useState(null)
     const [markers, setMarkers] = useState([])
-    const [currentPoints, setCurrentPoints] = useState([{ lat: 44.798354, lng: 20.360261, index: 0 },
-    { lat: 44.866490, lng: 20.402774, index: 1 },
-    { lat: 44.827307, lng: 20.538815, index: 2 },
-    { lat: 44.758520, lng: 20.440185, index: 3 }])
+    const [currentPoints, setCurrentPoints] = useState([])
     const [click, setClick] = useState([])
     const clickArea = useRef(null)
     const area = useRef(null)
+    const dispatch = useDispatch<AppDispatch>()
+    const user = JSON.parse(localStorage.getItem('user'))
 
     const polygonSettings = {
         fillColor: '#0454de',
@@ -30,12 +34,17 @@ export const WorkerMap = () => {
 
     useEffect(() => {
         if (map) {
-            area.current = new google.maps.Polygon({
-                paths: [
-                    ...currentPoints
-                ],
-                ...polygonSettings
-            })
+            if (!area.current) {
+                area.current = new google.maps.Polygon({
+                    paths:
+                        user?.areaOfWork ?? []
+                    ,
+                    ...polygonSettings,
+                })
+            }
+
+            currentPoints?.length < 1 && setCurrentPoints(user.areaOfWork?.map((p, index) => ({ ...p, index })))
+            map.setCenter(calculatePolygonCenter(user?.areaOfWork))
             // clickArea.current = new google.maps.Polygon({
             //     paths: [],
             //     fillColor: 'red',
@@ -45,7 +54,7 @@ export const WorkerMap = () => {
             //     setClick(prev => [...prev, ({ lat: e.latLng.lat(), lng: e.latLng.lng() })])
             // })
         }
-    }, [map])
+    }, [map, user])
 
     // useEffect(() => {
     //     if (click.length > 0) {
@@ -82,16 +91,61 @@ export const WorkerMap = () => {
                 setMarkers(prev => [...prev, marker])
             })
         } else {
+            const forDispatch = currentPoints.map(p => ({ lat: p.lat, lng: p.lng }))
+            dispatch(updateAreaOfWork(forDispatch))
+            const localUser = JSON.parse(localStorage.getItem('user'))
+            localUser.areaOfWork = forDispatch
+            localStorage.setItem('user', JSON.stringify(localUser))
             markers.forEach(m => m.setMap(null))
             setMarkers([])
         }
     }
 
 
-    const handleCityChange = (value) => {
+    const handleCityChange = (value: ISelectValue) => {
         setCity(value)
+        const cityCoords = cityPolygons[value.value]
+        area.current.setPath(cityCoords)
+        const newPoints = cityCoords.map((c, index) => ({ ...c, index }))
+        setCurrentPoints(newPoints)
+        let mks = []
+        newPoints.forEach(e => {
+            const content = document.createElement('div')
+            content.className = 'wm-dot'
+            const marker = new google.maps.marker.AdvancedMarkerElement({
+                position: { lat: e.lat, lng: e.lng },
+                map,
+                content,
+                gmpDraggable: true,
+            })
+            marker.addListener('dragend', (me) => {
+                const newPosition = { lat: Number(me.latLng.lat().toFixed(6)), lng: Number(me.latLng.lng().toFixed(6)) }
+                setCurrentPoints((prev) => {
+                    let copy: any = [...prev]
+                    copy[e.index] = { ...newPosition, index: e.index }
+                    area.current?.setPath(copy)
+                    return copy
+                })
+            })
+            mks.push(marker)
+        })
+        setMarkers(prev => {
+            prev.forEach(m => m.setMap(null))
+            return mks
+        })
+
+
     }
 
+    const getOptions = () => {
+        return Object.entries(cityPolygons).map(e => {
+            let name = e[0]
+            if (name.includes('_')) {
+                name = name.split('_').join(' ')
+            }
+            return { label: name, value: e[0] }
+        })
+    }
 
     return <div className="page-content" >
         <div className='content-title-bar' >
@@ -104,7 +158,7 @@ export const WorkerMap = () => {
         <div className="worker-map-container">
             {editToggled && <div className='wm-city-select'>
                 <Select labelText='Učitaj šemu za grad' name='city' value={city?.value}
-                    options={[{ label: 'Beograd', value: 1 }]} onChange={handleCityChange} className='w100' />
+                    options={getOptions()} onChange={handleCityChange} className='w100' />
             </div>}
 
             <Wrapper apiKey={'AIzaSyC3j4JIbnFi0TBd5hDDo1qqiht0jw_eGW4'} version='beta' libraries={['marker', 'places', 'geocoding']}>

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { IInput } from './Input';
 
 interface ISelect extends Omit<IInput, 'type' | 'onChange'> {
-    options: ISelectValue[]
+    options: any
     onChange: any
 }
 export const Select = ({ name, value, options, className, invalid, labelText, customInvalidMessage, onChange }: ISelect) => {

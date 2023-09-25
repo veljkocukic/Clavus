@@ -99,7 +99,7 @@ export const cities = [
 /*eslint-disable*/
 
 export const cityPolygons = {
-  NoviBeograd:[
+  Novi_Beograd:[
     {
         "lat": 44.80196116618229,
         "lng": 20.361225454340932
@@ -219,7 +219,7 @@ Zemun:[
       "lng": 20.421108101694085
   }
 ],
-Krusevac:[
+Kruševac:[
   {
       "lat": 43.58641046485714,
       "lng": 21.287858100317568
