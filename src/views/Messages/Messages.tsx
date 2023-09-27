@@ -22,6 +22,7 @@ const SingleMessage = ({ text, sender }) => {
     </div>
 }
 
+
 const SingleConversation = ({ conversationId, receiver, setCurrentChat, jobOffers }) => {
     const navigate = useNavigate()
     const { name, lastName } = receiver
@@ -103,6 +104,8 @@ export const Messages = () => {
         dispatch(getMessages(params))
     }, [params])
 
+    console.log(currentChat)
+
 
     useEffect(() => {
         setParams({ page: 1, limit: 20 })
@@ -139,7 +142,7 @@ export const Messages = () => {
         if (e.key === 'Enter') {
             await dispatch(sendMessage({
                 conversationId: Number(conversationId),
-                receiverId: currentChat.receiverId,
+                receiverId: currentChat.id,
                 userId: user.id,
                 content: messageContent
             }))
