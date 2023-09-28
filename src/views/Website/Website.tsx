@@ -77,7 +77,7 @@ export const Website = () => {
 
     const handleSelect = (value: ISelectValue, name: string) => {
         validateSelect(value, name, setInvalidFields)
-        if (name == 'priceType') {
+        if (name == 'price_type') {
             setInvalidFields(prev => {
                 let copy = [...prev]
                 if (value.value === 'WHOLE') {
@@ -219,10 +219,10 @@ export const Website = () => {
                         <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem' }} >
                             <Input invalid={checkValid(invalidFields, 'price')} className='w100' labelText='Cena' name='price' value={state.price} type='number' onChange={handleChange} />
                             <Select invalid={checkValid(invalidFields, 'currency')} className='w100' labelText='Valuta' name='currency' value={state.currency} options={currencies} onChange={handleSelect} />
-                            <Select invalid={checkValid(invalidFields, 'priceType')} className='w100' labelText='Mera' name='priceType' value={state.priceType} options={priceTypes} onChange={handleSelect} />
+                            <Select invalid={checkValid(invalidFields, 'price_type')} className='w100' labelText='Mera' name='price_type' value={state.price_type} options={priceTypes} onChange={handleSelect} />
                         </div>
                         <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', minHeight: '4rem' }} >
-                            {state?.priceType && state?.priceType !== 'WHOLE' && <Input labelText='Kolicina' name='amount' value={state.amount} type='number' onChange={handleChange} />}
+                            {state?.price_type && state?.price_type !== 'WHOLE' && <Input labelText='Kolicina' name='amount' value={state.amount} type='number' onChange={handleChange} />}
                             <CheckBox text='Rad bez nadgledanja' active={state.withoutMonitoring} onChange={handleCheck} name='withoutMonitoring' />
                         </div>
                     </div>

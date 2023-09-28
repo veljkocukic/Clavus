@@ -10,7 +10,6 @@ import { AppDispatch, RootState } from 'store';
 import { handleNameCase } from 'utils/helpers';
 
 export const Home = () => {
-
   const user: any = JSON.parse(localStorage.getItem('user'))
   const { jobsOverview } = useSelector((state: RootState) => state.tasks)
   const dispatch = useDispatch<AppDispatch>()

@@ -31,7 +31,7 @@ export const ViewJobOffer = () => {
         }
     }
 
-    const priceType = priceTypes.find(p => p.value == jobOffer?.priceType)
+    const priceType = priceTypes.find(p => p.value == jobOffer?.price_type)
 
 
     const handleGoToConversation = async () => {
@@ -92,7 +92,7 @@ export const ViewJobOffer = () => {
                         <div className='expenses-parameter' style={{ gridArea: ' 1 / 1 / 2 / 2' }} >{jobOffer?.price}</div>
                         <div className='expenses-parameter' style={{ gridArea: ' 1 / 2 / 2 / 3' }}>{jobOffer?.currency}</div>
                         <div className='expenses-parameter' style={{ gridArea: ' 1 / 3 / 2 / 4' }}>{priceType?.label}</div>
-                        {jobOffer?.priceType !== 'WHOLE' && <div className='expenses-parameter' style={{ gridArea: ' 2 / 1 / 3 / 2' }}>{jobOffer?.amount}</div>}
+                        {jobOffer?.price_type !== 'WHOLE' && <div className='expenses-parameter' style={{ gridArea: ' 2 / 1 / 3 / 2' }}>{jobOffer?.amount}</div>}
                         <h3 className='expenses-total'>≈ {jobOffer?.price && (jobOffer?.price * (jobOffer?.amount ?? 1) + ' ' + jobOffer?.currency)}</h3>
                     </div>
                 </div>

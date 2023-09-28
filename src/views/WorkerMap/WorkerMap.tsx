@@ -43,8 +43,8 @@ export const WorkerMap = () => {
                 })
             }
 
-            currentPoints?.length < 1 && setCurrentPoints(user.areaOfWork?.map((p, index) => ({ ...p, index })))
-            map.setCenter(calculatePolygonCenter(user?.areaOfWork))
+            currentPoints?.length < 1 && user.areaOfWork?.length > 0 && setCurrentPoints(user.areaOfWork?.map((p, index) => ({ ...p, index })))
+            user.areaOfWork?.length > 0 && map.setCenter(calculatePolygonCenter(user?.areaOfWork))
             // clickArea.current = new google.maps.Polygon({
             //     paths: [],
             //     fillColor: 'red',

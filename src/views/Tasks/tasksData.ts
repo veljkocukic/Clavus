@@ -126,7 +126,7 @@ export const tasksInitialState: ITaskState = {
   name: '',
   price: null,
   currency: 'RSD',
-  priceType: 'WHOLE',
+  price_type: 'WHOLE',
   location: null,
   date: '',
   category: '',
@@ -138,10 +138,12 @@ export interface ITaskState {
   name: string
   price: number
   currency: string
-  priceType: string
+  price_type: string
   location: {
     value:string | number,
     label:string
+    lat:number,
+    lng:number
   }
   date: string
   withoutMonitoring: false
@@ -189,4 +191,4 @@ export interface ITableTask {
   jobOffers: number
 }
 
-export const offerModalInvalidFields = ['priceType', 'currency', 'price']
+export const offerModalInvalidFields = ['price_type', 'currency', 'price']

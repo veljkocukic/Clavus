@@ -40,9 +40,9 @@ export const ViewTask = () => {
     }
 
     const category = Categories.find(c => c.value === task.category)
-    const priceType = priceTypes.find(p => p.value == task?.priceType)
+    const priceType = priceTypes.find(p => p.value == task?.price_type)
     const calculateTotal = () => {
-        if (task?.priceType !== 'WHOLE') {
+        if (task?.price_type !== 'WHOLE') {
             return '≈ ' + (task.amount * task.price).toFixed() + ' ' + task.currency
         } else {
             return '≈ ' + task.price + ' ' + task.currency
@@ -118,7 +118,7 @@ export const ViewTask = () => {
                         <div className='expenses-parameter' style={{ gridArea: ' 1 / 1 / 2 / 2' }} >{task.price}</div>
                         <div className='expenses-parameter' style={{ gridArea: ' 1 / 2 / 2 / 3' }}>{task.currency}</div>
                         <div className='expenses-parameter' style={{ gridArea: ' 1 / 3 / 2 / 4' }}>{priceType?.label}</div>
-                        {task?.priceType !== 'WHOLE' && <div className='expenses-parameter' style={{ gridArea: ' 2 / 1 / 3 / 2' }}>{task?.amount}</div>}
+                        {task?.price_type !== 'WHOLE' && <div className='expenses-parameter' style={{ gridArea: ' 2 / 1 / 3 / 2' }}>{task?.amount}</div>}
                         <h3 className='expenses-total'>{calculateTotal()}</h3>
                     </div>
                 </div>
@@ -138,6 +138,6 @@ export const ViewTask = () => {
 
         </div >
         {rateModalOpen && <RateModal setOpenModal={setRateModalOpen} />}
-        {offerModalOpen && <OfferModal setOpenModal={setOfferModalOpen} price={task.price} priceType={task.priceType} amount={task.amount} currency={task.currency} />}
+        {offerModalOpen && <OfferModal setOpenModal={setOfferModalOpen} price={task.price} price_type={task.price_type} amount={task.amount} currency={task.currency} />}
     </div >
 }

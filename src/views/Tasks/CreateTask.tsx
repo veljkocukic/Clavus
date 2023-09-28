@@ -37,9 +37,6 @@ export const CreateTask = () => {
 
     const handleSubmit = async () => {
 
-
-        console.log(invalidFields)
-
         if (invalidFields.length > 0) {
             toast.warn('Polja moraju biti validna')
             return
@@ -72,7 +69,7 @@ export const CreateTask = () => {
 
     const handleSelect = (value: ISelectValue, name: string) => {
         validateSelect(value, name, setInvalidFields)
-        if (name == 'priceType') {
+        if (name == 'price_type') {
             setInvalidFields(prev => {
                 let copy = [...prev]
                 if (value.value === 'WHOLE') {
@@ -114,11 +111,7 @@ export const CreateTask = () => {
     const handleLocation = (value: ISelectValue) => {
         const geocoder = new google.maps.Geocoder();
         const infowindow = new google.maps.InfoWindow();
-        setState(prev => {
-            const copy = structuredClone(prev)
-            copy.location = value
-            return copy
-        })
+
 
         setInvalidFields(prev => {
             let copy = structuredClone(prev)
@@ -132,6 +125,12 @@ export const CreateTask = () => {
                 if (results[0]) {
                     map.setZoom(11);
                     map.setCenter(results[0].geometry.location);
+
+                    setState(prev => {
+                        const copy = structuredClone(prev)
+                        copy.location = { lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng(), label: value.label, value: value.value }
+                        return copy
+                    })
 
                     marker.current = new google.maps.Marker({
                         map,
@@ -151,9 +150,10 @@ export const CreateTask = () => {
                             }
                             setState(prev => {
                                 const copy = structuredClone(prev)
-                                copy.location = { value: v.results[0].place_id, label }
+                                copy.location = { value: v.results[0].place_id, label, lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng() }
                                 return copy
                             })
+
                         })
                     }))
 
@@ -201,7 +201,7 @@ export const CreateTask = () => {
                             }
                             setState(prev => {
                                 const copy = structuredClone(prev)
-                                copy.location = { value: placeDetails.place_id, label }
+                                copy.location = { value: placeDetails.place_id, label, ...position }
                                 return copy
                             })
                         }
@@ -244,10 +244,10 @@ export const CreateTask = () => {
                     <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem' }} >
                         <Input invalid={checkValid(invalidFields, 'price')} className='w100' labelText='Cena' name='price' value={state.price} type='number' onChange={handleChange} />
                         <Select invalid={checkValid(invalidFields, 'currency')} className='w100' labelText='Valuta' name='currency' value={state.currency} options={currencies} onChange={handleSelect} />
-                        <Select invalid={checkValid(invalidFields, 'priceType')} className='w100' labelText='Mera' name='priceType' value={state.priceType} options={priceTypes} onChange={handleSelect} />
+                        <Select invalid={checkValid(invalidFields, 'price_type')} className='w100' labelText='Mera' name='price_type' value={state.price_type} options={priceTypes} onChange={handleSelect} />
                     </div>
                     <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', minHeight: '4rem' }} >
-                        {state?.priceType && state?.priceType !== 'WHOLE' && <Input labelText='Kolicina' name='amount' value={state.amount} type='number' onChange={handleChange} />}
+                        {state?.price_type && state?.price_type !== 'WHOLE' && <Input labelText='Kolicina' name='amount' value={state.amount} type='number' onChange={handleChange} />}
                         <CheckBox text='Rad bez nadgledanja' active={state.withoutMonitoring} onChange={handleCheck} name='withoutMonitoring' />
                     </div>
                 </div>
