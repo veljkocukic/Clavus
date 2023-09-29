@@ -136,11 +136,12 @@ interface IJobCard {
     id: number
     className?: string
     category: string
+    admin?: boolean
 }
-export const JobCard = ({ name, location, price, date, id, className, category }: IJobCard) => {
+export const JobCard = ({ name, location, price, date, id, className, category, admin }: IJobCard) => {
     const navigate = useNavigate()
     const icon = getCategoryIcon(category)
-    return <div className={'worker-job-card ' + className} onClick={() => navigate('/worker-task/' + id)} >
+    return <div className={'worker-job-card ' + className} onClick={() => navigate(admin ? '/tasks/' : '/worker-task/' + id)} >
         <div className='flex align-center just-center h100 ' >
             <FontAwesomeIcon icon={icon} />
         </div>

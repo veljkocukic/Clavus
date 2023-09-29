@@ -129,9 +129,14 @@ export const ViewTask = () => {
                         <h3>Ponude:</h3>
                         <button className='see-more' >Vidi sve</button>
                     </div>
-                    <div className='vtb-offers-container__grid' >
-                        {task?.jobOffers?.map(o => <SingleOffer key={o.id} id={o.id} name={o.user.name} lastName={o.user.lastName} ratings={o.user.ratings?.toFixed(1) ?? '/'} />)}
-                    </div>
+                    {task?.jobOffers?.length > 0 ? <div className='vtb-offers-container__grid' >
+                        {task.jobOffers.map(o => <SingleOffer key={o.id} id={o.id} name={o.user.name} lastName={o.user.lastName} ratings={o.user.ratings?.toFixed(1) ?? '/'} />)}
+                    </div> : <div className='vtb-offers-container__wait'>
+                        <p>Obavestili smo radnike iz vase kategorije o postavljenom poslu, cekamo ponude</p>
+                        <svg className="wait-spinner" viewBox="0 0 50 50">
+                            <circle className="path" cx="25" cy="25" r="20" fill="none" strokeWidth="5"></circle>
+                        </svg>
+                    </div>}
                 </div>}
 
             </div>

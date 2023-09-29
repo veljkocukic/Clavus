@@ -5,7 +5,7 @@ export const Map = ({ setMap }) => {
 
     const mapOptions = {
         zoom: 12,
-        mapId: '4504f8b37365c3d0',
+        mapId: 'edb85e684ae3d8a6',
         center: {
             lat: 44.80,
             lng: 20.44,

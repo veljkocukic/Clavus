@@ -84,7 +84,7 @@ export const ViewProfile = () => {
                 </div>
                 <div className="flex column gap1 mt1">
                     <div className="flex w100 between align-center"><p>{admin ? 'Postavljeni oglasi' : 'Obavljeni poslovi'}</p> <p className="see-more" >Vidi sve</p></div>
-                    {user && user[admin ? 'jobs' : 'jobsDone'].map((j, i) => <JobCard className='h6' key={i} location={j.location} id={j.id} date={j.date} name={j.name} category={j.category} />)}
+                    {user && user[admin ? 'jobs' : 'jobsDone'].map((j, i) => <JobCard className='h6' admin={admin} key={i} location={j.location} id={j.id} date={j.date} name={j.name} category={j.category} />)}
                 </div>
             </div>
         </div>
