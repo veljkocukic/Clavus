@@ -38,9 +38,8 @@
       position: absolute;
       top: 0;
       left: 0;
-      background-color: base.$pale-blue;
       border: none;
-      border-bottom: 2px solid base.$light-gray;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
       outline: none;
       font-size: 1.2rem;
       border-radius: 5px;
@@ -107,7 +106,7 @@ textarea {
   position: absolute;
   top: 0;
   left: 0;
-  background-color: base.$pale-blue;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
   border: none;
   outline: none;
   font-size: 1.2rem;

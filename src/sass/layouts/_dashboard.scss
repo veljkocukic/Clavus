@@ -1185,3 +1185,35 @@
   
   }
 }
+
+
+.st-button{
+    width: max-content;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    gap:1rem;
+    border-radius: 1.5rem;
+    border: 1px solid base.$light-blue;
+    cursor: pointer;
+    transition: .1s ease-in;
+  
+    p{
+      font-size: .8rem;
+      color: base.$light-blue;
+    }
+  
+    svg{
+      color: base.$light-blue;
+    }
+  
+    &:hover{
+      background-color: base.$light-blue;
+  
+      p,svg{
+        color: base.$pale-blue;
+  
+      }
+    }
+}

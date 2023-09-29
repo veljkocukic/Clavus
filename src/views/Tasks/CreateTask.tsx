@@ -108,6 +108,33 @@ export const CreateTask = () => {
         })
     }
 
+    useEffect(() => {
+        if (map) {
+            const geocoder = new google.maps.Geocoder();
+            const handleLocation = c => {
+                geocoder.geocode({
+                    location: c.latLng
+                }).then(v => {
+                    let label = v.results[0].formatted_address
+                    if (label.includes('+')) {
+                        let splitted = label.split(' ')
+                        splitted = splitted.filter(w => !w.includes('+'))
+                        label = splitted.join(' ')
+                    }
+                    setState(prev => {
+                        const copy = structuredClone(prev)
+                        copy.location = { value: v.results[0].place_id, label, lat: c.latLng.lat(), lng: c.latLng.lng() }
+                        return copy
+                    })
+
+                })
+            }
+
+            marker?.current && marker.current.addListener('dragend', handleLocation)
+        }
+
+    }, [marker, marker.current, map])
+
     const handleLocation = (value: ISelectValue) => {
         const geocoder = new google.maps.Geocoder();
         const infowindow = new google.maps.InfoWindow();
@@ -138,24 +165,7 @@ export const CreateTask = () => {
                         crossOnDrag: true,
                         draggable: true
                     });
-                    marker.current.addListener('dragend', (c => {
-                        geocoder.geocode({
-                            location: c.latLng
-                        }).then(v => {
-                            let label = v.results[0].formatted_address
-                            if (label.includes('+')) {
-                                let splitted = label.split(' ')
-                                splitted = splitted.filter(w => !w.includes('+'))
-                                label = splitted.join(' ')
-                            }
-                            setState(prev => {
-                                const copy = structuredClone(prev)
-                                copy.location = { value: v.results[0].place_id, label, lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng() }
-                                return copy
-                            })
-
-                        })
-                    }))
+                    marker.current.addListener
 
                     infowindow.setContent(results[0].formatted_address);
                     infowindow.open(map, marker.current);

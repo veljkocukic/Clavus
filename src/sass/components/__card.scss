@@ -3,13 +3,12 @@
 .card-wrapper {
   width: 15rem;
   height: 8rem;
-  background-color: base.$pale-blue;
   border-radius: 10px;
   position: relative;
-  border-bottom: 5px solid base.$light-gray;
   overflow: hidden;
-
-  h3 {
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+    h3 {
     font-size: 1.3rem;
     font-weight: 500;
     margin-left: 0.5rem;
