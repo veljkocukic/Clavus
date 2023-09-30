@@ -121,6 +121,9 @@ export const Messages = () => {
         if (localMessages.length > 1) {
             setLocalMessages([])
         }
+        if (scrollRef?.current) {
+            scrollRef.current.scrollTop = scrollRef?.current.scrollHeight;
+        }
     }, [conversationId, conversations])
 
     useEffect(() => {

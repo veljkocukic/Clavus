@@ -75,7 +75,7 @@ export const OfferModal = ({ price, price_type, currency, amount, setOpenModal }
 
     return <div className='modal-wrapper' >
         <div className='send-offer-modal'  >
-            <div className='flex center between ' >
+            <div className='modal-top' >
                 <h3>Ponuda za posao</h3>
                 <FontAwesomeIcon style={{ cursor: 'pointer' }} icon={faClose} fontSize='1.3rem' onClick={() => setOpenModal(false)} />
             </div>

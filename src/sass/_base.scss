@@ -40,6 +40,17 @@ $font-family: 'Lexend', sans-serif;
   overflow: hidden;
 }
 
+.modal-top{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  top:1rem;
+  left:0;
+  width: 100%;
+  padding: .5rem 2rem;
+}
+
 .mb15 {
   margin-bottom: 15rem !important;
 }

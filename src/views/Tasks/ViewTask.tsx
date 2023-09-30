@@ -11,6 +11,7 @@ import { getTask } from 'feautures/task/taskSlice'
 import { convertTaskDate, convertToHoursMins } from 'utils/helpers'
 import { OfferModal } from './OfferModal'
 import { RateModal } from './RateModal'
+import { ViewOffersModal } from './ViewOffersModal'
 
 export const ViewTask = () => {
     const dispatch = useDispatch<AppDispatch>()
@@ -20,6 +21,7 @@ export const ViewTask = () => {
     const location = useLocation()
     const [offerModalOpen, setOfferModalOpen] = useState(false)
     const [rateModalOpen, setRateModalOpen] = useState(false)
+    const [viewOffersModalOpen, setViewOffersModalOpen] = useState(false)
 
     let admin = true
     if (location.pathname.includes('worker')) {
@@ -127,7 +129,7 @@ export const ViewTask = () => {
                 {admin && <div className='vtb-offers-container' >
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} >
                         <h3>Ponude:</h3>
-                        <button className='see-more' >Vidi sve</button>
+                        {task?.jobOffers?.length > 0 && <button className='see-more' onClick={() => setViewOffersModalOpen(true)} >Vidi sve</button>}
                     </div>
                     {task?.jobOffers?.length > 0 ? <div className='vtb-offers-container__grid' >
                         {task.jobOffers.map(o => <SingleOffer key={o.id} id={o.id} name={o.user.name} lastName={o.user.lastName} ratings={o.user.ratings?.toFixed(1) ?? '/'} />)}
@@ -142,6 +144,7 @@ export const ViewTask = () => {
             </div>
 
         </div >
+        {viewOffersModalOpen && <ViewOffersModal setOpenModal={setViewOffersModalOpen} />}
         {rateModalOpen && <RateModal setOpenModal={setRateModalOpen} />}
         {offerModalOpen && <OfferModal setOpenModal={setOfferModalOpen} price={task.price} price_type={task.price_type} amount={task.amount} currency={task.currency} />}
     </div >
