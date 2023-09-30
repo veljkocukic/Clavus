@@ -9,7 +9,7 @@ import { ISelectValue, Select } from 'components/Select'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from 'store'
 import { updateAreaOfWork } from 'feautures/user/userSlice'
-import { cities, cityPolygons } from 'utils/data'
+import { cityPolygons } from 'utils/data'
 import { calculatePolygonCenter } from 'utils/helpers'
 
 export const WorkerMap = () => {

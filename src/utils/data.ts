@@ -95,7 +95,6 @@ export const cities = [
   {label:'Požarevac',value:'POZAREVAC'},
   {label:'Valjevo',value:'VALJEVO'},
 ]
-
 /*eslint-disable*/
 
 export const cityPolygons = {

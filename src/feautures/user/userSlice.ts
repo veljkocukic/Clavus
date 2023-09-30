@@ -138,7 +138,7 @@ export const getUserRatings = createAsyncThunk(
 
 export const addBioAndCat = createAsyncThunk(
   'user/addBio',
-  async (bioCat: { bio: string; categories: string[] }, thunkApi) => {
+  async (bioCat: { bio: string; categories: string[], areaOfWork:{lat:number,lng:number}[] }, thunkApi) => {
     try {
       const resp = await customFetch.post('/auth/update-bio/', bioCat)
       return resp.data
