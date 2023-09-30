@@ -1,5 +1,4 @@
 import { SearchBox } from 'components/SearchBox/SearchBox'
-import { TopBar } from 'components/TopBar/TopBar'
 import iphone from 'assets/images/iphone.png'
 import macbook from 'assets/images/macbook.png'
 import firstStep from 'assets/images/firstStep.png'
@@ -20,6 +19,9 @@ import { Button } from 'components/Button'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { useOnClickOutside } from 'utils/hooks/useClickOutside'
+import { Wrapper } from '@googlemaps/react-wrapper'
+import { TaskMap } from 'views/Tasks/TaskMap'
+import { AsyncSelect } from 'components/AsyncSelect'
 
 export const Website = () => {
     const [categories, setCategories] = useState([])
@@ -27,7 +29,10 @@ export const Website = () => {
     const modalRef = useRef()
     const [invalidFields, setInvalidFields] = useState(tasksValidation)
     const [state, setState] = useState<ITaskState>(tasksInitialState)
+    const [map, setMap] = useState(null)
     const navigate = useNavigate()
+    const marker = useRef(null)
+
 
     useOnClickOutside(modalRef, () => setModalOpen(false))
 
@@ -112,8 +117,64 @@ export const Website = () => {
             return copy
         })
     }
+
+
+
+    const handleLocation = (value: ISelectValue) => {
+        const geocoder = new google.maps.Geocoder();
+        const infowindow = new google.maps.InfoWindow();
+
+
+        setInvalidFields(prev => {
+            let copy = structuredClone(prev)
+            copy = copy.filter(f => f !== 'location')
+            return copy
+        })
+
+        geocoder
+            .geocode({ placeId: value.value as string })
+            .then(({ results }) => {
+                if (results[0]) {
+                    map.setZoom(11);
+                    map.setCenter(results[0].geometry.location);
+
+                    setState(prev => {
+                        const copy = structuredClone(prev)
+                        copy.location = { lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng(), label: value.label, value: value.value }
+                        return copy
+                    })
+
+                    marker.current = new google.maps.Marker({
+                        map,
+                        position: results[0].geometry.location,
+                        crossOnDrag: true,
+                        draggable: true
+                    });
+                    marker.current.addListener
+
+                    infowindow.setContent(results[0].formatted_address);
+                    infowindow.open(map, marker.current);
+                } else {
+                    window.alert("No results found");
+                }
+            })
+            .catch((e) => window.alert("Geocoder failed due to: " + e));
+
+
+
+        // const marker = new google.maps.marker.AdvancedMarkerElement({
+        //     position: { lat: Number(position.latitude), lng: Number(position.longitude) },
+        //     map,
+        //     content,
+        // })
+
+    }
+
     return <div className='website-container' >
-        <TopBar login className='bottom-shadow h5' />
+        <div className='website-top-bar'>
+            <h1>Clavus</h1>
+            <Button text='Prijava' onClick={() => navigate('/auth/prijava')} />
+        </div>
         <main ref={mainRef} className='website-main' >
             <div className='website-title-search ' >
                 <h1>Koja usluga vam je potrebna?</h1>
@@ -214,6 +275,7 @@ export const Website = () => {
                         <TextArea className='w100 h10' name='description' labelText='Description' value={state.description} onChange={handleChange} />
                         <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem' }} >
                             {/* <Input invalid={checkValid(invalidFields, 'location')} className='w100' labelText='Lokacija' name='location' value={state.location} type='text' onChange={handleChange} /> */}
+                            <AsyncSelect name='location' className='w100' labelText='Lokacija' value={state.location} onChange={handleLocation} />
                             <Input invalid={checkValid(invalidFields, 'date')} className='w100' labelText='Datum' name='date' value={state.date} type='date' onChange={handleChange} />
                         </div>
                         <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem' }} >
@@ -227,6 +289,9 @@ export const Website = () => {
                         </div>
                     </div>
                     <div className='ct-form-section' >
+                        <Wrapper apiKey={'AIzaSyC3j4JIbnFi0TBd5hDDo1qqiht0jw_eGW4'} version='beta' libraries={['marker', 'places', 'geocoding']}>
+                            <TaskMap map={map} setMap={setMap} />
+                        </Wrapper>
                     </div>
                 </div>
                 <div className='flex just-end mt1' ><Button text='Nastavi' onClick={handleSubmit} /></div>

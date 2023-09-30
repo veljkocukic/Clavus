@@ -2,7 +2,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Merienda&display=swap');
 
-.top-bar-container {
+.top-bar-container, .website-top-bar {
   z-index: 999999 !important;
   position: fixed;
   width: 100%;
@@ -19,7 +19,10 @@
     font-family: 'Merienda', sans-serif;
     font-size: 2.5rem;
   }
-
+}
+.website-top-bar{
+  padding: .5rem 1.2rem;
+  height: max-content;
 }
 
 .profile-button-container {
