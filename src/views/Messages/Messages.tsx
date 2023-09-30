@@ -84,11 +84,13 @@ export const Messages = () => {
     const [messageContent, setMessageContent] = useState('')
     const [currentChat, setCurrentChat] = useState(null)
     const [modalOpen, setModalOpen] = useState(false)
+    const scrollRef = useRef(null)
 
     useEffect(() => {
         socket.on('message', data => {
             if (Number(conversationId) == data.conversationId && !localMessages.some(m => m == data.id)) {
                 setLocalMessages(prev => [...prev, data])
+                scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
             }
         })
         return () => {
@@ -103,9 +105,6 @@ export const Messages = () => {
     useEffect(() => {
         dispatch(getMessages(params))
     }, [params])
-
-    console.log(currentChat)
-
 
     useEffect(() => {
         setParams({ page: 1, limit: 20 })
@@ -147,6 +146,7 @@ export const Messages = () => {
                 content: messageContent
             }))
             setMessageContent('')
+            scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
         }
     }
 
@@ -172,7 +172,7 @@ export const Messages = () => {
         <div className='content-title-bar'>
             <p>Poruke</p>
         </div>
-        <div className='flex w100 center h100 mt1' >
+        <div className='flex w100 center h100 mt1 overflow-hidden '>
             <div className="messages-list" >
                 <SearchBox className='w100' placeholder='Pretrazite poruke' />
                 {conversations.map(c => <SingleConversation
@@ -201,7 +201,7 @@ export const Messages = () => {
                     </div>
                 </div>
                     <div className='messages-chat__list' >
-                        <div className='messages-chat__list-scroll' >
+                        <div className='messages-chat__list-scroll' ref={scrollRef} >
                             {localMessages.map(m => <SingleMessage text={m.content} sender={m.senderId == user.id} />)}
                         </div>
                     </div>
