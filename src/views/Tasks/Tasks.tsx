@@ -1,5 +1,5 @@
 import { IconButton } from 'components/IconButton'
-import { faCheck, faFilter, faHammer, faEye, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faFilter, faHammer, faEye, faTrash, faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClock, faEdit } from '@fortawesome/free-regular-svg-icons'
 import { Pagination } from 'components/Pagionation'
@@ -90,7 +90,7 @@ export const Tasks = () => {
     return <div className="page-content" >
         <div className='content-title-bar' >
             <p><span>Svi zadaci</span></p>
-            <div className='flex gap1' > <Button onClick={() => navigate('/tasks/create')} text='Dodaj zadatak' /><IconButton icon={faFilter} /></div>
+            <div className='flex gap1' > <Button onClick={() => navigate('/tasks/create')} text='Dodaj zadatak' icon={faPlusCircle} /><IconButton icon={faFilter} /></div>
         </div>
         <div className='table-container' >
             <div className='th'>

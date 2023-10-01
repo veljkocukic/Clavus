@@ -1,4 +1,5 @@
 /*eslint-disable*/
+import { faCheckCircle, faPlusSquare } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Wrapper } from '@googlemaps/react-wrapper'
 import { AsyncSelect } from 'components/AsyncSelect'
@@ -223,10 +224,10 @@ export const CreateTask = () => {
         }
     }, [map])
 
-    return <div className='page-contetnt' >
+    return <div className='page-content' >
         <div className='content-title-bar' >
             <p><span>Kreiranje zadatka</span></p>
-            {state.category && <Button text='Potvrdi' onClick={handleSubmit} />}
+            {state.category && <Button text='Potvrdi' onClick={handleSubmit} icon={faCheckCircle} />}
 
         </div>
         <div className='page-subtitle' >

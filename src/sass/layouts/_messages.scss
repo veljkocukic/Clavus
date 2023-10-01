@@ -194,15 +194,13 @@
     .messages-container{
         flex-direction: column !important;
         margin: 0 !important;
+        padding-bottom: 8rem;
     }
 
     .messages-list{
         width: 100%;
     }
 
-    .search-box-container{
-        display: none;
-    }
 
     .single-message-list-item{
         flex-direction: column;

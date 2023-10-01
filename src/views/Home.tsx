@@ -1,4 +1,4 @@
-import { faCheckCircle, faClock, faHammer, faList } from '@fortawesome/free-solid-svg-icons';
+import { faCheckCircle, faClock, faHammer, faList, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from 'components/Button';
 import { LatestTasksCard } from 'components/LatestTasksCard';
@@ -22,7 +22,7 @@ export const Home = () => {
   return <div className="page-content" >
     <div className='content-title-bar' >
       <p><span>Zdravo,</span> {handleNameCase(user?.name)}</p>
-      <Button onClick={() => navigate('/tasks/create')} text='Dodaj zadatak' />
+      <Button onClick={() => navigate('/tasks/create')} text='Dodaj zadatak' icon={faPlusCircle} />
     </div>
     <div className='home-cards-container mt2' >
       <div className='card-wrapper' onClick={() => navigate('/tasks')} >
