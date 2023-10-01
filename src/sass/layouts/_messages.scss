@@ -189,12 +189,16 @@
     align-items: center;
 }
 
+.mobile-conversations{
+    width: 70%;
+}
+
 @media screen and (max-width: 850px) {
 
     .messages-container{
         flex-direction: column !important;
         margin: 0 !important;
-        padding-bottom: 8rem;
+        padding-bottom: 3.2rem;
     }
 
     .messages-list{
@@ -253,6 +257,29 @@
         gap:2rem;
         align-items: flex-start;
         border-bottom: 1px solid rgba(128, 128, 128, 0.147);
+    }
+
+    .computer-conversations{
+        display: none;
+    }
+
+    .mobile-conversations{
+        display: block;
+    }
+
+
+    .messages-chat__input{
+        min-height: unset;
+        height: 2.3rem;
+
+        .media-input{
+            padding: .1rem !important;
+        }
+
+        input{
+            border-radius: 1px !important;
+            padding: .3rem !important;
+        }
     }
 
   }

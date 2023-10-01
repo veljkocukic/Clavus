@@ -189,10 +189,11 @@ export const Messages = () => {
     return <div className='page-content-static' >
         <div className='content-title-bar'>
             <p>Poruke</p>
+            <SearchBox className='mobile-conversations ' placeholder='Pretrazite poruke' />
         </div>
         <div className='flex w100 center h100 mt1 overflow-hidden messages-container'>
             <div className="messages-list" >
-                <SearchBox className='w100' placeholder='Pretrazite poruke' />
+                <SearchBox className='w100 computer-conversations ' placeholder='Pretrazite poruke' />
                 <div className='conversations-container' >
                     {conversations.map(c => <SingleConversation
                         receiver={c?.participants[0]}
