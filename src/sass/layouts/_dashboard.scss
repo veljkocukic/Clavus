@@ -1207,7 +1207,7 @@
 
 .wh-map-options{
     width: max-content;
-    max-height: 3rem;
+    max-height: 2.5rem;
     display: flex;
     align-items: center;
     padding: 1rem;
@@ -1218,7 +1218,7 @@
     transition: .1s ease-in;
   
     p{
-      font-size: .8rem;
+      font-size: .8rem !important ;
       color: base.$light-blue;
     }
   
