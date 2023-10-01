@@ -264,7 +264,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 99999;
+
+    z-index: 999999;
   
     & > div {
       min-width: 85vw;
@@ -309,6 +310,15 @@
 
           .ct-form-container{
               flex-direction: column;
+              height: 75vh;
+              max-height: 75vh;
+              overflow: auto;
+              margin-top: 4rem;
+              gap:.5rem;
+          }
+
+          .website-map{
+              min-height: 20rem !important;
           }
     }
     

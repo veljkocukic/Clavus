@@ -134,6 +134,8 @@ export const tasksInitialState: ITaskState = {
   withoutMonitoring: false,
 }
 
+export const siteInitialState = {...tasksInitialState, category:{label:'',value:null}}
+
 export interface ITaskState {
   name: string
   price: number

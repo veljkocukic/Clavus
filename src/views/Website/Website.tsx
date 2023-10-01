@@ -6,33 +6,38 @@ import secondStep from 'assets/images/secondStep.png'
 import thirdStep from 'assets/images/thirdStep.png'
 import fourthStep from 'assets/images/fourthStep.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleCheck, faFile, faHandsPraying, faHeadset, faList } from '@fortawesome/free-solid-svg-icons'
-import { Categories, currencies, ITaskState, priceTypes, tasksInitialState, tasksValidation } from 'views/Tasks/tasksData'
+import { faCircleCheck, faClose, faFile, faHandsPraying, faHeadset, faList } from '@fortawesome/free-solid-svg-icons'
+import { Categories, currencies, ITaskState, priceTypes, siteInitialState, tasksValidation } from 'views/Tasks/tasksData'
 import { useEffect, useRef, useState } from 'react'
 import { Input } from 'components/Input'
 import { TextArea } from 'components/TextArea'
 import { checkValid } from 'utils/helpers'
 import { ISelectValue, Select } from 'components/Select'
-import { CheckBox } from 'components/TopBar/CheckBox'
 import { standardFieldValidation, validateSelect } from 'utils/validationUtils'
 import { Button } from 'components/Button'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { useOnClickOutside } from 'utils/hooks/useClickOutside'
 import { Wrapper } from '@googlemaps/react-wrapper'
-import { TaskMap } from 'views/Tasks/TaskMap'
 import { AsyncSelect } from 'components/AsyncSelect'
+import { Map } from 'views/WorkerMap/Map'
+
+interface ISiteState extends Omit<ITaskState, 'category'> {
+    category: {
+        label: string | number
+        value: string | number
+    }
+}
 
 export const Website = () => {
     const [categories, setCategories] = useState([])
     const [modalOpen, setModalOpen] = useState(false)
     const modalRef = useRef()
     const [invalidFields, setInvalidFields] = useState(tasksValidation)
-    const [state, setState] = useState<ITaskState>(tasksInitialState)
+    const [state, setState] = useState<ISiteState>(siteInitialState)
     const [map, setMap] = useState(null)
     const navigate = useNavigate()
     const marker = useRef(null)
-
 
     useOnClickOutside(modalRef, () => setModalOpen(false))
 
@@ -105,15 +110,15 @@ export const Website = () => {
             toast.warn('Sva polja moraju biti validna.')
             return
         }
-        localStorage.setItem('creatingTask', JSON.stringify(state))
+        localStorage.setItem('creatingTask', JSON.stringify({ ...state, category: state.category.value }))
         navigate('auth/register')
     }
 
-    const handleSearchSelect = (v) => {
+    const handleSearchSelect = (v: ISelectValue) => {
         setModalOpen(true)
         setState(prev => {
             const copy = structuredClone(prev)
-            copy.category = v.value
+            copy.category = v
             return copy
         })
     }
@@ -160,15 +165,45 @@ export const Website = () => {
             })
             .catch((e) => window.alert("Geocoder failed due to: " + e));
 
-
-
-        // const marker = new google.maps.marker.AdvancedMarkerElement({
-        //     position: { lat: Number(position.latitude), lng: Number(position.longitude) },
-        //     map,
-        //     content,
-        // })
-
     }
+
+    useEffect(() => {
+        if (map) {
+            map.addListener('click', e => {
+                const position = { lat: e.latLng.lat(), lng: e.latLng.lng() }
+                if (!marker.current) {
+                    marker.current = new google.maps.Marker({
+                        map, position, crossOnDrag: true,
+                        draggable: true
+                    })
+                }
+                marker.current.setPosition(position)
+                const geocoder = new google.maps.Geocoder();
+                geocoder.geocode({ location: position }, (results, status) => {
+                    if (status === 'OK') {
+                        if (results[0]) {
+                            // Extract the address and other details
+                            const placeDetails = results[0];
+                            let label = placeDetails.formatted_address
+                            if (label.includes('+')) {
+                                let splitted = label.split(' ')
+                                splitted = splitted.filter(w => !w.includes('+'))
+                                label = splitted.join(' ')
+                            }
+                            setState(prev => {
+                                const copy = structuredClone(prev)
+                                copy.location = { value: placeDetails.place_id, label, ...position }
+                                return copy
+                            })
+                        }
+                    } else {
+                        console.error('Geocoder failed due to: ' + status);
+                    }
+                })
+            })
+        }
+    }, [map])
+
 
     return <div className='website-container' >
         <div className='website-top-bar'>
@@ -269,6 +304,10 @@ export const Website = () => {
         </section>
         {modalOpen && <div className='website-modal'  >
             <div ref={modalRef} >
+                <div className='modal-top' >
+                    <h3>Kreiranje oglasa za posao: {state.category.label} </h3>
+                    <FontAwesomeIcon style={{ cursor: 'pointer' }} icon={faClose} fontSize='1.3rem' onClick={() => setModalOpen(false)} />
+                </div>
                 <div className='ct-form-container'  >
                     <div className='ct-form-section' >
                         <Input invalid={checkValid(invalidFields, 'name')} className='w100' labelText='Naziv zadatka' name='name' value={state.name} type='text' onChange={handleChange} />
@@ -283,14 +322,13 @@ export const Website = () => {
                             <Select invalid={checkValid(invalidFields, 'currency')} className='w100' labelText='Valuta' name='currency' value={state.currency} options={currencies} onChange={handleSelect} />
                             <Select invalid={checkValid(invalidFields, 'price_type')} className='w100' labelText='Mera' name='price_type' value={state.price_type} options={priceTypes} onChange={handleSelect} />
                         </div>
-                        <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', minHeight: '4rem' }} >
-                            {state?.price_type && state?.price_type !== 'WHOLE' && <Input labelText='Kolicina' name='amount' value={state.amount} type='number' onChange={handleChange} />}
-                            <CheckBox text='Rad bez nadgledanja' active={state.withoutMonitoring} onChange={handleCheck} name='withoutMonitoring' />
-                        </div>
+                        {state?.price_type && state?.price_type !== 'WHOLE' && <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', minHeight: '4rem' }} >
+                            <Input labelText='Kolicina' name='amount' value={state.amount} type='number' onChange={handleChange} />
+                        </div>}
                     </div>
-                    <div className='ct-form-section' >
+                    <div className='w100 worker-map-container website-map' >
                         <Wrapper apiKey={'AIzaSyC3j4JIbnFi0TBd5hDDo1qqiht0jw_eGW4'} version='beta' libraries={['marker', 'places', 'geocoding']}>
-                            <TaskMap map={map} setMap={setMap} />
+                            <Map setMap={setMap} />
                         </Wrapper>
                     </div>
                 </div>
