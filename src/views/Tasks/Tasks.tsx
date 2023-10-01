@@ -14,13 +14,18 @@ import { Button } from 'components/Button'
 
 export const Tasks = () => {
     /*eslint-disable*/
-    const [params, setParams] = useState({ page: 1, limit: 5 })
+    const [params, setParams] = useState<any>(location.search
+        ? Object.fromEntries(new URLSearchParams(location.search))
+        : { page: 1, limit: 5 })
     const dispatch = useDispatch<AppDispatch>()
     const { allTasks, totalPages } = useSelector((state: RootState) => state.tasks)
     const navigate = useNavigate()
 
     useEffect(() => {
-        dispatch(getTasks(params))
+        const p = !params.page ? { ...params, page: 1, limit: 5 } : params
+        setParams(p)
+        dispatch(getTasks(p))
+
     }, [params])
 
     const renderOptions = (id: number) => {
