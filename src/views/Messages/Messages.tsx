@@ -32,7 +32,9 @@ const SingleConversation = ({ conversationId, receiver, setCurrentChat, jobOffer
         setCurrentChat({ ...receiver, jobOffers, receiverId: receiver.id })
     }
 
-    return <div className='single-message-list-item'
+    let cName = 'single-message-list-item'
+
+    return <div className={cName}
         onClick={handleClick} >
         <img src='https://images.unsplash.com/photo-1557862921-37829c790f19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80' alt='user-image' />
         <div>
@@ -42,7 +44,7 @@ const SingleConversation = ({ conversationId, receiver, setCurrentChat, jobOffer
     </div>
 }
 
-const OffersModal = ({ setModalOpen, currentChat }) => {
+const OffersModal = ({ setModalOpen, currentChat, setCurrentChat }) => {
 
     const dispatch = useDispatch<AppDispatch>()
 
@@ -51,6 +53,11 @@ const OffersModal = ({ setModalOpen, currentChat }) => {
         if (resp.meta.requestStatus = 'fulfilled') {
             setModalOpen(false)
             dispatch(removeJobOffer({ cId: currentChat.id, oId: id }))
+            setCurrentChat(prev => {
+                const copy = structuredClone(prev)
+                copy.jobOffers = []
+                return copy
+            })
         }
     }
 
@@ -179,24 +186,23 @@ export const Messages = () => {
         }
     }
 
-
-    console.log(conversations)
-
-    return <div className='page-content' >
+    return <div className='page-content-static' >
         <div className='content-title-bar'>
             <p>Poruke</p>
         </div>
-        <div className='flex w100 center h100 mt1 overflow-hidden '>
+        <div className='flex w100 center h100 mt1 overflow-hidden messages-container'>
             <div className="messages-list" >
                 <SearchBox className='w100' placeholder='Pretrazite poruke' />
-                {conversations.map(c => <SingleConversation
-                    receiver={c?.participants[0]}
-                    key={c.id}
-                    jobOffers={c.jobOffers}
-                    conversationId={c.id}
-                    setCurrentChat={setCurrentChat}
-                />
-                )}
+                <div className='conversations-container' >
+                    {conversations.map(c => <SingleConversation
+                        receiver={c?.participants[0]}
+                        key={c.id}
+                        jobOffers={c.jobOffers}
+                        conversationId={c.id}
+                        setCurrentChat={setCurrentChat}
+                    />
+                    )}
+                </div>
             </div>
             <div className="messages-chat" >
                 {currentChat && <> <div className="messages-chat__top" >
@@ -229,6 +235,6 @@ export const Messages = () => {
                     </div></>}
             </div>
         </div>
-        {modalOpen && <OffersModal currentChat={currentChat} setModalOpen={setModalOpen} />}
+        {modalOpen && <OffersModal currentChat={currentChat} setModalOpen={setModalOpen} setCurrentChat={setCurrentChat} />}
     </div>
 }

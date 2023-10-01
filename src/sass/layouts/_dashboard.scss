@@ -14,14 +14,14 @@
   height: 100%;
 }
 
-.page-content {
+.page-content, .page-content-static {
   height: 100%;
   position: relative;
   display: flex;
   flex-direction: column;
 }
 
-.content-title-bar {
+.content-title-bar, .content-title-bar-messages {
   width: 100%;
   display: flex;
   align-items: center;
