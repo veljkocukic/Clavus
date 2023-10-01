@@ -29,7 +29,7 @@ const SingleConversation = ({ conversationId, receiver, setCurrentChat, jobOffer
 
     const handleClick = () => {
         navigate('/messages/' + conversationId)
-        setCurrentChat({ ...receiver, jobOffers })
+        setCurrentChat({ ...receiver, jobOffers, receiverId: receiver.id })
     }
 
     return <div className='single-message-list-item'
@@ -86,17 +86,28 @@ export const Messages = () => {
     const [modalOpen, setModalOpen] = useState(false)
     const scrollRef = useRef(null)
 
+    console.log(currentChat)
+
     useEffect(() => {
         socket.on('message', data => {
             if (Number(conversationId) == data.conversationId && !localMessages.some(m => m == data.id)) {
-                setLocalMessages(prev => [...prev, data])
-                scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+                setLocalMessages(prev => {
+                    const copy = [...prev]
+                    copy.unshift(data)
+                    return copy
+                })
             }
         })
         return () => {
             socket.off('message')
         }
     }, [])
+
+    useEffect(() => {
+        if (scrollRef?.current) {
+            scrollRef.current.scrollTop = scrollRef?.current.scrollHeight;
+        }
+    }, [localMessages])
 
     useEffect(() => {
         dispatch(getConversations(null))
@@ -112,6 +123,7 @@ export const Messages = () => {
             const c = conversations.find(c => c.id == conversationId)
             const obj = {
                 id: c.id,
+                receiverId: c.participants[0].id,
                 name: c.participants[0].name,
                 lastName: c.participants[0].lastName,
                 jobOffers: c.jobOffers
@@ -120,9 +132,6 @@ export const Messages = () => {
         }
         if (localMessages.length > 1) {
             setLocalMessages([])
-        }
-        if (scrollRef?.current) {
-            scrollRef.current.scrollTop = scrollRef?.current.scrollHeight;
         }
     }, [conversationId, conversations])
 
@@ -144,7 +153,7 @@ export const Messages = () => {
         if (e.key === 'Enter') {
             await dispatch(sendMessage({
                 conversationId: Number(conversationId),
-                receiverId: currentChat.id,
+                receiverId: currentChat.receiverId,
                 userId: user.id,
                 content: messageContent
             }))
@@ -170,6 +179,8 @@ export const Messages = () => {
         }
     }
 
+
+    console.log(conversations)
 
     return <div className='page-content' >
         <div className='content-title-bar'>

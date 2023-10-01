@@ -77,7 +77,7 @@
         &-scroll{
             overflow: auto;
             display: flex;
-            flex-direction: column;
+            flex-direction: column-reverse;
             gap: 1rem;
             width: 100%;
             height: max-content;
