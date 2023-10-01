@@ -982,6 +982,10 @@
 
 @media screen and (max-width: 645px) {
 
+  .worker-map-container{
+    height: calc(100vh - 15rem) !important;
+  }
+
   .vtb-expenses-container{
     margin: unset !important;
   }
