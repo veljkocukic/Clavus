@@ -1,13 +1,33 @@
 import { faCheckCircle, faClock, faHammer, faList, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from 'components/Button';
-import { LatestTasksCard } from 'components/LatestTasksCard';
 import { getJobsOverview } from 'feautures/task/taskSlice';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { AppDispatch, RootState } from 'store';
 import { handleNameCase } from 'utils/helpers';
+import { recommendedCategories, recommendedShops } from './homeData';
+
+interface IScrollCard {
+  img: string
+  location?: string
+  title: string
+  subtitle?: string
+}
+
+export const ScrollCard = ({ img, location, title, subtitle }: IScrollCard) => {
+  return <div className='scroll-card' >
+    <div className='cover' ></div>
+    <img src={img} alt='categrory-image' />
+    <div className='card-text' >
+      <p>{location}</p>
+      <h2>{title}</h2>
+      <h4>{subtitle}</h4>
+    </div>
+
+  </div>
+}
 
 export const Home = () => {
   const user: any = JSON.parse(localStorage.getItem('user'))
@@ -19,12 +39,15 @@ export const Home = () => {
     dispatch(getJobsOverview(null))
   }, [])
 
-  return <div className="page-content" >
+  return <div className="page-content overflow-auto " >
     <div className='content-title-bar' >
       <p><span>Zdravo,</span> {handleNameCase(user?.name)}</p>
       <Button onClick={() => navigate('/tasks/create')} text='Dodaj zadatak' icon={faPlusCircle} />
     </div>
-    <div className='home-cards-container mt2' >
+    <div className='w100 mt2 section-title ' >
+      <h2>Zadaci: </h2>
+    </div>
+    <div className='home-cards-container mt1 ' >
       <div className='card-wrapper' onClick={() => navigate('/tasks')} >
         <div className='home-card-icon-count' >
           <FontAwesomeIcon icon={faList} color={'#8FADF0'} />
@@ -55,18 +78,20 @@ export const Home = () => {
       </div>
     </div>
     <div className='home-bottom-section'  >
-      <div className='info-cards-container' >
-        <div className='info-cards-title' >
-          <p>Poslednja ažuriranja:</p>
-          <button className='see-more' >Vidi sve</button>
-        </div>
-        <LatestTasksCard />
-        <LatestTasksCard />
+      <div className='w100 section-title' >
+        <h2>Istaknute kategorije: </h2>
       </div>
-      <div className='info-cards-container' >
-        <LatestTasksCard />
+      <div className='vertical-scroll-list' >
+        {recommendedCategories.map((c, i) => <ScrollCard title={c.title} img={c.img} key={i} />)}
+      </div>
+      <div className='w100 section-title' >
+        <h2>Istaknute radnje: </h2>
+      </div>
+      <div className='vertical-scroll-list' >
+        {recommendedShops.map((c, i) => <ScrollCard title={c.title} subtitle={c.subtitle} location={c.location} img={c.img} key={i} />)}
       </div>
     </div>
+
 
   </div>;
 };
