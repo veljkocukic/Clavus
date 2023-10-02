@@ -1359,6 +1359,7 @@
 @media screen and (max-width: 420px) {
 
 
+
   .layout-wrapper{
     padding-left: .5rem !important;
     padding-right: .5rem !important;
@@ -1378,7 +1379,6 @@
       position: fixed !important ;
       right: 1rem;
       width: max-content;
-      bottom: 7rem;
       gap:.5rem;
       border-radius: 10px;
       height: 4rem;
@@ -1395,7 +1395,7 @@
         display: block;
       }
 
-      bottom:5.5rem;
+      bottom:5rem;
       width: 90%;
       height: 2.5rem;
       left:50%;
@@ -1408,6 +1408,38 @@
 
   .ct-map-container{
     height: 20rem;
+  }
+
+  .home-cards-container{
+    display: flex;
+  }
+
+  .card-wrapper{
+    height: 5rem;
+    aspect-ratio: 1/1;
+
+    h3{
+      font-size: .8rem !important;
+      width: 100%;
+      text-align: center;
+      font-weight: 400;
+      margin: 0;
+      margin-top:1rem;
+    }
+  }
+
+  .home-card-icon-count{
+
+    padding: 0 .4rem !important;
+
+    svg{
+      font-size: 1rem !important;
+
+    }
+
+    p{
+      font-size: 1.5rem !important;
+    }
   }
 
 } 

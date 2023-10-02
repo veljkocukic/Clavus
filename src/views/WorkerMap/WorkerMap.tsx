@@ -109,6 +109,7 @@ export const WorkerMap = () => {
         const cityCoords = cityPolygons[value.value]
         area.current.setPath(cityCoords)
         const newPoints = cityCoords.map((c, index) => ({ ...c, index }))
+        map.setCenter(calculatePolygonCenter(newPoints))
         setCurrentPoints(newPoints)
         let mks = []
         newPoints.forEach(e => {
