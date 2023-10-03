@@ -67,7 +67,6 @@ export const rateAndComplete = createAsyncThunk(
   async (data: { id: number; rating: IRating }, thunkApi) => {
     try {
       const resp = await customFetch.post('/jobs/rate-and-complete/' + data.id, data.rating)
-      console.log(resp)
       return resp.data
     } catch (error) {
       return thunkApi.rejectWithValue(error)

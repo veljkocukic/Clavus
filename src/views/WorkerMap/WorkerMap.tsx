@@ -32,8 +32,6 @@ export const WorkerMap = () => {
         clickable: true,
     }
 
-    console.log('das')
-
     useEffect(() => {
         if (map) {
             if (!area.current) {

@@ -27,7 +27,6 @@ export const createJobOffer = createAsyncThunk(
   async (jobOffer: { id: number; jobOffer: IJobOffer }, thunkApi) => {
     try {
       const resp = await customFetch.post('/job-offer/' + jobOffer.id, jobOffer.jobOffer)
-      console.log(resp)
       return resp.data
     } catch (error) {
       console.log(error)

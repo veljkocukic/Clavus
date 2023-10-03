@@ -226,7 +226,7 @@ export const CreateTask = () => {
 
     return <div className='page-content' >
         <div className='content-title-bar' >
-            <p><span>Kreiranje zadatka</span></p>
+            <p><span>Kreiranje zadatka: </span>{Categories.find(c => c.value == state.category)?.label}</p>
             {state.category && <Button text='Potvrdi' onClick={handleSubmit} icon={faCheckCircle} />}
 
         </div>

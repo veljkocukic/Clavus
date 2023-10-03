@@ -41,8 +41,6 @@ export const ViewOffersModal = ({ setOpenModal }) => {
     const [list, setList] = useState<IJobOffersList[]>([])
     const { id } = useParams()
 
-    console.log(list)
-
     const handleScroll = (e: React.UIEvent<HTMLElement>) => {
         const { scrollHeight, scrollTop, clientHeight } = e.currentTarget
         const bottom = Math.abs(scrollHeight - clientHeight - scrollTop) < 400 // DEBOUNCE

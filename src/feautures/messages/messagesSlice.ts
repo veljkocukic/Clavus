@@ -68,7 +68,6 @@ const messagesSlice = createSlice({
   initialState: initialState as IInitialState,
   reducers: {
     removeJobOffer:(state,{payload})=>{
-      console.log(payload)
       state.conversations = state.conversations.map(c=>{
         if(c.id !== payload.cId){
           return c

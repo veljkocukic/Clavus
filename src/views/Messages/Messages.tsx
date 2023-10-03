@@ -93,8 +93,6 @@ export const Messages = () => {
     const [modalOpen, setModalOpen] = useState(false)
     const scrollRef = useRef(null)
 
-    console.log(currentChat)
-
     useEffect(() => {
         socket.on('message', data => {
             if (Number(conversationId) == data.conversationId && !localMessages.some(m => m == data.id)) {

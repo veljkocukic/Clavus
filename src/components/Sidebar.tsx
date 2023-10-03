@@ -10,8 +10,6 @@ const SidebarOption = ({ icon, name, path }) => {
   const pathname = `/${location.pathname.split('/')[1]}`
   const navigate = useNavigate()
   const active = pathname.includes(path.split('/')[1])
-  console.log(path)
-  console.log(pathname)
   let cName = 'sidebar-option'
   if (active) {
     cName += ' option-active'

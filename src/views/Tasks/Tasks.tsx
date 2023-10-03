@@ -29,8 +29,6 @@ export const Tasks = () => {
 
     }, [params])
 
-    console.log(screen.width)
-
     const renderOptions = (id: number) => {
         return [
             {

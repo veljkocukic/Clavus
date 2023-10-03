@@ -24,7 +24,6 @@ export const handleNotification = (data:INotificationData,setNotification,localU
         if(isAdmin){
             switch(data.type){
                 case 'offer-received' :
-                    console.log(localUser.id)
                     if(localUser.id === data.receiverId){
                         const timer = setTimeout(() => {
                             closeNotification()

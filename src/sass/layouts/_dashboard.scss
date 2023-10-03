@@ -1633,8 +1633,12 @@
     display: flex;
   }
 
+  .task-statuses-card{
+    height: 4rem !important;
+  }
+
   .card-wrapper{
-    height: 5rem;
+    height: 7rem;
     aspect-ratio: 1/1;
     padding: 0;
 
@@ -1644,13 +1648,12 @@
       text-align: center;
       font-weight: 400;
       margin: 0;
-      margin-top:1rem;
+      height: 100%;
     }
   }
 
   .home-card-icon-count{
 
-    padding: 0 .4rem !important;
 
     svg{
       font-size: 1rem !important;

@@ -27,7 +27,6 @@ export const SharedLayout = () => {
 
   useEffect(() => {
     socket.on('job', data => {
-      console.log(data)
       handleNotification(data, setNotification, user, navigate)
     })
     return () => {

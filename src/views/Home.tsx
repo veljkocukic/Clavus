@@ -48,28 +48,28 @@ export const Home = () => {
       <h2>Zadaci: </h2>
     </div>
     <div className='home-cards-container mt1 ' >
-      <div className='card-wrapper' onClick={() => navigate('/tasks')} >
+      <div className='card-wrapper task-statuses-card' onClick={() => navigate('/tasks')} >
         <div className='home-card-icon-count' >
           <FontAwesomeIcon icon={faList} color={'#8FADF0'} />
           <p>{jobsOverview.allJobs || 0}</p>
         </div>
         <h3>Svi zadaci</h3>
       </div>
-      <div className='card-wrapper bgPaleGreen' onClick={() => navigate('/tasks?status=DONE')}>
+      <div className='card-wrapper bgPaleGreen task-statuses-card' onClick={() => navigate('/tasks?status=DONE')}>
         <div className='home-card-icon-count' >
           <FontAwesomeIcon icon={faCheckCircle} color={'#01A05D'} />
           <p>{jobsOverview.completed || 0}</p>
         </div>
         <h3>Obavljeni zadaci</h3>
       </div>
-      <div className='card-wrapper bgPaleYellow' onClick={() => navigate('/tasks?status=IN_PROGRESS')}>
+      <div className='card-wrapper bgPaleYellow task-statuses-card' onClick={() => navigate('/tasks?status=IN_PROGRESS')}>
         <div className='home-card-icon-count' >
           <FontAwesomeIcon icon={faHammer} color={'#ADAC10'} />
           <p>{jobsOverview.inProgress || 0}</p>
         </div>
         <h3>U toku</h3>
       </div>
-      <div className='card-wrapper bgPaleRed' onClick={() => navigate('/tasks?status=ACTIVE')}>
+      <div className='card-wrapper bgPaleRed task-statuses-card' onClick={() => navigate('/tasks?status=ACTIVE')}>
         <div className='home-card-icon-count' >
           <FontAwesomeIcon icon={faClock} color={'#D42B20'} />
           <p>{jobsOverview.waitingForWorker || 0}</p>
