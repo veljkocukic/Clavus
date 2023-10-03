@@ -24,7 +24,6 @@ export const adminSidebarLinks = [
     path: '/reports',
     icon: faFile,
   },
-
 ]
 
 export const workerSidebarLinks = [

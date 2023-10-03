@@ -1,4 +1,4 @@
-import { faGripLines } from '@fortawesome/free-solid-svg-icons'
+import { faGripLines, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { adminSidebarLinks, workerSidebarLinks } from 'assets/links/links'
 import { useState } from 'react'
@@ -35,5 +35,6 @@ export const Sidebar = () => {
   return <div className={sidebarCName} style={{ zIndex: '9999999' }} >
     <div className='side-bar-toggle' onClick={() => setOpen(prev => !prev)} > <FontAwesomeIcon icon={faGripLines} /> </div>
     {routes.map(l => <SidebarOption key={l.id} name={l.title} icon={l.icon} path={l.path} />)}
+    {screen.width < 420 && <SidebarOption name={'Profil'} icon={faUser} path={'profile/' + user.id} />}
   </div>
 }

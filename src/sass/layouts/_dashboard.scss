@@ -1451,6 +1451,87 @@
     }
 }
 
+.mobile-top-bar{
+  width: 100%;
+  height: 4rem;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .5rem 1rem;
+  display: none;
+  position: fixed;
+  top:0;
+  left:0;
+  z-index: 9;
+
+  h1{
+    width: 100%;
+    text-align: center;
+    color: base.$black;
+    font-family: 'Merienda', sans-serif;
+
+  }
+
+  .mtb-arrow{
+    height: 90%;
+    aspect-ratio: 1/1;
+    border-radius: 15px;
+    background-color: base.$pale-blue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    svg{
+      color:base.$black;
+    }
+  }
+}
+
+.mobile-task-item{
+  width: 100%;
+  display: flex;
+  gap:1rem;
+  padding: .2rem;
+  height: 6rem;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.147);
+
+
+  .text-container{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap:5px;
+    h2{
+      font-size: .9rem;
+      color:base.$black
+    }
+  
+    p{
+      color:base.$text-gray;
+      font-weight:300;
+      font-size: .7rem;
+
+    }
+  
+  }
+
+  .icon-container{
+    width: 40%;
+    height: 100%;
+    border-radius: 10px;
+    background-color: base.$pale-blue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    svg{
+      color:base.$light-blue;
+      font-size: 2rem;
+    }
+  }
+}
+
 @media screen and (max-width: 900px) {
   .view-offers-modal{
     width: 100vw;
@@ -1481,7 +1562,22 @@
 
 @media screen and (max-width: 420px) {
 
+  .top-bar-container{
+    display: none;
+  }
 
+  .table-tr-container{
+    gap:5px !important;
+  }
+
+  .mobile-top-bar{
+    display: block !important;
+  }
+
+  .table-status{
+    width: max-content !important;
+    margin: 0;
+  }
 
   .layout-wrapper{
     padding-left: .5rem !important;
@@ -1540,6 +1636,7 @@
   .card-wrapper{
     height: 5rem;
     aspect-ratio: 1/1;
+    padding: 0;
 
     h3{
       font-size: .8rem !important;

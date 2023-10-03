@@ -257,10 +257,9 @@ export const CreateTask = () => {
                         <Select invalid={checkValid(invalidFields, 'currency')} className='w100' labelText='Valuta' name='currency' value={state.currency} options={currencies} onChange={handleSelect} />
                         <Select invalid={checkValid(invalidFields, 'price_type')} className='w100' labelText='Mera' name='price_type' value={state.price_type} options={priceTypes} onChange={handleSelect} />
                     </div>
-                    <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', minHeight: '4rem' }} >
-                        {state?.price_type && state?.price_type !== 'WHOLE' && <Input labelText='Kolicina' name='amount' value={state.amount} type='number' onChange={handleChange} />}
-                        <CheckBox text='Rad bez nadgledanja' active={state.withoutMonitoring} onChange={handleCheck} name='withoutMonitoring' />
-                    </div>
+                    {state?.price_type && state?.price_type !== 'WHOLE' && <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', minHeight: '4rem' }} >
+                        <Input labelText='Kolicina' name='amount' value={state.amount} type='number' onChange={handleChange} />
+                    </div>}
                 </div>
                 <div className='ct-form-section' >
                     <Wrapper apiKey={'AIzaSyC3j4JIbnFi0TBd5hDDo1qqiht0jw_eGW4'} version='beta' libraries={['marker', 'places', 'geocoding']}>

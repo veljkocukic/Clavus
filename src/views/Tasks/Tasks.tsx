@@ -11,6 +11,7 @@ import { getTasks } from 'feautures/task/taskSlice'
 import { ITableTask } from './tasksData'
 import { useNavigate } from 'react-router-dom'
 import { Button } from 'components/Button'
+import { MobileTaskItem } from 'components/MobileTaskItem'
 
 export const Tasks = () => {
     /*eslint-disable*/
@@ -27,6 +28,8 @@ export const Tasks = () => {
         dispatch(getTasks(p))
 
     }, [params])
+
+    console.log(screen.width)
 
     const renderOptions = (id: number) => {
         return [
@@ -76,14 +79,20 @@ export const Tasks = () => {
             </div>
         }
 
-        return allTasks.map((t: ITableTask, i: number) => <div className='tr' key={t.id} style={{ zIndex: 100 - i }} >
+        return allTasks.map((t: ITableTask, i: number) => screen.width > 420 ? <div className='tr' key={t.id} style={{ zIndex: 100 - i }} >
             <FontAwesomeIcon icon={getCategoryIcon(t.category)} className='w4' />
             <p className='w15 ml1' >{t.name}</p>
             <p className='w15' >{convertTaskDate(t.date) + ' ' + new Date(t.date).getFullYear()}</p>
             {getStatusStyle(t.status)}
             <p className='w15' >{t.jobOffers}</p>
             <IconButton className='table-icon' options={renderOptions(t.id)} icon={faEdit} />
-        </div>)
+        </div> : <MobileTaskItem
+            id={t.id}
+            status={getStatusStyle(t.status)}
+            title={t.name}
+            date={convertTaskDate(t.date)}
+            offers={t.jobOffers}
+            icon={getCategoryIcon(t.category)} />)
     }
 
 

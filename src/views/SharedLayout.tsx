@@ -8,6 +8,7 @@ import { WebSocketContext } from 'context/WebSocketContext'
 import { Notification } from 'components/Notification/Notification'
 import { handleNotification } from 'utils/notificationsHandler'
 import { ITaskState } from './Tasks/tasksData'
+import { MobileTopBar } from 'components/MobileTopBar'
 
 export const SharedLayout = () => {
 
@@ -50,6 +51,8 @@ export const SharedLayout = () => {
       <div className='layout-wrapper'>
         <TopBar />
         <Sidebar />
+        <MobileTopBar />
+
         {notification.on && <Notification text={notification.text} onClick={notification.onClick} />}
         <div className='dashboard-container'>
           <Outlet />
