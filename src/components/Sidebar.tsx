@@ -9,7 +9,9 @@ const SidebarOption = ({ icon, name, path }) => {
   const location = useLocation()
   const pathname = `/${location.pathname.split('/')[1]}`
   const navigate = useNavigate()
-  const active = pathname.includes(path)
+  const active = pathname.includes(path.split('/')[1])
+  console.log(path)
+  console.log(pathname)
   let cName = 'sidebar-option'
   if (active) {
     cName += ' option-active'
@@ -35,6 +37,6 @@ export const Sidebar = () => {
   return <div className={sidebarCName} style={{ zIndex: '9999999' }} >
     <div className='side-bar-toggle' onClick={() => setOpen(prev => !prev)} > <FontAwesomeIcon icon={faGripLines} /> </div>
     {routes.map(l => <SidebarOption key={l.id} name={l.title} icon={l.icon} path={l.path} />)}
-    {screen.width < 420 && <SidebarOption name={'Profil'} icon={faUser} path={'profile/' + user.id} />}
+    {screen.width < 420 && <SidebarOption name={'Profil'} icon={faUser} path={'/profile/' + user.id} />}
   </div>
 }
