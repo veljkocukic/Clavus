@@ -49,11 +49,11 @@ export const workerRoutes = [
     element: WorkerHome,
   },
   {
-    path: '/worker-task/:id',
+    path: '/tasks/:id',
     element: ViewTask,
   },
   {
-    path: '/worker-profile/:id',
+    path: '/profile/:id',
     element: ViewProfile,
   },
   {
@@ -68,6 +68,7 @@ export const workerRoutes = [
     path: '/map',
     element: WorkerMap,
   },
+
 ]
 
 

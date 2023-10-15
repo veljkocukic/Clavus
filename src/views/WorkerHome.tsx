@@ -9,11 +9,11 @@ import { AppDispatch, RootState } from 'store';
 import { useDispatch, useSelector } from 'react-redux';
 import { addBioAndCat } from 'feautures/user/userSlice';
 import { getWorkerTasks } from 'feautures/task/taskSlice';
-import { convertTaskDate, convertToHoursMins, getCategoryIcon, handleNameCase, handlePagination } from 'utils/helpers';
-import { useNavigate } from 'react-router-dom';
+import { handleNameCase, handlePagination } from 'utils/helpers';
 import { Wrapper } from '@googlemaps/react-wrapper';
 import { Map } from './WorkerMap/Map';
 import { cityPolygons } from 'utils/data';
+import { JobCard } from 'components/TopBar/JobCard';
 
 export const WorkerHome = () => {
     /*eslint-disable*/
@@ -208,37 +208,3 @@ export const WorkerHome = () => {
 }
 
 
-interface IJobCard {
-    name: string
-    location: {
-        label: string
-        value: string
-    }
-    price?: number
-    date: string
-    id: number
-    className?: string
-    category: string
-    admin?: boolean
-}
-export const JobCard = ({ name, location, price, date, id, className, category, admin }: IJobCard) => {
-    const navigate = useNavigate()
-    const icon = getCategoryIcon(category)
-    return <div className={'worker-job-card ' + className} onClick={() => navigate(admin ? '/tasks/' : '/worker-task/' + id)} >
-        <div className='flex align-center just-center h100 ' >
-            <FontAwesomeIcon icon={icon} />
-        </div>
-        <div className='flex between h100 column w100 ml1' >
-            <div>
-                <h2>{name}</h2>
-                <p>{location.label}</p>
-            </div>
-            <div className='flex w100 between center w100' >
-                <p className='date' >{convertTaskDate(date) + ' ' + convertToHoursMins(date)}</p>
-                {price && <p className="green-text" >
-                    {price}
-                </p>}
-            </div>
-        </div>
-    </div>
-}

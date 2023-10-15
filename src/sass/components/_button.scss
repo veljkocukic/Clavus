@@ -2,7 +2,8 @@
 
 .button {
   min-height: 2.5rem;
-  background-color: base.$blue;
+ background: linear-gradient(90deg, rgba(66,142,204,1) 0%, rgba(0,80,208,1) 100%);
+
   border-radius: 5px;
   min-width: 10rem;
   color: white;
@@ -44,8 +45,12 @@
 @media screen and (max-width: 645px) {
 
   .button{
-    width: 100px;
     min-width: 100px 
+  }
+
+  .send-offer-button{
+    width: 5rem !important;
+    height: 1rem !important;
   }
 
 }

@@ -6,7 +6,7 @@ import { faCalendarDays, faGear } from '@fortawesome/free-solid-svg-icons'
 import { Categories, priceTypes, statusStyles } from './tasksData'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from 'store'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { getTask } from 'feautures/task/taskSlice'
 import { convertTaskDate, convertToHoursMins } from 'utils/helpers'
 import { OfferModal } from './OfferModal'
@@ -18,15 +18,11 @@ export const ViewTask = () => {
     const { id } = useParams()
     const navigate = useNavigate()
     const { task } = useSelector((state: RootState) => state.tasks)
-    const location = useLocation()
     const [offerModalOpen, setOfferModalOpen] = useState(false)
     const [rateModalOpen, setRateModalOpen] = useState(false)
     const [viewOffersModalOpen, setViewOffersModalOpen] = useState(false)
 
-    let admin = true
-    if (location.pathname.includes('worker')) {
-        admin = false
-    }
+    const admin = JSON.parse(localStorage.getItem('user')).role == 'ADMIN'
 
     useEffect(() => {
         dispatch(getTask(id))
@@ -72,7 +68,7 @@ export const ViewTask = () => {
             return task.status == 'ACTIVE' ? <Button text='Pošalji ponudu' onClick={() => setOfferModalOpen(true)} /> : <></>
     }
 
-    return <div className="page-contetnt" >
+    return <div className="page-content" >
 
         <div className='content-title-bar' >
             <p><span>Pregled zadatka</span></p>

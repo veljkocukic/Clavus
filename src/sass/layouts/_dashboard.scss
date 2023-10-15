@@ -680,9 +680,12 @@
 .worker-home-grid {
   margin-top: 1rem;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  // grid-template-columns: repeat(3, 1fr);
+  // grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+
   gap: 1rem;
+  height: 100%;
   max-height: calc(100% - 15rem);
   overflow: auto;
 }
@@ -1503,9 +1506,12 @@
     display: flex;
     flex-direction: column;
     gap:5px;
-    h2{
+    h2,h3 {
       font-size: .9rem;
       color:base.$black
+    }
+    h3{
+      color:base.$green
     }
   
     p{
@@ -1586,11 +1592,21 @@
   }
 
   .page-content{
-    padding-bottom:7rem;
+    padding-bottom:10rem;
   }
 
   .dashboard-container{
     padding: 0 !important
+  }
+  
+  .vtb-expenses-container{
+    width: 100%;
+  }
+
+  .worker-home-grid{
+    display: flex !important;
+    flex-direction: column;
+    gap:1rem;
   }
 
   .content-title-bar{
@@ -1663,6 +1679,12 @@
     p{
       font-size: 1.5rem !important;
     }
+  }
+
+  .send-offer-modal{
+    padding: 2rem 1rem;
+    width: 100%;
+    margin-top: 7rem;
   }
 
 } 

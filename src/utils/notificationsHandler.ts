@@ -42,7 +42,7 @@ export const handleNotification = (data:INotificationData,setNotification,localU
                             closeNotification()
                             return () => clearTimeout(timer);
                           }, 5000);
-                        openNotification('Postavljen je novi oglas u vašoj kategoriji',()=>navigate('worker-task/'+data.id))
+                        openNotification('Postavljen je novi oglas u vašoj kategoriji',()=>navigate('/tasks/'+data.id))
                     }
                     break;
                 case 'offer-accepted':
@@ -51,7 +51,7 @@ export const handleNotification = (data:INotificationData,setNotification,localU
                             closeNotification()
                             return () => clearTimeout(timer);
                           }, 5000);
-                          openNotification('Vaša ponuda za posao je prihvaćena',()=>navigate('worker-task/'+data.id))
+                          openNotification('Vaša ponuda za posao je prihvaćena',()=>navigate('/tasks/'+data.id))
                     }
                     break;
             }

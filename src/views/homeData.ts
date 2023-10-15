@@ -30,7 +30,6 @@ export const recommendedCategories = [{
   },
   ]
 
-
   export const recommendedShops= [
     {
         location:'Bulevar Patrijarha Pavla 9p',

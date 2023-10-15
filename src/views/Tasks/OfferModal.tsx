@@ -89,7 +89,7 @@ export const OfferModal = ({ price, price_type, currency, amount, setOpenModal }
                 {state?.price_type && state?.price_type !== 'WHOLE' && <Input labelText='Kolicina' name='amount' value={state?.amount} type='number' onChange={handleChange} />}
                 <h2>≈ {state?.price && (state?.price * (state?.amount ?? 1) + ' ' + state?.currency)}</h2>
             </div>
-            <div className='w100 flex just-center mt5'><Button text='Pošalji prijavu' onClick={handleSubmit} /></div>
+            <div className='w100 flex just-center mt5'><Button className='send-offer-modal' text='Pošalji prijavu' onClick={handleSubmit} /></div>
         </div>
     </div>
 }
