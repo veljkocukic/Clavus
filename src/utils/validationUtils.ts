@@ -144,7 +144,8 @@ export const standardFieldValidation = (
     case 'tel':
       setInvalidFields((prev: string[]) => {
         let copy = [...prev]
-        if (isValidPhoneNumber(value)) {
+        const num = value.startsWith('+381') ? value : value.substring(0)+'+381'
+        if (isValidPhoneNumber(num)) {
           copy = copy.filter((f) => f !== name)
         } else {
           !copy.includes(name) && copy.push(name)
