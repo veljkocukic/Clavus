@@ -88,7 +88,7 @@ export const loginUser = createAsyncThunk('user/loginUser', async (user: any, th
 
     return resp.data
   } catch (error) {
-    return thunkApi.rejectWithValue(error)
+    return thunkApi.rejectWithValue(error.response.data.message)
   }
 })
 
@@ -203,7 +203,7 @@ const userSlice = createSlice({
       state.logged = true
     },
     [loginUser.rejected.type]: (state, { payload }) => {
-      toast.error(payload.message)
+      toast.error(payload)
       state.isLoading = false
     },
     [getUser.pending.type]: (state) => {
