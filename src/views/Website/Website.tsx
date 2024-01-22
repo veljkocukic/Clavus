@@ -21,6 +21,8 @@ import { useOnClickOutside } from 'utils/hooks/useClickOutside'
 import { Wrapper } from '@googlemaps/react-wrapper'
 import { AsyncSelect } from 'components/AsyncSelect'
 import { Map } from 'views/WorkerMap/Map'
+import { faInstagram, faLinkedin } from '@fortawesome/free-brands-svg-icons'
+import { IconProp } from '@fortawesome/fontawesome-svg-core'
 
 interface ISiteState extends Omit<ITaskState, 'category'> {
     category: {
@@ -276,27 +278,27 @@ export const Website = () => {
             <p className='w100 web-secttion-title'>Prednosti Calausa</p>
             <div className='web-card-container' >
                 <div className='web-adv-card' >
-                    <FontAwesomeIcon icon={faCircleCheck} />
+                    <FontAwesomeIcon icon={faCircleCheck as IconProp} />
                     <h4>Brzo i efikasno</h4>
                     <p>Naša aplikacija vam štedi vreme i napore u potrazi za pouzdanim majstorima.</p>
                 </div>
                 <div className='web-adv-card' >
-                    <FontAwesomeIcon icon={faHandsPraying} />
+                    <FontAwesomeIcon icon={faHandsPraying as IconProp} />
                     <h4>Sigurnost i pouzdanost:</h4>
                     <p>Svi majstori prošli su proveru i ocenjivanje od strane drugih korisnika.</p>
                 </div>
                 <div className='web-adv-card' >
-                    <FontAwesomeIcon icon={faList} />
+                    <FontAwesomeIcon icon={faList as IconProp} />
                     <h4>Širok spektar usluga</h4>
                     <p>Bilo da vam treba građevinski rad, električarske usluge, čišćenje ili nešto drugo, sigurno ćete pronaći odgovarajućeg majstora.</p>
                 </div>
                 <div className='web-adv-card' >
-                    <FontAwesomeIcon icon={faFile} />
+                    <FontAwesomeIcon icon={faFile as IconProp} />
                     <h4>Transparentnost</h4>
                     <p>Cene i uslovi su jasno komunicirani unapred.</p>
                 </div>
                 <div className='web-adv-card' >
-                    <FontAwesomeIcon icon={faHeadset} />
+                    <FontAwesomeIcon icon={faHeadset as IconProp} />
                     <h4>Kvalitetna podrška</h4>
                     <p>Naš tim podrške je tu da vam pomogne u svakom trenutku.</p>
                 </div>
@@ -306,7 +308,7 @@ export const Website = () => {
             <div ref={modalRef} >
                 <div className='modal-top' >
                     <h3>Kreiranje oglasa za posao: {state.category.label} </h3>
-                    <FontAwesomeIcon style={{ cursor: 'pointer' }} icon={faClose} fontSize='1.3rem' onClick={() => setModalOpen(false)} />
+                    <FontAwesomeIcon style={{ cursor: 'pointer' }} icon={faClose as IconProp} fontSize='1.3rem' onClick={() => setModalOpen(false)} />
                 </div>
                 <div className='ct-form-container'  >
                     <div className='ct-form-section' >
@@ -337,13 +339,33 @@ export const Website = () => {
             </div>
         </div>}
         <footer className='web-footer' >
-            <div className='flex w100 between center'>
-                <h1>Calaus</h1>
-                <h3>RADI NA CalausU</h3>
+            <div className='web-footer__wrapper'  >
+                <div className='web-footer__main-info' >
+                    <h1>Calaus</h1>
+                    <p>Calaus vas povezuje sa radnicima iz <br /> sirokog spektra vestina. </p>
+                    <div>
+                        <div>
+                            <FontAwesomeIcon icon={faInstagram as IconProp} />
+                        </div>
+                        <div>
+                            <FontAwesomeIcon icon={faLinkedin as IconProp} />
+                        </div>
+                    </div>
+                </div>
+                <div className='web-footer__useful-links' >
+                    <h3>Korisni linkovi</h3>
+                    <a href='www.google.com' >O kompaniji</a>
+                    <a href='www.google.com' >Otvorene pozicije</a>
+                    <a href='www.google.com' >Kontakt</a>
+                </div>
             </div>
             <div className='footer-bottom' >
-                © Calaus 2023.
+                <p>© Calaus 2024.</p>
+                <div>
+                    <a href='www.google.com'>Politika Privatnosti</a>
+                    <a href='www.google.com'></a>
+                </div>
             </div>
-        </footer>
-    </div>
+        </footer >
+    </div >
 }
