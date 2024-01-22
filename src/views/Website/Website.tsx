@@ -207,7 +207,7 @@ export const Website = () => {
 
     return <div className='website-container' >
         <div className='website-top-bar'>
-            <h1>Clavus</h1>
+            <h1>Calaus</h1>
             <Button text='Prijava' onClick={() => navigate('/auth/prijava')} />
         </div>
         <main ref={mainRef} className='website-main' >
@@ -224,13 +224,13 @@ export const Website = () => {
             <p className='w100 web-secttion-title'>Brzo i jednostavno do završenog posla</p>
             <div className=' flex between' >
                 <p>
-                    Clavus je inovativna aplikacija koja donosi revoluciju u načinu kako ljudi pronalaze kvalifikovane majstore za obavljanje različitih zadataka i poslova. Bez obzira da li vam treba pomoć oko renoviranja kuće, popravke aparata, čišćenja dvorišta ili bilo kojeg drugog zadatka, naša aplikacija vam omogućava da brzo i jednostavno pronađete pravu osobu za posao.
+                    Calaus je inovativna aplikacija koja donosi revoluciju u načinu kako ljudi pronalaze kvalifikovane majstore za obavljanje različitih zadataka i poslova. Bez obzira da li vam treba pomoć oko renoviranja kuće, popravke aparata, čišćenja dvorišta ili bilo kojeg drugog zadatka, naša aplikacija vam omogućava da brzo i jednostavno pronađete pravu osobu za posao.
                 </p>
                 <img src='https://images.unsplash.com/photo-1618090584176-7132b9911657?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3028&q=80' alt='worker' />
             </div>
         </section>
         <section className='website-steps'>
-            <p className='w100 web-secttion-title'>Kako Clavus funkcioniše</p>
+            <p className='w100 web-secttion-title'>Kako Calaus funkcioniše</p>
             <div className='website-single-step' >
                 <h1>1.</h1>
                 <div className='step-desc' >
@@ -273,7 +273,7 @@ export const Website = () => {
             </div>
         </section>
         <section className='website-advantages'>
-            <p className='w100 web-secttion-title'>Prednosti Clavusa</p>
+            <p className='w100 web-secttion-title'>Prednosti Calausa</p>
             <div className='web-card-container' >
                 <div className='web-adv-card' >
                     <FontAwesomeIcon icon={faCircleCheck} />
@@ -338,11 +338,11 @@ export const Website = () => {
         </div>}
         <footer className='web-footer' >
             <div className='flex w100 between center'>
-                <h1>Clavus</h1>
-                <h3>RADI NA CLAVUSU</h3>
+                <h1>Calaus</h1>
+                <h3>RADI NA CalausU</h3>
             </div>
             <div className='footer-bottom' >
-                © Clavus 2023.
+                © Calaus 2023.
             </div>
         </footer>
     </div>

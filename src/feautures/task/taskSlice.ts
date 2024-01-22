@@ -12,6 +12,7 @@ interface ITaskResponse extends ITaskState {
       name: string
       lastName: string
       ratings: number
+      id:number
     }
   }[]
 }
@@ -147,7 +148,14 @@ export const getWorkerTasks = createAsyncThunk(
 const taskSlice = createSlice({
   name: 'task',
   initialState: initialState as IInitialState,
-  reducers: {},
+  reducers: {
+    clearTask: (state) => {
+      state.task = null
+    },
+    clearTaskList: (state) => {
+      state.allTasks = null
+    },
+  },
   extraReducers: {
     [createTask.pending.type]: (state) => {
       state.isLoading = true
@@ -222,5 +230,7 @@ const taskSlice = createSlice({
     },
   },
 })
+
+export const { clearTask, clearTaskList } = taskSlice.actions
 
 export default taskSlice.reducer

@@ -15,7 +15,7 @@ export const TopBar = ({ login, className }: ITopBar) => {
   }
   return (
     <div className={cName}>
-      <h1>Clavus</h1>
+      <h1>Calaus</h1>
       {!login ?
         <ProfileButton />
         :

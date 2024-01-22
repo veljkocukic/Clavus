@@ -10,18 +10,14 @@ export const ViewProfile = () => {
 
     const { user } = useSelector((state: RootState) => state.user)
     const [openModal, setOpenModal] = useState(false)
-
     const dispatch = useDispatch<AppDispatch>()
     const { id } = useParams()
+    const admin = JSON.parse(localStorage.getItem('user')).role == 'ADMIN'
 
     useEffect(() => {
         dispatch(getUser(Number(id)))
     }, [])
 
-    let admin = true
-    if (location.pathname.includes('worker')) {
-        admin = false
-    }
 
     const RatingCard = ({ name, lastName, description, rating, date }) => {
         return <div className='info-card h7' >
@@ -77,14 +73,14 @@ export const ViewProfile = () => {
             </div>
             <div className="page-half-section" >
                 <div className="flex column gap1">
-                    <div className="flex w100 between align-center"><p>Ocene klijenata:</p> {user?.ratings.length > 0 && <p className="see-more" onClick={() => setOpenModal(true)} >Vidi sve</p>}</div>
+                    <div className="flex w100 between align-center"><p>Ocene klijenata:</p> {user?.ratings?.length > 0 && <p className="see-more" onClick={() => setOpenModal(true)} >Vidi sve</p>}</div>
                     {
-                        user?.ratings.length > 0 ? user?.ratings?.map((r, i) => <RatingCard key={i} name={r.ratingGiverUser.name} lastName={r.ratingGiverUser.lastName} description={r.description} rating={r.rating} date={r.date} />) : <h3>Nema ocena</h3>
+                        user?.ratings?.length > 0 ? user?.ratings?.map((r, i) => <RatingCard key={i} name={r.ratingGiverUser.name} lastName={r.ratingGiverUser.lastName} description={r.description} rating={r.rating} date={r.date} />) : <h3>Nema ocena</h3>
                     }
                 </div>
                 <div className="flex column gap1 mt1">
                     <div className="flex w100 between align-center"><p>{admin ? 'Postavljeni oglasi' : 'Obavljeni poslovi'}</p> <p className="see-more" >Vidi sve</p></div>
-                    {user && user[admin ? 'jobs' : 'jobsDone'].map((j, i) => <JobCard className='h6' key={i} location={j.location} id={j.id} date={j.date} name={j.name} category={j.category} />)}
+                    {user && user[admin ? 'jobs' : 'jobsDone']?.map((j, i) => <JobCard className='h6' key={i} location={j.location} id={j.id} date={j.date} name={j.name} category={j.category} />)}
                 </div>
             </div>
         </div>

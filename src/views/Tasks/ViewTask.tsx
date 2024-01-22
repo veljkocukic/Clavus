@@ -7,7 +7,7 @@ import { Categories, priceTypes, statusStyles } from './tasksData'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from 'store'
 import { useNavigate, useParams } from 'react-router-dom'
-import { getTask } from 'feautures/task/taskSlice'
+import { clearTask, getTask } from 'feautures/task/taskSlice'
 import { convertTaskDate, convertToHoursMins } from 'utils/helpers'
 import { OfferModal } from './OfferModal'
 import { RateModal } from './RateModal'
@@ -21,15 +21,18 @@ export const ViewTask = () => {
     const [offerModalOpen, setOfferModalOpen] = useState(false)
     const [rateModalOpen, setRateModalOpen] = useState(false)
     const [viewOffersModalOpen, setViewOffersModalOpen] = useState(false)
-
+    const user = JSON.parse(localStorage.getItem('user'))
     const admin = JSON.parse(localStorage.getItem('user')).role == 'ADMIN'
 
     useEffect(() => {
         dispatch(getTask(id))
+        return () => {
+            dispatch(clearTask())
+        }
     }, [])
 
     const renderStatusCard = () => {
-        const s = statusStyles.find(s => s.status === task.status)
+        const s = statusStyles.find(s => s.status === task?.status)
         if (task?.status == 'IN_PROGRESS') {
             return <div className='vtb-bottom-card-layout'><p>Obavlja:</p><div><img alt='worker-image' src='https://images.unsplash.com/photo-1557862921-37829c790f19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80' /><p>Goran <br />Moler</p></div></div>
         } else {
@@ -37,13 +40,13 @@ export const ViewTask = () => {
         }
     }
 
-    const category = Categories.find(c => c.value === task.category)
+    const category = Categories.find(c => c.value === task?.category)
     const priceType = priceTypes.find(p => p.value == task?.price_type)
     const calculateTotal = () => {
         if (task?.price_type !== 'WHOLE') {
-            return '≈ ' + (task.amount * task.price).toFixed() + ' ' + task.currency
+            return '≈ ' + (task?.amount * task?.price).toFixed() + ' ' + task?.currency
         } else {
-            return '≈ ' + task.price + ' ' + task.currency
+            return '≈ ' + task?.price + ' ' + task?.currency
         }
 
     }
@@ -59,13 +62,24 @@ export const ViewTask = () => {
     }
 
     const renderButton = () => {
+        const offerSent = task?.jobOffers?.some(o => o.user.id == user.id)
         if (admin) {
             return <>
                 {task.status == 'IN_PROGRESS' && < Button text='Potvrdi i oceni radnika' onClick={() => setRateModalOpen(true)} />}
                 <IconButton icon={faGear} />
             </>
         } else
-            return task.status == 'ACTIVE' ? <Button text='Pošalji ponudu' onClick={() => setOfferModalOpen(true)} /> : <></>
+            return task.status == 'ACTIVE' && !offerSent ? <Button text='Pošalji ponudu' onClick={() => setOfferModalOpen(true)} /> : <></>
+    }
+
+    const PingingCircle = () => {
+        const text = admin ? 'Obavestili smo radnike iz vase kategorije o postavljenom poslu, cekamo ponude' : 'Ponuda je poslata oglasivacu, cekamo odgovor.'
+        return <div className='vtb-offers-container__wait'>
+            <p>{text}</p>
+            <svg className="wait-spinner" viewBox="0 0 50 50">
+                <circle className="path" cx="25" cy="25" r="20" fill="none" strokeWidth="5"></circle>
+            </svg>
+        </div>
     }
 
     return <div className="page-content" >
@@ -129,14 +143,9 @@ export const ViewTask = () => {
                     </div>
                     {task?.jobOffers?.length > 0 ? <div className='vtb-offers-container__grid' >
                         {task.jobOffers.map(o => <SingleOffer key={o.id} id={o.id} name={o.user.name} lastName={o.user.lastName} ratings={o.user.ratings?.toFixed(1) ?? '/'} />)}
-                    </div> : <div className='vtb-offers-container__wait'>
-                        <p>Obavestili smo radnike iz vase kategorije o postavljenom poslu, cekamo ponude</p>
-                        <svg className="wait-spinner" viewBox="0 0 50 50">
-                            <circle className="path" cx="25" cy="25" r="20" fill="none" strokeWidth="5"></circle>
-                        </svg>
-                    </div>}
+                    </div> : <PingingCircle />}
                 </div>}
-
+                <PingingCircle />
             </div>
 
         </div >

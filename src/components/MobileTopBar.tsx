@@ -8,6 +8,6 @@ export const MobileTopBar = () => {
     return <div className="mobile-top-bar" >
         {location.pathname !== '/overview' && location.pathname !== '/worker-overview' ? <div className="mtb-arrow" onClick={() => navigate(-1)}>
             <FontAwesomeIcon icon={faArrowLeft} />
-        </div> : <h1>Clavus</h1>}
+        </div> : <h1>Calaus</h1>}
     </div>
 }

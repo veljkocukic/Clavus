@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react'
 import { convertTaskDate, getCategoryIcon, handlePagination } from 'utils/helpers'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from 'store'
-import { getTasks } from 'feautures/task/taskSlice'
+import { clearTaskList, getTasks } from 'feautures/task/taskSlice'
 import { ITableTask } from './tasksData'
 import { useNavigate } from 'react-router-dom'
 import { Button } from 'components/Button'
@@ -26,7 +26,9 @@ export const Tasks = () => {
         const p = !params.page ? { ...params, page: 1, limit: 5 } : params
         setParams(p)
         dispatch(getTasks(p))
-
+        return () => {
+            dispatch(clearTaskList())
+        }
     }, [params])
 
     const renderOptions = (id: number) => {

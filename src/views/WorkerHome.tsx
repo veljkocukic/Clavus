@@ -32,8 +32,8 @@ export const WorkerHome = () => {
 
 
     useEffect(() => {
-        user.categories.length > 1 && dispatch(getWorkerTasks(params))
-    }, [params])
+        user.categories.length > 0 && dispatch(getWorkerTasks(params))
+    }, [params, modalOpen])
 
     useEffect(() => {
         if (user.categories.length < 1) {

@@ -13,7 +13,7 @@ export const Auth = () => {
     }, [user]);
     return <div className='auth-screen'>
         <div className='auth-options'>
-            <h1>Clavus</h1>
+            <h1>Calaus</h1>
             <p>Mesto za obavljanje vaših poslova</p>
             <div className='auth-button w20 mt4' >
                 <img src={googleLogo} alt='google-logo' />

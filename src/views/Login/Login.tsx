@@ -82,7 +82,7 @@ export const Login = () => {
         </div>
       </div>
       <div className='auth-side' >
-        Clavus
+        Calaus
       </div>
     </div>
   );

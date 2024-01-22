@@ -36,7 +36,7 @@ export const createJobOffer = createAsyncThunk(
 )
 
 export const acceptJobOffer = createAsyncThunk(
-  'jobOffer/createJobOffer',
+  'jobOffer/acceptJobOffer',
   async (jobOfferId: number, thunkApi) => {
     try {
       const resp = await customFetch.post('/job-offer/accept/' + jobOfferId)

@@ -142,7 +142,7 @@ export const Register = () => {
                 </section>
             </div>
             <div className='auth-side' >
-                Clavus
+                Calaus
             </div>
         </div>
     );
