@@ -1,3 +1,4 @@
+import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useNavigate } from 'react-router-dom'
 
@@ -23,7 +24,7 @@ export const MobileTaskItem = ({ icon, date, title, status, offers, id, location
             {price && <h3>{price}</h3>}
         </div>
         <div className="icon-container" >
-            <FontAwesomeIcon icon={icon} />
+            <FontAwesomeIcon icon={icon as IconProp} />
         </div>
     </div>
 }

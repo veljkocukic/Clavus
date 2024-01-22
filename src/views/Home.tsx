@@ -1,3 +1,4 @@
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faCheckCircle, faClock, faHammer, faList, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from 'components/Button';
@@ -50,28 +51,28 @@ export const Home = () => {
     <div className='home-cards-container mt1 ' >
       <div className='card-wrapper task-statuses-card' onClick={() => navigate('/tasks')} >
         <div className='home-card-icon-count' >
-          <FontAwesomeIcon icon={faList} color={'#8FADF0'} />
+          <FontAwesomeIcon icon={faList as IconProp} color={'#8FADF0'} />
           <p>{jobsOverview.allJobs || 0}</p>
         </div>
         <h3>Svi zadaci</h3>
       </div>
       <div className='card-wrapper bgPaleGreen task-statuses-card' onClick={() => navigate('/tasks?status=DONE')}>
         <div className='home-card-icon-count' >
-          <FontAwesomeIcon icon={faCheckCircle} color={'#01A05D'} />
+          <FontAwesomeIcon icon={faCheckCircle as IconProp} color={'#01A05D'} />
           <p>{jobsOverview.completed || 0}</p>
         </div>
         <h3>Obavljeni zadaci</h3>
       </div>
       <div className='card-wrapper bgPaleYellow task-statuses-card' onClick={() => navigate('/tasks?status=IN_PROGRESS')}>
         <div className='home-card-icon-count' >
-          <FontAwesomeIcon icon={faHammer} color={'#ADAC10'} />
+          <FontAwesomeIcon icon={faHammer as IconProp} color={'#ADAC10'} />
           <p>{jobsOverview.inProgress || 0}</p>
         </div>
         <h3>U toku</h3>
       </div>
       <div className='card-wrapper bgPaleRed task-statuses-card' onClick={() => navigate('/tasks?status=ACTIVE')}>
         <div className='home-card-icon-count' >
-          <FontAwesomeIcon icon={faClock} color={'#D42B20'} />
+          <FontAwesomeIcon icon={faClock as IconProp} color={'#D42B20'} />
           <p>{jobsOverview.waitingForWorker || 0}</p>
         </div>
         <h3>Čekaju radnika</h3>

@@ -1,3 +1,4 @@
+import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import { faGear, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button } from 'components/Button'
@@ -46,7 +47,7 @@ export const ViewJobOffer = () => {
             <p><span>Pregled ponude</span></p>
             <div className='button-options-container' >
                 {!jobOffer.expired && <Button text='Prihvati ponudu' onClick={handleAcceptOffer} />}
-                <IconButton icon={faGear} />
+                <IconButton icon={faGear as IconProp} />
             </div>
         </div>
         <div className='page-halves-layout' >
@@ -57,7 +58,7 @@ export const ViewJobOffer = () => {
                         <div>
                             <p className='joh-top' >{jobOffer?.user && (jobOffer?.user?.name + ' ' + jobOffer?.user?.lastName)}</p>
                             <div className='send-message felx column between h100' >
-                                <FontAwesomeIcon icon={faPaperPlane} onClick={handleGoToConversation} />
+                                <FontAwesomeIcon icon={faPaperPlane as IconProp} onClick={handleGoToConversation} />
                                 <div className='see-more' onClick={() => setOpenModal(true)} >Pogledaj ocene</div>
                             </div>
                         </div>

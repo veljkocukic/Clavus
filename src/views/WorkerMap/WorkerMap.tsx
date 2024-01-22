@@ -11,6 +11,7 @@ import { AppDispatch } from 'store'
 import { updateAreaOfWork } from 'feautures/user/userSlice'
 import { cityPolygons } from 'utils/data'
 import { calculatePolygonCenter } from 'utils/helpers'
+import { IconProp } from '@fortawesome/fontawesome-svg-core'
 
 export const WorkerMap = () => {
     const [map, setMap] = useState(null)
@@ -152,7 +153,7 @@ export const WorkerMap = () => {
         <div className='content-title-bar' >
             <p> Moja oblast rada</p>
             <div className='wh-map-options' onClick={handleEditToggle} >
-                <FontAwesomeIcon icon={!editToggled ? faEdit : faCheck} />
+                <FontAwesomeIcon icon={(!editToggled ? faEdit : faCheck) as IconProp} />
                 <p>{!editToggled ? "Izmeni oblast rada" : "Sačuvaj"}</p>
             </div>
         </div>

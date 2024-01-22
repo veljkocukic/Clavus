@@ -3,6 +3,7 @@ import '../../sass/main.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { useOnClickOutside } from '../../utils/hooks/useClickOutside'
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 /*eslint-disable*/
 
 interface ISearchBox {
@@ -78,7 +79,7 @@ export const SearchBox = ({ className, fixedList, setList, selected, sortList, o
   return (
     <div ref={ref} className={'search-box-container ' + className} tabIndex={1}>
       <input type='text' placeholder={placeholder ?? 'Vodoinstalater, kuhinja, veš mašine...'} onChange={(e) => handleQuery(e.target.value)} onFocus={() => setFocused(true)} />
-      <FontAwesomeIcon icon={faSearch} />
+      <FontAwesomeIcon icon={faSearch as IconProp} />
       {!sortList && focused && <div className='search-results'>
         {results?.length > 0 ? results.map((r, i) => <div key={i} className='single-search-result' onClick={() => handleOptionClick(r)} ><p>{r.label}</p></div>) :
           fixedList.filter(f => !selected.some(s => s.value == f.value)).slice(0, 5).map((r, i) => <div key={i} className='single-search-result' onClick={() => handleOptionClick(r)} ><p>{r.label}</p></div>)}

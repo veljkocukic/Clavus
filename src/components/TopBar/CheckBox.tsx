@@ -1,3 +1,4 @@
+import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -16,7 +17,7 @@ export const CheckBox = ({ text, active, name, onChange }: ICheckBox) => {
 
     return <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }} onClick={handleChange}>
         <div className="check-box" >
-            {active && <FontAwesomeIcon icon={faCheck} />}
+            {active && <FontAwesomeIcon icon={faCheck as IconProp} />}
         </div>
         <p>{text}</p>
     </div>

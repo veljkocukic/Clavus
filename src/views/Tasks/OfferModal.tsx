@@ -12,6 +12,7 @@ import { checkValid } from 'utils/helpers'
 import { standardFieldValidation, validateSelect } from 'utils/validationUtils'
 import { currencies, offerModalInvalidFields, priceTypes } from './tasksData'
 import { faClose } from '@fortawesome/free-solid-svg-icons'
+import { IconProp } from '@fortawesome/fontawesome-svg-core'
 
 export const OfferModal = ({ price, price_type, currency, amount, setOpenModal }: IOfferModal) => {
     const [state, setState] = useState<IJobOffer>({
@@ -77,7 +78,7 @@ export const OfferModal = ({ price, price_type, currency, amount, setOpenModal }
         <div className='send-offer-modal'  >
             <div className='modal-top' >
                 <h3>Ponuda za posao</h3>
-                <FontAwesomeIcon style={{ cursor: 'pointer' }} icon={faClose} fontSize='1.3rem' onClick={() => setOpenModal(false)} />
+                <FontAwesomeIcon style={{ cursor: 'pointer' }} icon={faClose as IconProp} fontSize='1.3rem' onClick={() => setOpenModal(false)} />
             </div>
             <TextArea className='w100 h10 mt1' labelText='Detalji:' name='description' onChange={handleDescription} value={state?.description} />
             <div className='w100 flex align-center between mt1 gap1'  >

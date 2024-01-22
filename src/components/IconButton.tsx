@@ -16,10 +16,10 @@ export const IconButton = ({ icon, className, options }: { icon: any, className?
 
 
     return <div className={'icon-button ' + className} onClick={() => setOpenOptions(true)} tabIndex={1} onBlur={() => setOpenOptions(false)}   >
-        <FontAwesomeIcon icon={icon} />
+        <FontAwesomeIcon icon={icon as IconProp} />
         <div className={cName} onClick={e => e.stopPropagation()} >
             {options?.map((o: ITableOptions, i: string) => <div key={i} onClick={o.onClick}>
-                <FontAwesomeIcon icon={o.icon} color='#8fadf0' />
+                <FontAwesomeIcon icon={o.icon as IconProp} color='#8fadf0' />
                 <p>{o.name}</p>
             </div>)}
         </div>

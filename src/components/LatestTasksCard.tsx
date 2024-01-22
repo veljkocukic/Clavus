@@ -1,3 +1,4 @@
+import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import { faCheck, faClock, faHammer } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -38,7 +39,7 @@ export const LatestTasksCard = () => {
         </div>
         <div className="ic-bottom" >
             <div className="ic-status" style={{ backgroundColor: color.bg }} >
-                <FontAwesomeIcon icon={icon} color={color.icon} />
+                <FontAwesomeIcon icon={icon as IconProp} color={color.icon} />
                 <p>{text}</p>
             </div>
             <p className="green-text" >

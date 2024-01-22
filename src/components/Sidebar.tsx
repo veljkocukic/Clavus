@@ -1,3 +1,4 @@
+import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import { faGripLines, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { adminSidebarLinks, workerSidebarLinks } from 'assets/links/links'
@@ -16,7 +17,7 @@ const SidebarOption = ({ icon, name, path }) => {
   }
 
   return <div className={cName} onClick={() => navigate(path)} >
-    <FontAwesomeIcon icon={icon} />
+    <FontAwesomeIcon icon={icon as IconProp} />
     <p>{name}</p>
     <div className='sidebar-option-mask' ></div>
   </div>
@@ -33,8 +34,8 @@ export const Sidebar = () => {
   }
 
   return <div className={sidebarCName} style={{ zIndex: '9999999' }} >
-    <div className='side-bar-toggle' onClick={() => setOpen(prev => !prev)} > <FontAwesomeIcon icon={faGripLines} /> </div>
-    {routes.map(l => <SidebarOption key={l.id} name={l.title} icon={l.icon} path={l.path} />)}
-    {screen.width < 420 && <SidebarOption name={'Profil'} icon={faUser} path={'/profile/' + user.id} />}
+    <div className='side-bar-toggle' onClick={() => setOpen(prev => !prev)} > <FontAwesomeIcon icon={faGripLines as IconProp} /> </div>
+    {routes.map(l => <SidebarOption key={l.id} name={l.title} icon={l.icon as IconProp} path={l.path} />)}
+    {screen.width < 420 && <SidebarOption name={'Profil'} icon={faUser as IconProp} path={'/profile/' + user.id} />}
   </div>
 }

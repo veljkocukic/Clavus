@@ -9,6 +9,7 @@ import { getConversations, getMessages, removeJobOffer, sendMessage } from 'feau
 import { useNavigate, useParams } from 'react-router-dom'
 import { socket } from 'context/WebSocketContext'
 import { acceptJobOffer } from 'feautures/jobOffer/jobOfferSlice'
+import { IconProp } from '@fortawesome/fontawesome-svg-core'
 
 const SingleMessage = ({ text, sender }) => {
 
@@ -64,14 +65,14 @@ const OffersModal = ({ setModalOpen, currentChat, setCurrentChat }) => {
     return <div className='offers-modal' >
         <div className='offers-content' >
             <div className='offers-content__close'  >
-                <FontAwesomeIcon icon={faClose} onClick={() => setModalOpen(false)} />
+                <FontAwesomeIcon icon={faClose as IconProp} onClick={() => setModalOpen(false)} />
             </div>
             <div className='offers-content__scroll' >
                 {currentChat.jobOffers.map(o =>
                     <div className='offers-content__single-offer' key={o.id} >
                         <h3>{o.job.name}</h3>
                         <div className='accept-offer-chat' onClick={() => handleAccept(o.id)} >
-                            <FontAwesomeIcon icon={faCheckCircle} />
+                            <FontAwesomeIcon icon={faCheckCircle as IconProp} />
                             <p>Prihvati ponudu</p>
                         </div>
                     </div>)}
@@ -213,10 +214,10 @@ export const Messages = () => {
                     </div>
                     <div className='flex gap1 h100 align-center' >
                         {currentChat?.jobOffers?.length > 0 && <div className='accept-offer-chat' onClick={handleAcceptOffer} >
-                            <FontAwesomeIcon icon={faCheckCircle} />
+                            <FontAwesomeIcon icon={faCheckCircle as IconProp} />
                             <p>Prihvati ponudu</p>
                         </div>}
-                        <FontAwesomeIcon icon={faWarning} />
+                        <FontAwesomeIcon icon={faWarning as IconProp} />
                     </div>
                 </div>
                     <div className='messages-chat__list' >
@@ -226,7 +227,7 @@ export const Messages = () => {
                     </div>
                     <div className='messages-chat__input' >
                         <div className='media-input' onClick={() => mediaInputRef.current.click()} >
-                            <FontAwesomeIcon icon={faPhotoVideo} />
+                            <FontAwesomeIcon icon={faPhotoVideo as IconProp} />
                             <input ref={mediaInputRef} type='file' />
                         </div>
                         <input onChange={e => setMessageContent(e.target.value)} value={messageContent}

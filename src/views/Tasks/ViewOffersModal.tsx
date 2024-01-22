@@ -1,4 +1,5 @@
 /*eslint-disable*/
+import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import { faClose, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
@@ -23,7 +24,7 @@ const SingleOffer = ({ id, user, description }: IJobOffersList) => {
                 </div>
 
                 <div onClick={() => navigate('/job-offer/' + id)} className='view-offers-modal__content__single-offer--arrow' >
-                    <FontAwesomeIcon icon={faArrowRight} />
+                    <FontAwesomeIcon icon={faArrowRight as IconProp} />
                 </div>
             </div>
 
@@ -59,7 +60,7 @@ export const ViewOffersModal = ({ setOpenModal }) => {
         <div className='view-offers-modal' onScroll={handleScroll} >
             <div className=' modal-top' >
                 <h3>Ponude za posao</h3>
-                <FontAwesomeIcon style={{ cursor: 'pointer' }} icon={faClose} fontSize='1.3rem' onClick={() => setOpenModal(false)} />
+                <FontAwesomeIcon style={{ cursor: 'pointer' }} icon={faClose as IconProp} fontSize='1.3rem' onClick={() => setOpenModal(false)} />
             </div>
             <div className='view-offers-modal__content'  >
                 {list.map(jo => <SingleOffer id={jo.id} description={jo.description} user={jo.user} key={id} />)}

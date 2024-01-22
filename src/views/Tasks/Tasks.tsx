@@ -12,6 +12,7 @@ import { ITableTask } from './tasksData'
 import { useNavigate } from 'react-router-dom'
 import { Button } from 'components/Button'
 import { MobileTaskItem } from 'components/MobileTaskItem'
+import { IconProp } from '@fortawesome/fontawesome-svg-core'
 
 export const Tasks = () => {
     /*eslint-disable*/
@@ -73,19 +74,19 @@ export const Tasks = () => {
 
             return <div className='w15' >
                 <div className="table-status w7" style={{ backgroundColor: color.bg }} >
-                    <FontAwesomeIcon icon={icon} color={color.icon} />
+                    <FontAwesomeIcon icon={icon as IconProp} color={color.icon} />
                     <p>{text}</p>
                 </div>
             </div>
         }
 
         return allTasks.map((t: ITableTask, i: number) => screen.width > 420 ? <div className='tr' key={t.id} style={{ zIndex: 100 - i }} >
-            <FontAwesomeIcon icon={getCategoryIcon(t.category)} className='w4' />
+            <FontAwesomeIcon icon={getCategoryIcon(t.category) as IconProp} className='w4' />
             <p className='w15 ml1' >{t.name}</p>
             <p className='w15' >{convertTaskDate(t.date) + ' ' + new Date(t.date).getFullYear()}</p>
             {getStatusStyle(t.status)}
             <p className='w15' >{t.jobOffers}</p>
-            <IconButton className='table-icon' options={renderOptions(t.id)} icon={faEdit} />
+            <IconButton className='table-icon' options={renderOptions(t.id)} icon={faEdit as IconProp} />
         </div> : <MobileTaskItem
             id={t.id}
             status={getStatusStyle(t.status)}
@@ -99,7 +100,7 @@ export const Tasks = () => {
     return <div className="page-content" >
         <div className='content-title-bar' >
             <p><span>Svi zadaci</span></p>
-            <div className='flex gap1' > <Button onClick={() => navigate('/tasks/create')} text='Dodaj zadatak' icon={faPlusCircle} /><IconButton icon={faFilter} /></div>
+            <div className='flex gap1' > <Button onClick={() => navigate('/tasks/create')} text='Dodaj zadatak' icon={faPlusCircle as IconProp} /><IconButton icon={faFilter as IconProp} /></div>
         </div>
         <div className='table-container' >
             <div className='th'>

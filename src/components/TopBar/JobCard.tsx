@@ -1,3 +1,4 @@
+import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { MobileTaskItem } from 'components/MobileTaskItem'
 import { useNavigate } from 'react-router-dom'
@@ -27,7 +28,7 @@ export const JobCard = ({ name, location, price, date, id, className, category }
         icon={getCategoryIcon(category)} /> :
         <div className={'worker-job-card ' + className} onClick={() => navigate('/tasks/' + id)} >
             <div className='flex align-center just-center h100 ' >
-                <FontAwesomeIcon icon={icon} />
+                <FontAwesomeIcon icon={icon as IconProp} />
             </div>
             <div className='flex between h100 column w100 ml1' >
                 <div>

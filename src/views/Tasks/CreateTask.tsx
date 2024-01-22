@@ -1,4 +1,5 @@
 /*eslint-disable*/
+import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import { faCheckCircle, faPlusSquare } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Wrapper } from '@googlemaps/react-wrapper'
@@ -102,7 +103,7 @@ export const CreateTask = () => {
         return cats.map((c, i) => {
             return <div key={i} className='card-wrapper cursor-pointer' onClick={() => setCategory(c.value)} >
                 <div className='card-icon-text' style={{ backgroundColor: colorCombinations[0].backgroundColor }}>
-                    <FontAwesomeIcon icon={c.icon} color={colorCombinations[0].iconColor} />
+                    <FontAwesomeIcon icon={c.icon as IconProp} color={colorCombinations[0].iconColor} />
                     <p>{c.label}</p>
                 </div>
             </div>
@@ -227,7 +228,7 @@ export const CreateTask = () => {
     return <div className='page-content' >
         <div className='content-title-bar' >
             <p><span>Kreiranje zadatka: </span>{Categories.find(c => c.value == state.category)?.label}</p>
-            {state.category && <Button text='Potvrdi' onClick={handleSubmit} icon={faCheckCircle} />}
+            {state.category && <Button text='Potvrdi' onClick={handleSubmit} icon={faCheckCircle as IconProp} />}
 
         </div>
         <div className='page-subtitle' >

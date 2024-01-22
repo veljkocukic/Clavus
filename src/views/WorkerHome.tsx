@@ -14,6 +14,7 @@ import { Wrapper } from '@googlemaps/react-wrapper';
 import { Map } from './WorkerMap/Map';
 import { cityPolygons } from 'utils/data';
 import { JobCard } from 'components/TopBar/JobCard';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 export const WorkerHome = () => {
     /*eslint-disable*/
@@ -186,7 +187,7 @@ export const WorkerHome = () => {
                             <SearchBox selected={categories} setList={setCategories} fixedList={Categories} className='w100' />
                             <p className='mt2' >Odabrane oblasti: </p>
                             <div className='selected-categories-grid' >
-                                {categories.map(c => <div key={c.value} onClick={() => handleRemoveCat(c)} className='selected-category-item' > <FontAwesomeIcon icon={c.icon} /> {c.label}</div>)}
+                                {categories.map(c => <div key={c.value} onClick={() => handleRemoveCat(c)} className='selected-category-item' > <FontAwesomeIcon icon={c.icon as IconProp} /> {c.label}</div>)}
                             </div>
                         </div>
                     </div>

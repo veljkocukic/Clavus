@@ -12,6 +12,7 @@ import { convertTaskDate, convertToHoursMins } from 'utils/helpers'
 import { OfferModal } from './OfferModal'
 import { RateModal } from './RateModal'
 import { ViewOffersModal } from './ViewOffersModal'
+import { IconProp } from '@fortawesome/fontawesome-svg-core'
 
 export const ViewTask = () => {
     const dispatch = useDispatch<AppDispatch>()
@@ -36,7 +37,7 @@ export const ViewTask = () => {
         if (task?.status == 'IN_PROGRESS') {
             return <div className='vtb-bottom-card-layout'><p>Obavlja:</p><div><img alt='worker-image' src='https://images.unsplash.com/photo-1557862921-37829c790f19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80' /><p>Goran <br />Moler</p></div></div>
         } else {
-            return <div className='vtb-bottom-card-layout' style={{ backgroundColor: s?.color }} ><p>Status:</p><div><p>{s?.label}</p><FontAwesomeIcon icon={s?.icon} color={s?.iconColor} /></div></div>
+            return <div className='vtb-bottom-card-layout' style={{ backgroundColor: s?.color }} ><p>Status:</p><div><p>{s?.label}</p><FontAwesomeIcon icon={s?.icon as IconProp} color={s?.iconColor} /></div></div>
         }
     }
 
@@ -66,7 +67,7 @@ export const ViewTask = () => {
         if (admin) {
             return <>
                 {task?.status == 'IN_PROGRESS' && < Button text='Potvrdi i oceni radnika' onClick={() => setRateModalOpen(true)} />}
-                <IconButton icon={faGear} />
+                <IconButton icon={faGear as IconProp} />
             </>
         } else
             return task?.status == 'ACTIVE' && !offerSent ? <Button text='Pošalji ponudu' onClick={() => setOfferModalOpen(true)} /> : <></>
@@ -94,7 +95,7 @@ export const ViewTask = () => {
 
         <div className='view-task-banner' >
             <div className='vtb-info' >
-                <FontAwesomeIcon icon={category?.icon} />
+                <FontAwesomeIcon icon={category?.icon as IconProp} />
                 <div>
                     <h1>{category?.label}</h1>
                     <h3>{task?.name}</h3>
@@ -116,7 +117,7 @@ export const ViewTask = () => {
                                     <p>{convertTaskDate(task?.date)}</p>
                                     <p>{convertToHoursMins(task?.date)}</p>
                                 </div>
-                                <FontAwesomeIcon color='#dee0ea' icon={faCalendarDays} />
+                                <FontAwesomeIcon color='#dee0ea' icon={faCalendarDays as IconProp} />
                             </div>
                         </div>
                     </div>
