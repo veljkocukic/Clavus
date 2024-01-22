@@ -65,11 +65,11 @@ export const ViewTask = () => {
         const offerSent = task?.jobOffers?.some(o => o.user.id == user.id)
         if (admin) {
             return <>
-                {task.status == 'IN_PROGRESS' && < Button text='Potvrdi i oceni radnika' onClick={() => setRateModalOpen(true)} />}
+                {task?.status == 'IN_PROGRESS' && < Button text='Potvrdi i oceni radnika' onClick={() => setRateModalOpen(true)} />}
                 <IconButton icon={faGear} />
             </>
         } else
-            return task.status == 'ACTIVE' && !offerSent ? <Button text='Pošalji ponudu' onClick={() => setOfferModalOpen(true)} /> : <></>
+            return task?.status == 'ACTIVE' && !offerSent ? <Button text='Pošalji ponudu' onClick={() => setOfferModalOpen(true)} /> : <></>
     }
 
     const PingingCircle = () => {
@@ -113,8 +113,8 @@ export const ViewTask = () => {
                             <p>Datum:</p>
                             <div>
                                 <div className='flex column gap1 w100 h100 between' >
-                                    <p>{convertTaskDate(task.date)}</p>
-                                    <p>{convertToHoursMins(task.date)}</p>
+                                    <p>{convertTaskDate(task?.date)}</p>
+                                    <p>{convertToHoursMins(task?.date)}</p>
                                 </div>
                                 <FontAwesomeIcon color='#dee0ea' icon={faCalendarDays} />
                             </div>
@@ -127,8 +127,8 @@ export const ViewTask = () => {
                 <div className='vtb-expenses-container' >
                     <h3>Troškovi:</h3>
                     <div>
-                        <div className='expenses-parameter' style={{ gridArea: ' 1 / 1 / 2 / 2' }} >{task.price}</div>
-                        <div className='expenses-parameter' style={{ gridArea: ' 1 / 2 / 2 / 3' }}>{task.currency}</div>
+                        <div className='expenses-parameter' style={{ gridArea: ' 1 / 1 / 2 / 2' }} >{task?.price}</div>
+                        <div className='expenses-parameter' style={{ gridArea: ' 1 / 2 / 2 / 3' }}>{task?.currency}</div>
                         <div className='expenses-parameter' style={{ gridArea: ' 1 / 3 / 2 / 4' }}>{priceType?.label}</div>
                         {task?.price_type !== 'WHOLE' && <div className='expenses-parameter' style={{ gridArea: ' 2 / 1 / 3 / 2' }}>{task?.amount}</div>}
                         <h3 className='expenses-total'>{calculateTotal()}</h3>
@@ -142,7 +142,7 @@ export const ViewTask = () => {
                         {task?.jobOffers?.length > 0 && <button className='see-more' onClick={() => setViewOffersModalOpen(true)} >Vidi sve</button>}
                     </div>
                     {task?.jobOffers?.length > 0 ? <div className='vtb-offers-container__grid' >
-                        {task.jobOffers.map(o => <SingleOffer key={o.id} id={o.id} name={o.user.name} lastName={o.user.lastName} ratings={o.user.ratings?.toFixed(1) ?? '/'} />)}
+                        {task?.jobOffers.map(o => <SingleOffer key={o.id} id={o.id} name={o.user.name} lastName={o.user.lastName} ratings={o.user.ratings?.toFixed(1) ?? '/'} />)}
                     </div> : <PingingCircle />}
                 </div>}
                 <PingingCircle />
@@ -151,6 +151,6 @@ export const ViewTask = () => {
         </div >
         {viewOffersModalOpen && <ViewOffersModal setOpenModal={setViewOffersModalOpen} />}
         {rateModalOpen && <RateModal setOpenModal={setRateModalOpen} />}
-        {offerModalOpen && <OfferModal setOpenModal={setOfferModalOpen} price={task.price} price_type={task.price_type} amount={task.amount} currency={task.currency} />}
+        {offerModalOpen && <OfferModal setOpenModal={setOfferModalOpen} price={task?.price} price_type={task?.price_type} amount={task?.amount} currency={task?.currency} />}
     </div >
 }
