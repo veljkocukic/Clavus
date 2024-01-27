@@ -3,6 +3,7 @@ import { clearRatings, getUserRatings } from 'feautures/user/userSlice'
 import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from 'store'
+import { convertTaskDate } from 'utils/helpers'
 import { useOnClickOutside } from 'utils/hooks/useClickOutside'
 export const ProfileRatingsOffer = ({ setOpenModal, id }: IProfileRatingsOffer) => {
 
@@ -55,7 +56,7 @@ const SingleReview = ({ name, lastName, description, rating, date }) => {
                 <img src="https://images.unsplash.com/photo-1557862921-37829c790f19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80" alt='reviewer-image' />
                 <div>
                     <h3>{name + ' ' + lastName}</h3>
-                    <p>{date}</p>
+                    <p>{convertTaskDate(date, true)}</p>
                 </div>
             </div>
             <h1 style={{ color: '#0050d0' }} className="rate-number" >{rating}</h1>

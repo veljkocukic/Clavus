@@ -74,6 +74,11 @@ export const ViewTask = () => {
     }
 
     const PingingCircle = () => {
+        const offerSent = task?.jobOffers?.some(o => o.user.id == user.id)
+
+        if ((admin && task?.jobOffers?.length > 0 && (['ACTIVE', 'IN_PROGRESS'].includes(task.status))) || (!admin && !offerSent) || task?.status == 'DONE') {
+            return <></>
+        }
         const text = admin ? 'Obavestili smo radnike iz vase kategorije o postavljenom poslu, cekamo ponude' : 'Ponuda je poslata oglasivacu, cekamo odgovor.'
         return <div className='vtb-offers-container__wait'>
             <p>{text}</p>
@@ -142,9 +147,9 @@ export const ViewTask = () => {
                         <h3>Ponude:</h3>
                         {task?.jobOffers?.length > 0 && <button className='see-more' onClick={() => setViewOffersModalOpen(true)} >Vidi sve</button>}
                     </div>
-                    {task?.jobOffers?.length > 0 ? <div className='vtb-offers-container__grid' >
+                    {task?.jobOffers?.length > 0 && <div className='vtb-offers-container__grid' >
                         {task?.jobOffers.map(o => <SingleOffer key={o.id} id={o.id} name={o.user.name} lastName={o.user.lastName} ratings={o.user.ratings?.toFixed(1) ?? '/'} />)}
-                    </div> : <PingingCircle />}
+                    </div>}
                 </div>}
                 <PingingCircle />
             </div>

@@ -19,6 +19,7 @@ export const WorkerMap = () => {
     const [city, setCity] = useState(null)
     const [markers, setMarkers] = useState([])
     const [currentPoints, setCurrentPoints] = useState([])
+    const [rendered, setRendered] = useState(false)
     const [click, setClick] = useState([])
     const clickArea = useRef(null)
     const area = useRef(null)
@@ -45,10 +46,11 @@ export const WorkerMap = () => {
             }
 
             currentPoints?.length < 1 && user.areaOfWork?.length > 0 && setCurrentPoints(user.areaOfWork?.map((p, index) => ({ ...p, index })))
-            user.areaOfWork?.length > 0 && map.setCenter(calculatePolygonCenter(user?.areaOfWork))
+            !rendered && user.areaOfWork?.length > 0 && map.setCenter(calculatePolygonCenter(user?.areaOfWork))
+            !rendered && setRendered(true)
             // clickArea.current = new google.maps.Polygon({
             //     paths: [],
-            //     fillColor: 'red',
+            //     fillColor: 'red', 
             //     map
             // })
             // map.addListener('click', (e) => {

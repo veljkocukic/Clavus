@@ -7,6 +7,9 @@ import { ViewTask } from 'views/Tasks/ViewTask'
 import { WorkerHome } from 'views/WorkerHome'
 import { Messages } from 'views/Messages/Messages'
 import { WorkerMap } from 'views/WorkerMap/WorkerMap'
+import { Workshops } from 'views/Workshops/Workshops'
+import { CreateWorkshop } from 'views/Workshops/CreateWorkshop'
+import { ViewWorkshopWorker } from 'views/Workshops/ViewWorkshopWorker'
 
 export const adminRoutes = [
   {
@@ -68,6 +71,18 @@ export const workerRoutes = [
     path: '/map',
     element: WorkerMap,
   },
+  {
+    path:'/workshops',
+    element:Workshops
+  },
+  {
+    path:'/workshops/create',
+    element:CreateWorkshop
+  },
+  {
+    path:'/workshops/worker/:id',
+    element:ViewWorkshopWorker
+  }
 
 ]
 

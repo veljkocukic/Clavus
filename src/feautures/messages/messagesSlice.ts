@@ -72,7 +72,7 @@ const messagesSlice = createSlice({
         if(c.id !== payload.cId){
           return c
         }else{
-          c.jobOffers = c.jobOffers.filter(jo=>jo!==payload.oId)
+          c.jobOffers = c.jobOffers.filter(jo=>jo.id!==payload.oId)
           return c
         }
       })

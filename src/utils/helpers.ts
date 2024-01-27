@@ -18,7 +18,7 @@ const months = [
   'Decembar',
 ]
 
-export const convertTaskDate = (date) => {
+export const convertTaskDate = (date, year?:boolean) => {
   const dt = new Date(date)
   let day: any = dt.getDate()
   const mnth = months[dt.getMonth()]
@@ -26,7 +26,7 @@ export const convertTaskDate = (date) => {
     day = '0' + String(day)
   }
 
-  return day + '. ' + mnth
+  return day + '. ' + mnth + (year ? ' '+ dt.getFullYear()+'.' : '')
 }
 
 export const convertToHoursMins = date =>{
@@ -90,4 +90,10 @@ export const calculatePolygonCenter = (polygon) => {
   const centroidLng = sumLng / numPoints;
 
   return { lat: centroidLat, lng: centroidLng };
+}
+
+export const convertToLocalTime = (date) => {
+
+  return new Date(new Date(date).toString().split('GMT')[0]+' UTC').toISOString().split('T')[0]
+
 }

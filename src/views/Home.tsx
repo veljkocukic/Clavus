@@ -1,5 +1,5 @@
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { faCheckCircle, faClock, faHammer, faList, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faCheckCircle, faClock, faHammer, faList, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from 'components/Button';
 import { getJobsOverview } from 'feautures/task/taskSlice';
@@ -15,10 +15,11 @@ interface IScrollCard {
   location?: string
   title: string
   subtitle?: string
+  onClick?: () => any
 }
 
-export const ScrollCard = ({ img, location, title, subtitle }: IScrollCard) => {
-  return <div className='scroll-card' >
+export const ScrollCard = ({ img, location, title, subtitle, onClick }: IScrollCard) => {
+  return <div className='scroll-card h100 w100' onClick={onClick} >
     <div className='cover' ></div>
     <img src={img} alt='categrory-image' />
     <div className='card-text' >
@@ -40,7 +41,7 @@ export const Home = () => {
     dispatch(getJobsOverview(null))
   }, [])
 
-  return <div className="page-content overflow-auto " >
+  return <div className="page-content overflow-auto "   >
     <div className='content-title-bar' >
       <p><span>Zdravo,</span> {handleNameCase(user?.name)}</p>
       <Button onClick={() => navigate('/tasks/create')} text='Dodaj zadatak' icon={faPlusCircle} />
@@ -84,6 +85,17 @@ export const Home = () => {
       </div>
       <div className='vertical-scroll-list' >
         {recommendedCategories.map((c, i) => <ScrollCard title={c.title} img={c.img} key={i} />)}
+      </div>
+      <div className='schedule-home-section' >
+        <div className='text' >
+          <h3>Zakažite termin kod:</h3>
+          <p>Mehanicara</p>
+        </div>
+        <div className='view-stores' >
+          <p>Pogledaj sve radnje</p>
+          <FontAwesomeIcon icon={faArrowRight as IconProp} />
+        </div>
+        <div className='overlay' ></div>
       </div>
       <div className='w100 section-title' >
         <h2>Istaknute radnje: </h2>

@@ -177,6 +177,85 @@
   color:base.$black;
 }
 
+.schedule-home-section{
+  border-radius: 10px;
+  width: 100%;
+  height: 10rem;
+  margin-top: 1.5rem;
+  background: url('https://images.pexels.com/photos/2244746/pexels-photo-2244746.jpeg?auto=compress&cs=tinysrgb&w=800');
+  background-size: cover;
+  background-position: 10px -90px;
+  position: relative;
+  overflow: hidden;
+  z-index: 2;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+
+  .text{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    height: 100%;
+    justify-content: space-between;
+
+    h3{
+      color:white;
+      font-size: 1.5rem;
+    }
+    p{
+      font-size: 2rem;
+      color:white;
+    } 
+  }
+
+
+  .view-stores{
+    display: flex;
+    align-items: center;
+    gap:1rem;
+    color:white;
+    border: 1px solid white;
+    height: min-content;
+    padding: 10px;
+    border-radius: 15px;
+    cursor: pointer;
+  }
+
+  .overlay{
+    width: 100%;
+    height: 1000%;
+    position: absolute;
+    top:0;
+    left:0;
+    background: linear-gradient(-90deg, rgba(66,142,204,0.528470763305322) 0%, rgba(0,80,208,1) 100%);
+    z-index: -1;
+  }
+}
+
+@media screen and (max-width: 600px) {
+
+  .schedule-home-section{
+    padding: 1rem;
+    .text{
+    h3{
+      font-size: 1.2rem;
+    }
+
+    p{
+      font-size: 1.3rem;
+    }
+
+    }
+
+    .view-stores{
+      font-size: .8rem;
+    }
+  }
+}
+
 .vertical-scroll-list{
   width: 100%;
   overflow: auto;
@@ -192,6 +271,7 @@
 }
 
 .scroll-card{
+  max-height: 10rem;
   min-width: 20vw;
   overflow: hidden;
   aspect-ratio: 16/9;
@@ -339,6 +419,117 @@
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.services-modal{
+  background-color: white;
+  border-radius: 15px;
+  padding: 5rem 3rem;
+  position: relative;
+  animation: down 0.3s ease;
+  min-height: 90vh;
+  max-height: 90vh;
+  overflow: auto;
+  width: 30vw;
+
+}
+
+.ws-form-container{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap:1rem;
+}
+
+.ws-form-section{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 50vh;
+}
+
+.work-time-wrapper{
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.enabled{
+  opacity: 1;
+    pointer-events: all;
+    user-select: all;
+}
+
+.disabled{
+  opacity: 0.4 !important; 
+  pointer-events: none !important;
+  user-select: none !important;
+}
+
+.work-day-input{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 5px;
+  padding: 5px;
+
+  .check{
+    display: flex;
+    align-items: center;
+    
+  }
+  
+  .time{
+    display: flex;
+    gap:3px;
+    align-items: center;
+  }
+
+  input[type="time"]::-webkit-calendar-picker-indicator {  cursor: pointer; }
+
+  input[type="time"]{
+    cursor: pointer; 
+    height: 35px;
+    border: none;
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+
+    }
+
+}
+
+.workshop-cover{
+  width: 100%;
+  height: max-content;
+  position: relative;
+  padding: 2rem;
+
+  img{
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    filter: brightness(50%);
+    z-index: -1;
+  }
+
+  h1,h3,p{
+    color:white21q2;
+  }
+  h1{
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+ 
+  p{
+    font-size: .8rem;
+  }
+
 }
 
 .ct-form-container {
@@ -676,9 +867,24 @@
   gap: 2rem;
 }
 
+.workshops-grid{
+
+  margin-top: 1rem;
+  display: grid;
+  padding: .5rem;
+  min-height: 20rem;
+  // grid-template-columns: repeat(3, 1fr);
+  // grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  max-height: calc(100% - 15rem);
+  gap:1rem;
+  overflow: auto;
+}
+
 .worker-home-grid {
   margin-top: 1rem;
   display: grid;
+  padding: .5rem;
   // grid-template-columns: repeat(3, 1fr);
   // grid-template-rows: repeat(3, 1fr);
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -720,6 +926,17 @@
     align-items: flex-end;
     justify-content: center;
   }
+}
+
+.workshop-card{
+  width: 100%;
+  height: 8rem;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  border-radius: 10px;
+  display: flex;
+  gap: 1rem;
+  cursor: pointer;
+  padding: 0.5rem;
 }
 
 .green-text {
@@ -1566,6 +1783,23 @@
 
 @media screen and (max-width: 420px) {
 
+  .schedule-home-section{
+    flex-direction: column;
+
+    .text{
+      gap:10px;
+      height: auto;
+    
+      h3,p{
+        width: 100%;
+        text-align: center;
+      }
+      p{
+      }
+
+    }
+  }
+
   .top-bar-container{
     display: none;
   }
@@ -1647,9 +1881,7 @@
     display: flex;
   }
 
-  .task-statuses-card{
-    height: 4rem !important;
-  }
+
 
   .card-wrapper{
     height: 7rem;
@@ -1686,3 +1918,7 @@
   }
 
 } 
+.task-statuses-card{
+  height: 7rem !important;
+  width: 100% !important;
+}

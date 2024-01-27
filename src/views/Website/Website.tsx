@@ -317,7 +317,7 @@ export const Website = () => {
                         <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem' }} >
                             {/* <Input invalid={checkValid(invalidFields, 'location')} className='w100' labelText='Lokacija' name='location' value={state.location} type='text' onChange={handleChange} /> */}
                             <AsyncSelect name='location' className='w100' labelText='Lokacija' value={state.location} onChange={handleLocation} />
-                            <Input invalid={checkValid(invalidFields, 'date')} className='w100' labelText='Datum' name='date' value={state.date} type='date' onChange={handleChange} />
+                            <Input invalid={checkValid(invalidFields, 'date')} className='w100' labelText='Datum' name='date' value={(state.date as unknown) as string} type='date' onChange={handleChange} />
                         </div>
                         <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem' }} >
                             <Input invalid={checkValid(invalidFields, 'price')} className='w100' labelText='Cena' name='price' value={state.price} type='number' onChange={handleChange} />

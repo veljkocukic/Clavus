@@ -16,7 +16,7 @@ import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { AppDispatch } from 'store'
-import { checkValid } from 'utils/helpers'
+import { checkValid, convertToLocalTime } from 'utils/helpers'
 import { standardFieldValidation, validateSelect } from 'utils/validationUtils'
 import { TaskMap } from './TaskMap'
 import { Categories, colorCombinations, currencies, ITaskState, priceTypes, tasksInitialState, tasksValidation } from './tasksData'
@@ -24,6 +24,7 @@ import { Categories, colorCombinations, currencies, ITaskState, priceTypes, task
 export const CreateTask = () => {
     const [state, setState] = useState<ITaskState>(tasksInitialState)
     const [invalidFields, setInvalidFields] = useState(tasksValidation)
+    console.log(invalidFields)
     const navigate = useNavigate()
     const dispatch = useDispatch<AppDispatch>()
     const [cats, setCats] = useState(Categories)
@@ -130,6 +131,7 @@ export const CreateTask = () => {
                     })
 
                 })
+
             }
 
             marker?.current && marker.current.addListener('dragend', handleLocation)
@@ -141,10 +143,10 @@ export const CreateTask = () => {
         const geocoder = new google.maps.Geocoder();
         const infowindow = new google.maps.InfoWindow();
 
-
         setInvalidFields(prev => {
             let copy = structuredClone(prev)
             copy = copy.filter(f => f !== 'location')
+            console.log(copy)
             return copy
         })
 
@@ -217,6 +219,12 @@ export const CreateTask = () => {
                                 return copy
                             })
                         }
+                        setInvalidFields(prev => {
+                            let copy = structuredClone(prev)
+                            copy = copy.filter(f => f !== 'location')
+                            console.log(copy)
+                            return copy
+                        })
                     } else {
                         console.error('Geocoder failed due to: ' + status);
                     }
@@ -251,7 +259,7 @@ export const CreateTask = () => {
                     <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem' }} >
                         {/* <Input invalid={checkValid(invalidFields, 'location')} className='w100' labelText='Lokacija' name='location' value={state.location} type='text' onChange={handleChange} /> */}
                         <AsyncSelect name='location' className='w100' labelText='Lokacija' value={state.location} onChange={handleLocation} />
-                        <Input invalid={checkValid(invalidFields, 'date')} className='w100' labelText='Datum' name='date' value={state.date} type='datetime-local' onChange={handleChange} />
+                        <Input invalid={checkValid(invalidFields, 'date')} className='w100' labelText='Datum' name='date' value={convertToLocalTime(state.date)} type='date' onChange={handleChange} />
                     </div>
                     <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem' }} >
                         <Input invalid={checkValid(invalidFields, 'price')} className='w100' labelText='Cena' name='price' value={state.price} type='number' onChange={handleChange} />

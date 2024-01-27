@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 import { AppDispatch, RootState } from 'store'
 import { ProfileRatingsOffer } from './ProfileRatingsOffer'
 import { JobCard } from 'components/TopBar/JobCard'
+import { convertTaskDate } from 'utils/helpers'
 
 export const ViewProfile = () => {
 
@@ -25,7 +26,7 @@ export const ViewProfile = () => {
                 <div>
                     <h2>{name + ' ' + lastName} </h2>
                 </div>
-                <p className="ic-date">{date}</p>
+                <p className="ic-date">{convertTaskDate(date, true)}</p>
             </div>
             <div className="ic-bottom__rating mt0" >
                 <p>{description}</p>

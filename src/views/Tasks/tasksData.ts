@@ -120,7 +120,7 @@ export const priceTypes = [
   },
 ]
 
-export const tasksValidation = ['name', 'price', 'location', 'date']
+export const tasksValidation = ['name', 'price', 'location']
 
 export const tasksInitialState: ITaskState = {
   name: '',
@@ -128,7 +128,7 @@ export const tasksInitialState: ITaskState = {
   currency: 'RSD',
   price_type: 'WHOLE',
   location: null,
-  date: '',
+  date: new Date(),
   category: '',
   description: '',
   withoutMonitoring: false,
@@ -147,7 +147,7 @@ export interface ITaskState {
     lat:number,
     lng:number
   }
-  date: string
+  date: Date
   withoutMonitoring: false
   description: string
   category: string
